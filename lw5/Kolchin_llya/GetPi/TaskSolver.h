@@ -7,32 +7,29 @@
 #include <string>
 #include <iostream>
 
-class CClientApplication
+class CTaskSolver
 {
 public:
-	CClientApplication(size_t numberProcess);
-	~CClientApplication();
+	CTaskSolver();
+	~CTaskSolver();
 //////////////////////////////////////////////////////////////////////
 // Methods
 public:
-	double							GetPi(size_t amountIteration);
+	double							GetPi(size_t amountIteration, size_t amountThreads);
 private:
 
 	std::string						GetFinalMessage(size_t amountIteration, double result);
 //////////////////////////////////////////////////////////////////////
 // Static Methods
-public:
-	static size_t		CalculateHits(size_t numIter);
-
 private:
+	static size_t					CalculateHits(size_t numIter);
 
-	static double		RandomNumber();
-	static bool			InCircle(double x, double y);
+	static double					RandomNumber();
+	static bool						InCircle(double x, double y);
 //////////////////////////////////////////////////////////////////////
 // Data
 private:
-	size_t			m_numberProcess;
-	size_t			m_amountIterations;
-	std::string		m_namePipe;
+	size_t							m_numberProcess;
+	size_t							m_amountIterations;
 };
 

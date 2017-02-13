@@ -36,19 +36,10 @@ int main(int argc, char *argv[])
 		cout << taskExecutor.GetPi(amountIteration, processsNumber) << std::endl;
 		timer.stop();
 
-		// TODO : see need comment low
-		double time = timer.elapsed().wall * pow(10.f, -9.f);// / amountThread;
+		double time = timer.elapsed().wall * pow(10.f, -9.f);
 		std::cout << "time = " << time << std::endl;
-		
-		omp_set_dynamic(0);
-		omp_set_num_threads(10);
-		#pragma omp parallel
-		{
-			printf("Hello World\n");
-		}
-
+	
 		system("pause");
-		//taskExecutor.m_outputChannel.Close();
 	}
 	catch (const std::exception & exception)
 	{

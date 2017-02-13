@@ -11,26 +11,20 @@ CTaskSolver::~CTaskSolver()
 
 double CTaskSolver::GetPi(size_t amountIteration, size_t amountThreads)
 {
-	//srand(UINT(amountThreads));// TODO : transfer to other place
 	srand(UINT(time(NULL)));
 
-	double result = 0.0;//4.0 * CalculateHits(amountIteration / amountThreads) / amountIteration;
-	#pragma omp for ordered schedule(dynamic)
+	double result = 0.0;
+	double resultTheThread = 0.0;
+
+	#pragma omp for schedule(dynamic)
 	for (int index = 0; index < amountThreads; ++index)
 
 	{
+		resultTheThread = 4.0 * CalculateHits(amountIteration / amountThreads) / amountIteration;
+		result += resultTheThread;
 
-		result += 4.0 * CalculateHits(amountIteration / amountThreads) / amountIteration;
-
-
-		//#pragma omp ordered
-
-		//send(files[n]);
-
+		std::cout << GetMessageForThread(amountIteration / amountThreads, resultTheThread, index) << std::endl;
 	}
-
-
-	std::string message = GetFinalMessage(amountIteration, result);
 
 	return result;
 }
@@ -56,10 +50,14 @@ size_t CTaskSolver::CalculateHits(size_t numIter)
 }
 
 // Evenly distributes indexes on processors
-std::string CTaskSolver::GetFinalMessage(size_t amountIteration, double result)
+std::string CTaskSolver::GetMessageForThread(
+	size_t amountIteration
+	, double result
+	, int indexThread
+)
 {
-	std::string message = "Id process "
-		+ std::to_string(m_numberProcess) + "\n"
+	std::string message = "Id thread "
+		+ std::to_string(indexThread) + "\n"
 		+ "Amount iteration = " + std::to_string(amountIteration) + "\n"
 		+ "Result = " + std::to_string(result) + "\n";
 

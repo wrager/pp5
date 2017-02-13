@@ -18,7 +18,11 @@ public:
 	double							GetPi(size_t amountIteration, size_t amountThreads);
 private:
 
-	std::string						GetFinalMessage(size_t amountIteration, double result);
+	std::string						GetMessageForThread(
+															size_t amountIteration
+															, double result
+															, int indexThread
+														);
 //////////////////////////////////////////////////////////////////////
 // Static Methods
 private:

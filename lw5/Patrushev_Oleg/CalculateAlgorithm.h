@@ -1,13 +1,19 @@
 #pragma once
 
 template <typename T>
-class BatchersMergeSorter
+class CBatchersMergeSorter
 {
 
 public:
-	void Sort(const std::vector<T>& vec)
+
+	CBatchersMergeSorter(const std::vector<T>& vec)
+		: m_vec(vec)
 	{
-		m_vec = vec;
+
+	}
+
+	void Sort()
+	{
 		BatchersMergeSort(0, m_vec.size());
 	}
 
@@ -16,17 +22,9 @@ public:
 		return m_vec;
 	}
 
-private:
-	void BatchersMergeSort(size_t left, size_t right)
-	{
-		if (right > 1)
-		{
-			size_t m = right / 2;
-			BatchersMergeSort(left, m);
-			BatchersMergeSort(left + m, m);
-			BatchersMerge(left, right, 1);
-		}
-	}
+protected:
+
+	virtual void BatchersMergeSort(size_t left, size_t right) = 0;
 
 	void BatchersMerge(size_t left, size_t size, size_t right)
 	{
@@ -59,6 +57,6 @@ private:
 		m_vec[j] = t;
 	}
 
-private:
+protected:
 	std::vector<T> m_vec;
 };

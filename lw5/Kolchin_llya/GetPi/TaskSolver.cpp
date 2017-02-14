@@ -16,11 +16,12 @@ double CTaskSolver::GetPi(size_t amountIteration, size_t amountThreads)
 	double result = 0.0;
 	double resultTheThread = 0.0;
 
-	#pragma omp for schedule(dynamic)
+	#pragma omp for ordered schedule(static)
 	for (int index = 0; index < amountThreads; ++index)
-
 	{
 		resultTheThread = 4.0 * CalculateHits(amountIteration / amountThreads) / amountIteration;
+
+		#pragma omp ordered
 		result += resultTheThread;
 
 		std::cout << GetMessageForThread(amountIteration / amountThreads, resultTheThread, index) << std::endl;

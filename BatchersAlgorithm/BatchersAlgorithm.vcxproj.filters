@@ -24,12 +24,18 @@
     <ClCompile Include="CUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CParallelSorter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSorter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CParallelSorter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

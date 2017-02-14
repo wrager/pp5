@@ -6,14 +6,21 @@ COddEvenMergeSorter::COddEvenMergeSorter(const std::vector<int> & data)
 	{}
 
 
+
+void COddEvenMergeSorter::CheckCalculatingTime()
+{
+	float firstTime = float(clock());
+	auto v = CUtils::InitializeVector(4096 * 16);
+	Sort();
+	float newTime = clock();
+	std::cout << "Calculation time: " << (float(clock()) - firstTime) / (double)CLOCKS_PER_SEC << std::endl;
+}
+
 void COddEvenMergeSorter::Sort()
 {
 	OddEvenMergeSort(0, m_data.size());
 }
 
-/** sorts a piece of length n of the array
-*  starting at position lo
-*/
 void COddEvenMergeSorter::OddEvenMergeSort(int lo, int n)
 {
 	if (n > 1)
@@ -25,17 +32,13 @@ void COddEvenMergeSorter::OddEvenMergeSort(int lo, int n)
 	}
 }
 
-/** lo is the starting position and
-*  n is the length of the piece to be merged,
-*  r is the distance of the elements to be compared
-*/
 void COddEvenMergeSorter::OddEvenMerge(int lo, int n, int r)
 {
 	int m = r * 2;
 	if (m < n)
 	{
-		OddEvenMerge(lo, n, m);      // even subsequence
-		OddEvenMerge(lo + r, n, m);    // odd subsequence
+		OddEvenMerge(lo, n, m);
+		OddEvenMerge(lo + r, n, m);
 		for (int i = lo + r; i + r < lo + n; i += m)
 		{
 			Compare(i, i + r);
@@ -50,7 +53,9 @@ void COddEvenMergeSorter::OddEvenMerge(int lo, int n, int r)
 void COddEvenMergeSorter::Compare(int i, int j)
 {
 	if (m_data[i] > m_data[j])
+	{
 		Exchange(i, j);
+	}
 }
 
 void COddEvenMergeSorter::Exchange(int i, int j)

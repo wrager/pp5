@@ -16,8 +16,16 @@ int main(int argc, char *argv[])
 	}
 
 	srand(time(NULL));
+
+	double start, end, calculationTime;
+	start = omp_get_wtime();
+
+	cout << "Programm started Monte Carlo Pi Calculation with " << iterNum << " iterations.\n";
 	cout << CMonteCarloPiCalculator::GetPi(iterNum) << endl;
-	getchar();
+
+	end = omp_get_wtime();
+	calculationTime = end - start;
+	cout << "Calculation Time: " << calculationTime << "\n";
 
 	return SUCCESS;
 }

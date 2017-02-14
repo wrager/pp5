@@ -19,7 +19,6 @@ double CMonteCarloPiCalculator::GetPi(double numIter)
 
 double CMonteCarloPiCalculator::GetRandomNumber()
 {
-
 	return (double)rand() / RAND_MAX;
 }
 
@@ -30,9 +29,15 @@ bool CMonteCarloPiCalculator::IsPoitnInCircle(double x, double y)
 
 double CMonteCarloPiCalculator::CalculateHits(double numIter)
 {
-	double hitsAmount(0);
-	for (int i(0); i < numIter; ++i) {
-		hitsAmount += IsPoitnInCircle(GetRandomNumber(), GetRandomNumber());
+	double hitsAmount = 0;
+	
+	#pragma omp parallel num_threads(omp_get_num_procs()) 
+	{
+		#pragma omp for reduction(+:hitsAmount)
+		for (int i = 0; i < (int)numIter; ++i) {
+			hitsAmount += IsPoitnInCircle(GetRandomNumber(), GetRandomNumber());
+		}
 	}
+	
 	return hitsAmount;
 }

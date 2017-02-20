@@ -1,0 +1,4 @@
+x64
+ipch
+*.db
+/lw5/lab/*.opendb

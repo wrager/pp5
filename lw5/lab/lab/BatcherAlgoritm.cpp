@@ -55,6 +55,7 @@ void CBatcherAlgoritm::MergeSort(Vector & vec)
 	while (copyVec.size() != 1)
 	{
 		Vector resultVec;
+		#pragma omp parallel for
 		for (int k = 0; k < copyVec.size(); k += 2)
 		{
 			std::vector<int> interResult;
@@ -97,7 +98,10 @@ void CBatcherAlgoritm::MergeSort(Vector & vec)
 
 				}
 			}
-			resultVec.push_back(interResult);
+			#pragma omp critical
+			{
+				resultVec.push_back(interResult);
+			}
 		}
 		copyVec = resultVec;
 	}

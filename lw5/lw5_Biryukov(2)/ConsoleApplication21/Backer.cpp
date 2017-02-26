@@ -63,6 +63,8 @@ std::vector<int> BackerSort(std::vector<int> & vec)
 			std::copy(vec.begin(), vec.begin() + vec.size() / 2, vec1.begin());
 			std::copy(vec.begin() + vec.size() / 2, vec.end(), vec2.begin());
 
+			#pragma omp parallel num_threads(amount)
+			#pragma omp 
 			for (int i = 0; i < 2; i++)
 			{
 				if (i == 0)
@@ -102,10 +104,22 @@ size_t GetSize()
 	return size;
 }
 
+size_t GetThreads()
+{
+	std::cout << "Enter amount of threads" << std::endl;
+	size_t threads;
+	std::cin >> threads;
+
+	return threads;
+}
+
 int main()
 {
 	size_t size = GetSize();
 	size_t threads = GetThreads();
+
+	#pragma omp parallel num_threads(threads)
+	#pragma omp for schedule(dynamic, size / threads)
 
 	FillArray(size);
 	std::cout << "runtime = " << clock() / 1000.0 << std::endl;

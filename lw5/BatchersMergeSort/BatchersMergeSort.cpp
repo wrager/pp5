@@ -13,7 +13,7 @@ void PrintVector(const std::vector<int>& vec)
 int main()
 {
 	CCalculateAlgorithm calc({ 6,2,7,1 });
-	calc.BatchersMergeSort(0, 4);
+	calc.BatchersMergeSort(0, 4, false);
 	PrintVector(calc.GetVec());
     return EXIT_SUCCESS;
 }

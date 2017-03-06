@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <omp.h>
 #include "CalculateAlgorithm.h"
 
 CCalculateAlgorithm::CCalculateAlgorithm(const std::vector<int> & vec)
@@ -10,16 +11,36 @@ CCalculateAlgorithm::~CCalculateAlgorithm()
 {
 }
 
-void CCalculateAlgorithm::BatchersMergeSort(size_t left, size_t right)
+
+void CCalculateAlgorithm::BatchersMergeSort(size_t left, size_t right, bool parallel)
 {
-	if (right > 1)
+	if (parallel)
 	{
-		size_t middle = (right - left) / 2;
+		if (right > 1)
+		{
+			size_t middle = (right - left) / 2;
 
-		BatchersMergeSort(left, middle);
-		BatchersMergeSort(left + middle, middle);
+			#pragma omp parallel sections
+			{
+				#pragma omp section
+				BatchersMergeSort(left, middle, parallel);
+				#pragma omp section
+				BatchersMergeSort(left + middle, middle,parallel);
+			}
+			BatchersMerge(left, right, 1);
+		}
+	}
+	else
+	{
+		if (right > 1)
+		{
+			size_t middle = (right - left) / 2;
 
-		BatchersMerge(left, right, 1);
+			BatchersMergeSort(left, middle, parallel);
+			BatchersMergeSort(left + middle, middle, parallel);
+
+			BatchersMerge(left, right, 1);
+		}
 	}
 }
 

@@ -13,3 +13,8 @@
 
 
 // TODO: reference additional headers your program requires here
+#include <vector>
+#include <string>
+#include <iostream>
+#include <sstream>
+#include <iterator>

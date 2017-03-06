@@ -55,8 +55,21 @@ std::vector<int> MergeSort(std::vector<int> & vec)
 			vec2.resize(vec.size() - vec.size() / 2);
 			std::copy(vec.begin(), vec.begin() + vec.size() / 2, vec1.begin());
 			std::copy(vec.begin() + vec.size() / 2, vec.end(), vec2.begin());
-			vec1 = MergeSort(vec1);
-			vec2 = MergeSort(vec2);
+#pragma omp parallel num_threads(2)
+#pragma omp for
+			for (int i = 0; i < 2; i++)
+			{
+				if (i == 0)
+				{
+					vec1 = MergeSort(vec1);
+
+				}
+				else
+				{
+					vec2 = MergeSort(vec2);
+
+				}
+			}
 		}
 		else
 		{
@@ -81,6 +94,9 @@ int main(int argc, char **argv)
 	size_t size = 100000;
 	std::cout << "size of array = " << size << std::endl;
 	std::vector<int>vec(size);
+	const int threads = 10;
+#pragma omp parallel num_threads(threads)
+#pragma omp for schedule(dynamic, size / threads)
 	for (int i = 0; i < size; i++)
 	{
 		vec[i] = rand() % 100;

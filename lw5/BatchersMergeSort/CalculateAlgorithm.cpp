@@ -12,9 +12,15 @@ CCalculateAlgorithm::~CCalculateAlgorithm()
 }
 
 
-void CCalculateAlgorithm::BatchersMergeSort(size_t left, size_t right, bool parallel)
+void CCalculateAlgorithm::Sort(bool parallel)
 {
-	if (parallel)
+	m_parallel = parallel;
+	BatchersMergeSort(0, m_vec.size());
+}
+
+void CCalculateAlgorithm::BatchersMergeSort(size_t left, size_t right)
+{
+	if (m_parallel)
 	{
 		if (right > 1)
 		{
@@ -23,9 +29,9 @@ void CCalculateAlgorithm::BatchersMergeSort(size_t left, size_t right, bool para
 			#pragma omp parallel sections
 			{
 				#pragma omp section
-				BatchersMergeSort(left, middle, parallel);
+				BatchersMergeSort(left, middle);
 				#pragma omp section
-				BatchersMergeSort(left + middle, middle,parallel);
+				BatchersMergeSort(left + middle, middle);
 			}
 			BatchersMerge(left, right, 1);
 		}
@@ -36,8 +42,8 @@ void CCalculateAlgorithm::BatchersMergeSort(size_t left, size_t right, bool para
 		{
 			size_t middle = (right - left) / 2;
 
-			BatchersMergeSort(left, middle, parallel);
-			BatchersMergeSort(left + middle, middle, parallel);
+			BatchersMergeSort(left, middle);
+			BatchersMergeSort(left + middle, middle);
 
 			BatchersMerge(left, right, 1);
 		}

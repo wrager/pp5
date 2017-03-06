@@ -59,8 +59,10 @@ int main()
 	CCalculateAlgorithm calcLiner(vec);
 	CCalculateAlgorithm calcParallel(vec);
 
-	OutputWorkTime([&]() {calcLiner.BatchersMergeSort(0, vec.size(), false); });
-	OutputWorkTime([&]() {calcLiner.BatchersMergeSort(0, vec.size(), true); });
+	std::cout << "Liner:    ";
+	OutputWorkTime([&]() {calcLiner.Sort(false); });
+	std::cout << "Parallel: ";
+	OutputWorkTime([&]() {calcParallel.Sort(true); });
     return EXIT_SUCCESS;
 }
 

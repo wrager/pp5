@@ -9,7 +9,11 @@
 
 #include <stdio.h>
 #include <tchar.h>
-
+#include <vector>
+#include <fstream>
+#include <chrono>
+#include <iostream>
+#include <omp.h>
 
 
 // TODO: reference additional headers your program requires here

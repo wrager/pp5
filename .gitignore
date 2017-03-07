@@ -240,3 +240,5 @@ Lab6/UrlParser/Debug/
 *.enc
 *.idb
 *.iobj
+Lab5MergeSort/Lab5MergeSort/input.txt
+Lab5MergeSort/Release/input.txt

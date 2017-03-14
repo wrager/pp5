@@ -24,13 +24,13 @@
     <ClInclude Include="targetver.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="CalculateAlgorithm.h">
+    <ClInclude Include="BatchersMergeSorter.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="CalculateThreaded.h">
+    <ClInclude Include="LinearSorter.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="CalculateLinear.h">
+    <ClInclude Include="ThreadedSorter.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

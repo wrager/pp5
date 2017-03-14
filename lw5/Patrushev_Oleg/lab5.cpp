@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "CalculateLinear.h"
-#include "CalculateThreaded.h"
+#include "LinearSorter.h"
+#include "ThreadedSorter.h"
 
 template <typename T>
 void OutVector(const std::vector<T>& vec)

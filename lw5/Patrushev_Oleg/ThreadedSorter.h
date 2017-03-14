@@ -1,6 +1,6 @@
 #pragma once
 #include <omp.h>
-#include "CalculateAlgorithm.h"
+#include "BatchersMergeSorter.h"
 
 template <typename T>
 class CBatchersMergeSorterParallel : public CBatchersMergeSorter<T>

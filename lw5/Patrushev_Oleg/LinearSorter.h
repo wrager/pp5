@@ -1,5 +1,5 @@
 #pragma once
-#include "CalculateAlgorithm.h"
+#include "BatchersMergeSorter.h"
 
 
 template <typename T>

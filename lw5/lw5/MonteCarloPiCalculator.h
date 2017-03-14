@@ -13,7 +13,7 @@ public:
 
 private:
 	static double GetRandomNumber();
-	static bool IsPoitnInCircle(double x, double y);
+	static bool IsPointInCircle(double x, double y);
 	static double CalculateHits(double numIter);
 };
 

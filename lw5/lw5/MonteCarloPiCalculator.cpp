@@ -22,7 +22,7 @@ double CMonteCarloPiCalculator::GetRandomNumber()
 	return (double)rand() / RAND_MAX;
 }
 
-bool CMonteCarloPiCalculator::IsPoitnInCircle(double x, double y)
+bool CMonteCarloPiCalculator::IsPointInCircle(double x, double y)
 {
 	return (x * x + y * y) <= 1;
 }
@@ -35,7 +35,7 @@ double CMonteCarloPiCalculator::CalculateHits(double numIter)
 	{
 		#pragma omp for reduction(+:hitsAmount)
 		for (int i = 0; i < (int)numIter; ++i) {
-			hitsAmount += IsPoitnInCircle(GetRandomNumber(), GetRandomNumber());
+			hitsAmount += IsPointInCircle(GetRandomNumber(), GetRandomNumber());
 		}
 	}
 	

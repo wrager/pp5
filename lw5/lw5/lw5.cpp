@@ -3,13 +3,13 @@
 
 using namespace std;
 
-bool ReadCommandLineParams(int argc, char *argv[], int& clientsCount);
+bool ReadCommandLineParameters(int argc, char *argv[], int& clientsCount);
 
 int main(int argc, char *argv[])
 {
 	int iterNum = 0;
 
-	if (!ReadCommandLineParams(argc, argv, iterNum))
+	if (!ReadCommandLineParameters(argc, argv, iterNum))
 	{
 		cout << "Command line parametres read error. Run app with /? to help.\n";
 		return ERR;
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	return SUCCESS;
 }
 
-bool ReadCommandLineParams(int argc, char *argv[], int& iterNum)
+bool ReadCommandLineParameters(int argc, char *argv[], int& iterNum)
 {
 	if (argc != 2)
 	{

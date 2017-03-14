@@ -8,9 +8,9 @@
 
 int main()
 {
-	CBatcherBaseCalculator calc;
-	CCalculatorAggregator aggregator(calc, "fil.txt");
-	aggregator.Start();
+    CBatcherBaseCalculator calc;
+    CCalculatorAggregator aggregator(calc, "fil.txt");
+    aggregator.Start();
     return 0;
 }
 

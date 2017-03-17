@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 
 	if (!ReadCommandLineParameters(argc, argv, iterNum))
 	{
-		cout << "Command line parametres read error. Run app with /? to help.\n";
+		cout << "Command line parameters read error. Run app with /? to help.\n";
 		return ERR;
 	}
 
@@ -35,7 +35,7 @@ bool ReadCommandLineParameters(int argc, char *argv[], int& iterNum)
 {
 	if (argc != 2)
 	{
-		cout << "Incorrect amount of parametres. Use /? for help. " << endl;
+		cout << "Incorrect amount of parameters. Use /? for help. " << endl;
 		return false;
 	}
 	else

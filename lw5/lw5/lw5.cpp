@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MonteCarloPiCalculator.h"
+#include <sstream>
 
 using namespace std;
 
@@ -39,14 +40,13 @@ bool ReadCommandLineParameters(int argc, char *argv[], int& iterNum)
 	}
 	else
 	{
-		try {
-			iterNum = atoi(argv[1]);
-			return true;
-		}
-		catch (exception e) {
+		istringstream ss(argv[1]);
+		if (!(ss >> iterNum))
+		{
 			cout << "Command line parse error, check your input!\n";
 			return false;
 		}
+		return true;
 	}
 	return true;
 }

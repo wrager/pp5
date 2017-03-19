@@ -6,6 +6,7 @@
 class CApplication
 {
 public:
+	CApplication() = default;
 	CApplication(std::string && inputPath);
 	
 	void SortArray();

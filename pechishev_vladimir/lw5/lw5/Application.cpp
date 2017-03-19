@@ -21,6 +21,11 @@ void CApplication::SortArray()
 void CApplication::OutputResults() const
 {
 	auto sortedArray = m_algoritm.GetSortedArray();
+	for (auto elem : sortedArray)
+	{
+		std::cout << elem << " ";
+	}
+	std::cout << std::endl;
 }
 
 void CApplication::ReadArrayFromFile()

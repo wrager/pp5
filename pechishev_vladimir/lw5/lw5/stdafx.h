@@ -16,7 +16,7 @@
 #include <memory>
 #include <fstream>
 
-using Array = std::vector<float>;
+using Array = std::vector<int>;
 
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы

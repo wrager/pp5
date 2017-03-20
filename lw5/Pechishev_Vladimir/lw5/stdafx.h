@@ -16,7 +16,7 @@
 #include <memory>
 #include <fstream>
 
-using Array = std::vector<int>;
+using Array = std::vector<double>;
 
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы

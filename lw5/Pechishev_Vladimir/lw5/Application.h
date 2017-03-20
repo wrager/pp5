@@ -7,7 +7,7 @@ class CApplication
 {
 public:
 	CApplication() = default;
-	CApplication(std::string && inputPath);
+	CApplication(std::string const & inputPath);
 	
 	void SortArray();
 	void OutputResults() const;

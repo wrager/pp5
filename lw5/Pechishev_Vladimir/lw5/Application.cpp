@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "Application.h"
+#include "Chronometer.h"
 
 
-CApplication::CApplication(std::string && inputPath)
+CApplication::CApplication(std::string const & inputPath)
+	: m_array(Array())
 {
 	m_inputFile = std::make_shared<std::ifstream>(inputPath);
 	if (!m_inputFile)
@@ -15,7 +17,9 @@ CApplication::CApplication(std::string && inputPath)
 
 void CApplication::SortArray()
 {
-	m_algoritm.SortArray(m_array);
+	m_array = { 5,4,3,5,8,6,4,5,8,9,2,3,4,648,4,5,564,6,3,26,4,16,54,89,6,1,8,974,64,67,8,6,498,464,9,516 };
+	double timeForParallVersionAgloritm = GetCalculatedTime([&]() {m_algoritm.SortArray(m_array); });
+	//double timeForParallVersionAgloritm = GetCalculatedTime([&]() {m_algoritm.SortArray(m_array); });
 }
 
 void CApplication::OutputResults() const
@@ -32,7 +36,7 @@ void CApplication::ReadArrayFromFile()
 {
 	while (!(m_inputFile->eof()))
 	{
-		float value;
+		double value;
 		*m_inputFile >> value;
 		m_array.push_back(value);
 	}

@@ -9,6 +9,3 @@ double GetCalculatedTime(T && callback)
 	double finishTime = clock();
 	return double((finishTime - beginTime) / 1000.0);
 };
-
-
-

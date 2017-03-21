@@ -5,13 +5,12 @@ class CBatcherAlgoritm
 {
 public:
 	CBatcherAlgoritm();
-	void SortArray(Array const & arr, unsigned countThread);
-	Array GetSortedArray() const;
+	void SortArray(DoubleArray const & arr, unsigned countThread);
+	DoubleArray GetSortedArray() const;
 
 private:
-	Array MergeSort(Array const & leftPart, Array const & rightPart) const;
+	DoubleArray MergeSort(DoubleArray const & leftPart, DoubleArray const & rightPart) const;
 
 private:
-	Array m_array;
+	DoubleArray m_array;
 };
-

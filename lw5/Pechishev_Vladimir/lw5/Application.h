@@ -18,8 +18,8 @@ private:
 private:
 	std::string m_outputPath;
 	std::shared_ptr<std::ifstream> m_inputFile;
-	Array m_array;
+	DoubleArray m_array;
 
-	CBatcherAlgoritm m_algoritm;
+	CBatcherAlgoritm m_algorithm;
 };
 

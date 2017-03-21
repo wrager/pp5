@@ -4,14 +4,14 @@
 
 
 CBatcherAlgoritm::CBatcherAlgoritm()
-	: m_array(Array())
+	: m_array(DoubleArray())
 {
 
 }
 
-void CBatcherAlgoritm::SortArray(Array const & arr, unsigned countThread)
+void CBatcherAlgoritm::SortArray(DoubleArray const & arr, unsigned countThread)
 {
-	std::vector<Array> numbers;
+	std::vector<DoubleArray> numbers;
 
 	#pragma omp parallel for num_threads(countThread) 
 	for (int i = 0; i < int(arr.size()); ++i)
@@ -26,8 +26,8 @@ void CBatcherAlgoritm::SortArray(Array const & arr, unsigned countThread)
 
 	while (numbers.size() > 1)
 	{
-		std::vector<Array> temp;
-		Array result;
+		std::vector<DoubleArray> temp;
+		DoubleArray result;
 		#pragma omp parallel for num_threads(countThread) 
 		for (int index = 0; index < int(numbers.size()); index += 2)
 		{
@@ -56,16 +56,16 @@ void CBatcherAlgoritm::SortArray(Array const & arr, unsigned countThread)
 }
 
 
-Array CBatcherAlgoritm::GetSortedArray() const
+DoubleArray CBatcherAlgoritm::GetSortedArray() const
 {
 	return m_array;
 }
 
-Array CBatcherAlgoritm::MergeSort(Array const & leftPart, Array const & rightPart) const
+DoubleArray CBatcherAlgoritm::MergeSort(DoubleArray const & leftPart, DoubleArray const & rightPart) const
 {
 	auto leftIterator = leftPart.begin();
 	auto rightIterator = rightPart.begin();
-	Array mergedParts;
+	DoubleArray mergedParts;
 	while (leftIterator != leftPart.end() || rightIterator != rightPart.end())
 	{
 		if (rightIterator == rightPart.end())

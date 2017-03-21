@@ -5,7 +5,7 @@ class CBatcherAlgoritm
 {
 public:
 	CBatcherAlgoritm();
-	void SortArray(Array const & arr);
+	void SortArray(Array const & arr, unsigned countThread);
 	Array GetSortedArray() const;
 
 private:

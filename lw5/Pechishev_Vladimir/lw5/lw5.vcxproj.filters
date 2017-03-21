@@ -27,10 +27,10 @@
     <ClInclude Include="Application.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="BatcherAlgoritm.h">
+    <ClInclude Include="Chronometer.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Chronometer.h">
+    <ClInclude Include="BatcherAlgoritm.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

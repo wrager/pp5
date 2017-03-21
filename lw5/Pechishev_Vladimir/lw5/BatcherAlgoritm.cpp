@@ -9,32 +9,39 @@ CBatcherAlgoritm::CBatcherAlgoritm()
 
 }
 
-void CBatcherAlgoritm::SortArray(Array const & arr)
+void CBatcherAlgoritm::SortArray(Array const & arr, unsigned countThread)
 {
 	std::vector<Array> numbers;
 
-	//#pragma omp parallel for 
+	#pragma omp parallel for num_threads(countThread) 
 	for (int i = 0; i < arr.size(); ++i)
 	{
-		numbers.push_back({ arr[i] });
+		auto num = arr[i];
+		#pragma omp critical
+		numbers.push_back({ num });
 	}
 	
 
 	while (numbers.size() > 1)
 	{
 		std::vector<Array> temp;
-		#pragma omp parallel for
+		Array result;
+		#pragma omp parallel for num_threads(countThread) 
 		for (int index = 0; index < numbers.size(); index += 2)
 		{
 			if (index == (numbers.size() - 1))
 			{
+				#pragma omp critical
 				temp.push_back(numbers[index]);
 				break;
 			}
 			auto leftPart = numbers[index];
 			auto rightPart = numbers[index + 1];
 
-			temp.push_back(MergeSort(leftPart, rightPart));
+			auto result = MergeSort(leftPart, rightPart);
+
+			#pragma omp critical
+			temp.push_back(result);
 		}
 
 		numbers = temp;

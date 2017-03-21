@@ -14,11 +14,13 @@ void CBatcherAlgoritm::SortArray(Array const & arr, unsigned countThread)
 	std::vector<Array> numbers;
 
 	#pragma omp parallel for num_threads(countThread) 
-	for (int i = 0; i < arr.size(); ++i)
+	for (int i = 0; i < int(arr.size()); ++i)
 	{
 		auto num = arr[i];
 		#pragma omp critical
-		numbers.push_back({ num });
+		{
+			numbers.push_back({ num });
+		}
 	}
 	
 
@@ -27,7 +29,7 @@ void CBatcherAlgoritm::SortArray(Array const & arr, unsigned countThread)
 		std::vector<Array> temp;
 		Array result;
 		#pragma omp parallel for num_threads(countThread) 
-		for (int index = 0; index < numbers.size(); index += 2)
+		for (int index = 0; index < int(numbers.size()); index += 2)
 		{
 			if (index == (numbers.size() - 1))
 			{
@@ -41,7 +43,9 @@ void CBatcherAlgoritm::SortArray(Array const & arr, unsigned countThread)
 			auto result = MergeSort(leftPart, rightPart);
 
 			#pragma omp critical
-			temp.push_back(result);
+			{
+				temp.push_back(result);
+			}
 		}
 
 		numbers = temp;

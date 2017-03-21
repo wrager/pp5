@@ -6,6 +6,7 @@
 CApplication::CApplication(std::string const & inputPath, std::string const & outputPath)
 	: m_array(Array())
 	, m_outputPath(outputPath)
+	, m_algoritm(CBatcherAlgoritm())
 {
 	m_inputFile = std::make_shared<std::ifstream>(inputPath);
 	if (!m_inputFile)
@@ -18,6 +19,7 @@ CApplication::CApplication(std::string const & inputPath, std::string const & ou
 
 void CApplication::SortArray()
 {
+
 	double timeForParallelVersionAgloritm = GetCalculatedTime([&]() {m_algoritm.SortArray(m_array, 4); });
 	std::cout << "Time parallel algoritm with 4 thread: " << timeForParallelVersionAgloritm << std::endl;
 

@@ -34,7 +34,9 @@ void CBatcherAlgoritm::SortArray(Array const & arr, unsigned countThread)
 			if (index == (numbers.size() - 1))
 			{
 				#pragma omp critical
-				temp.push_back(numbers[index]);
+				{
+					temp.push_back(numbers[index]);
+				}
 				break;
 			}
 			auto leftPart = numbers[index];

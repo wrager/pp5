@@ -1,0 +1,4 @@
+﻿  BatcherSort.cpp
+c:\users\компьютер\desktop\lab1\batchersort\batchersort\batchersort.cpp(10): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  BatcherSort.vcxproj -> C:\Users\Компьютер\Desktop\lab1\BatcherSort\Debug\BatcherSort.exe
+  BatcherSort.vcxproj -> C:\Users\Компьютер\Desktop\lab1\BatcherSort\Debug\BatcherSort.pdb (Full PDB)

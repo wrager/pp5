@@ -10,6 +10,12 @@
 #include <stdio.h>
 #include <tchar.h>
 
-
-
+#include <vector>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+#include <iterator>
+#include <chrono>
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы

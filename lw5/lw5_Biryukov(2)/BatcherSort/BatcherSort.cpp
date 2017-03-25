@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "BatcherSort.h"
+#include <omp.h>
 
 std::vector<int> CBatcherSort::FillArray(size_t size)
 {
@@ -98,7 +99,6 @@ std::vector<int> CBatcherSort::SortProcess(std::vector<int>& vec)
 size_t CBatcherSort::GetSize()
 {
 	std::cout << "Enter array size" << std::endl;
-	size_t size;
 	std::cin >> size;
 	return size;
 }
@@ -106,7 +106,6 @@ size_t CBatcherSort::GetSize()
 size_t CBatcherSort::GetThreads()
 {
 	std::cout << "Enter amount of threads" << std::endl;
-	size_t threads;
 	std::cin >> threads;
 	return threads;
 }
@@ -115,9 +114,10 @@ int main()
 {
 	CBatcherSort batcher;
 	clock_t t = clock();
+	size_t threads = batcher.GetThreads();
 
-	#pragma omp parallel num_threads(batcher.GetThreads());
-	#pragma omp for schedule(dynamic, batcher.GetSize() / batcher.GetThreads());
+	#pragma omp parallel num_threads(threads)
+	#pragma omp for schedule(dynamic, batcher.GetSize() / threads)
 
 	std::vector <int> vec = batcher.SortProcess(batcher.FillArray(batcher.GetSize()));
 	std::cout << "runtime = " << (clock() - t) / 1000.0 << std::endl;

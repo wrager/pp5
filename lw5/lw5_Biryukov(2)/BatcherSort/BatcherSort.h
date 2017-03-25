@@ -10,4 +10,8 @@ public:
 private:
 	void MergeTapes(std::vector<int> & v1, std::vector<int> & v2);
 	std::vector<int> ComposeTape(std::vector<int> tape1, std::vector<int> tape2);
+
+protected:
+	size_t size;
+	size_t threads;
 };

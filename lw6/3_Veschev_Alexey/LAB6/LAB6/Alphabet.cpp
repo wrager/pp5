@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Alphabet.h"
-#include <fstream>
 
 
 CAlphabet::CAlphabet()

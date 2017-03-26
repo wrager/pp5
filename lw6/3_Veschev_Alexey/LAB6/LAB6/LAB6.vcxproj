@@ -149,6 +149,7 @@
     <ClInclude Include="LineСryptographer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="ThreadСryptographer.h" />
     <ClInclude Include="СMessage.h" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="ThreadСryptographer.cpp" />
     <ClCompile Include="СMessage.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

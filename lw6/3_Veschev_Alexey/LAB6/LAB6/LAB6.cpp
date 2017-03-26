@@ -2,14 +2,10 @@
 //
 
 #include "stdafx.h"
-#include <map>
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <vector>
 #include "Alphabet.h"
 #include "—Message.h"
 #include "Line—ryptographer.h"
+#include "Thread—ryptographer.h"
 
 namespace
 {
@@ -78,7 +74,7 @@ namespace
 
 	void —odingForGamma(std::vector<char> & message, std::map<char, int> alphabet, std::string gamma)
 	{
-		int sizeAlphabet = alphabet.size();
+		size_t sizeAlphabet = alphabet.size();
 		std::vector<int> messageCode;
 		for (char line : message)
 		{
@@ -93,7 +89,7 @@ namespace
 
 	void CondingForCaesar(std::vector<char> & message, std::map<char, int> alphabet, int key)
 	{
-		int sizeAlphabet = alphabet.size();
+		size_t sizeAlphabet = alphabet.size();
 		std::vector<int> messageCode;
 		for (char line : message)
 		{
@@ -145,10 +141,10 @@ int main()
 		std::cout.put(i);
 	}
 	std::cout << std::endl;
-	CLine—ryptographer line_Òryptographer(ms, alphabet);
-	line_Òryptographer.EncipherCaesar(5);
+	CThread—ryptographer thread_Òryptographer(ms, alphabet);
+	thread_Òryptographer.EncipherCaesar(5);
 
-	for (auto i : line_Òryptographer.GetMessage())
+	for (auto i : thread_Òryptographer.GetMessage())
 	{
 		std::cout.put(i);
 	}

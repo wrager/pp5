@@ -13,3 +13,11 @@
 
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы
+
+#include <stdlib.h>
+#include <vector>
+#include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <windows.h>

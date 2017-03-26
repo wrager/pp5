@@ -7,6 +7,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Alphabet.h"
+#include "ÑMessage.h"
 
 namespace
 {
@@ -106,20 +108,47 @@ namespace
 
 int main()
 {
+	/*
 	std::string gamma;
-	std::map<char, int> alphabet = ReadAlphabetFormFile("alpha_eng.txt");
+	std::map<char, int> alphabet = ReadAlphabetFormFile("alphabet_eng.txt");
 	std::vector<char> message = ReadMessageFromFile("file.txt");
 	std::vector<int> code = ConvertCharToInt(message, alphabet);
 	message = ConvertIntToChar(code, alphabet);
 	//std::cin >> gamma;
 	std::ofstream outFile("out.txt");
-	for (auto i : alphabet)
+	for (auto i : message)
 	{
-		outFile.put(i.first);
+		outFile.put(i);
 	}
 	std::cout << std::endl;
 	std::cout << alphabet.size();
-	std::vector<int> messageCode;
+
+	CAlphabet alphabetClass;
+	alphabetClass.ReadAlphabetFormFile("alphabet_eng.txt");
+	int code1 = alphabetClass.GetCodeForSymbol('!');
+	char c = alphabetClass.GetSymbolForCode(code1);
+	code1 = alphabetClass.GetCodeForSymbol('@');
+	c = alphabetClass.GetSymbolForCode(code1);
+	*/
+	
+
+
+	CAlphabet alphabet;
+	alphabet.ReadAlphabetFormFile("alphabet_eng.txt");
+	std::vector<char> ms = ReadMessageFromFile("file.txt");
+	for (auto i : ms)
+	{
+		std::cout.put(i);
+	}
+	std::cout << std::endl;
+	ÑMessage message(ms, alphabet);
+	message.CondingForCaesar(std::make_pair(0, ms.size()), alphabet, 100);
+	ms = message.GetMessage();
+	for (auto i : ms)
+	{
+		std::cout.put(i);
+	}
+	std::cout << std::endl;
     return 0;
 }
 

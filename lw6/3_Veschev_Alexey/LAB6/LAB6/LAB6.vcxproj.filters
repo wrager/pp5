@@ -27,10 +27,10 @@
     <ClInclude Include="СMessage.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="IСryptographer.h">
+    <ClInclude Include="Alphabet.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Alphabet.h">
+    <ClInclude Include="LineСryptographer.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,10 +44,10 @@
     <ClCompile Include="СMessage.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="IСryptographer.cpp">
+    <ClCompile Include="Alphabet.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="Alphabet.cpp">
+    <ClCompile Include="LineСryptographer.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>

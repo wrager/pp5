@@ -9,6 +9,7 @@
 #include <vector>
 #include "Alphabet.h"
 #include "—Message.h"
+#include "Line—ryptographer.h"
 
 namespace
 {
@@ -83,7 +84,7 @@ namespace
 		{
 			messageCode.push_back(alphabet[line]);
 		}
-		for (int i = 0; i < message.size(); i++)
+		for (size_t i = 0; i < message.size(); i++)
 		{
 			int iGamma = alphabet[gamma[i % gamma.size()]];
 			messageCode[i] = (iGamma + messageCode[i]) % sizeAlphabet;
@@ -99,7 +100,7 @@ namespace
 			messageCode.push_back(alphabet[line]);
 		}
 
-		for (int i = 0; i < message.size(); i++)
+		for (size_t i = 0; i < message.size(); i++)
 		{
 			messageCode[i] = (key + messageCode[i]) % sizeAlphabet;
 		}
@@ -131,8 +132,6 @@ int main()
 	c = alphabetClass.GetSymbolForCode(code1);
 	*/
 	
-
-
 	CAlphabet alphabet;
 	alphabet.ReadAlphabetFormFile("alphabet_eng.txt");
 	std::vector<char> ms = ReadMessageFromFile("file.txt");
@@ -141,14 +140,18 @@ int main()
 		std::cout.put(i);
 	}
 	std::cout << std::endl;
-	—Message message(ms, alphabet);
-	message.CondingForCaesar(std::make_pair(0, ms.size()), alphabet, 100);
-	ms = message.GetMessage();
 	for (auto i : ms)
+	{
+		std::cout.put(i);
+	}
+	std::cout << std::endl;
+	CLine—ryptographer line_Òryptographer(ms, alphabet);
+	line_Òryptographer.EncipherCaesar(5);
+
+	for (auto i : line_Òryptographer.GetMessage())
 	{
 		std::cout.put(i);
 	}
 	std::cout << std::endl;
     return 0;
 }
-

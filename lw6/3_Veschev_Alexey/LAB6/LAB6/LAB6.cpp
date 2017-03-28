@@ -6,6 +6,7 @@
 #include "—Message.h"
 #include "Line—ryptographer.h"
 #include "Thread—ryptographer.h"
+#include <ctime>
 
 namespace
 {
@@ -38,116 +39,68 @@ namespace
 		return mass;
 	}
 
-	std::vector<int> ConvertCharToInt(const std::vector<char> & message, std::map<char, int> & alphabet)
+	void WriteMessageFromFile(std::vector<char> & message)
 	{
-		std::vector<int> messageCode;
-		for (char symbol : message)
+		std::ofstream outFile("out.txt");
+		for (auto i : message)
 		{
-			int codeSymbol = alphabet[symbol];
-			if (codeSymbol)
-			{
-				messageCode.push_back(codeSymbol);
-			}
-		}
-		return  messageCode;
-	}
-	
-	std::vector<char> ConvertIntToChar(const std::vector<int> messageCode, std::map<char, int> & alphabet)
-	{
-		std::map<char, int>::const_iterator it;
-		int key = 0;
-		std::vector<char> message;
-		for (int code : messageCode)
-		{
-			for (it = alphabet.begin(); it != alphabet.end(); it++)
-			{
-				if (it->second == code)
-				{
-					key = it->first;
-					message.push_back(key);
-					break;
-				}
-			}
-		}
-		return  message;
-	}
-
-	void —odingForGamma(std::vector<char> & message, std::map<char, int> alphabet, std::string gamma)
-	{
-		size_t sizeAlphabet = alphabet.size();
-		std::vector<int> messageCode;
-		for (char line : message)
-		{
-			messageCode.push_back(alphabet[line]);
-		}
-		for (size_t i = 0; i < message.size(); i++)
-		{
-			int iGamma = alphabet[gamma[i % gamma.size()]];
-			messageCode[i] = (iGamma + messageCode[i]) % sizeAlphabet;
+			outFile.put(i);
 		}
 	}
 
-	void CondingForCaesar(std::vector<char> & message, std::map<char, int> alphabet, int key)
+	void EncipherCaesar(const std::string & alphabetStr, const std::string & fileStr, const int key)
 	{
-		size_t sizeAlphabet = alphabet.size();
-		std::vector<int> messageCode;
-		for (char line : message)
-		{
-			messageCode.push_back(alphabet[line]);
-		}
+		CAlphabet alphabet;
+		alphabet.ReadAlphabetFormFile(alphabetStr);
+		clock_t begin;
+		clock_t end;
+		double elapsedSecsParallel;
+		std::vector<char> messageForLiner = ReadMessageFromFile(fileStr);
+		std::vector<char> messageForThread = messageForLiner;
+		CLine—ryptographer liner_Òryptographer(messageForLiner, alphabet);
+		CThread—ryptographer thread_Òryptographer(messageForThread, alphabet);
+		std::cout << "Start Encipher Caesar" << std::endl;
+		begin = clock();
+		liner_Òryptographer.EncipherCaesar(key);
+		end = clock();
+		elapsedSecsParallel = double(end - begin) / CLOCKS_PER_SEC;
+		std::cout << elapsedSecsParallel << " For liner" << std::endl;
+		begin = clock();
+		thread_Òryptographer.EncipherCaesar(key);
+		end = clock();
+		elapsedSecsParallel = double(end - begin) / CLOCKS_PER_SEC;
+		std::cout << elapsedSecsParallel << " for thread" << std::endl;
+	}
 
-		for (size_t i = 0; i < message.size(); i++)
-		{
-			messageCode[i] = (key + messageCode[i]) % sizeAlphabet;
-		}
+	void EncipherGamma(const std::string & alphabetStr, const std::string & fileStr, const std::string & gamma)
+	{
+		CAlphabet alphabet;
+		alphabet.ReadAlphabetFormFile(alphabetStr);
+		clock_t begin;
+		clock_t end;
+		double elapsedSecsParallel;
+		std::vector<char> messageForLiner = ReadMessageFromFile(fileStr);
+		std::vector<char> messageForThread = messageForLiner;
+		CLine—ryptographer liner_Òryptographer(messageForLiner, alphabet);
+		CThread—ryptographer thread_Òryptographer(messageForThread, alphabet);
+		std::cout << "Start Encipher Gamma" << std::endl;
+		begin = clock();
+		liner_Òryptographer.EncipherGamma(gamma);
+		end = clock();
+		elapsedSecsParallel = double(end - begin) / CLOCKS_PER_SEC;
+		std::cout << elapsedSecsParallel << " For liner" << std::endl;
+		begin = clock();
+		thread_Òryptographer.EncipherGamma(gamma);
+		end = clock();
+		elapsedSecsParallel = double(end - begin) / CLOCKS_PER_SEC;
+		std::cout << elapsedSecsParallel << " for thread" << std::endl;
 	}
 }
 
 int main()
 {
-	/*
-	std::string gamma;
-	std::map<char, int> alphabet = ReadAlphabetFormFile("alphabet_eng.txt");
-	std::vector<char> message = ReadMessageFromFile("file.txt");
-	std::vector<int> code = ConvertCharToInt(message, alphabet);
-	message = ConvertIntToChar(code, alphabet);
-	//std::cin >> gamma;
-	std::ofstream outFile("out.txt");
-	for (auto i : message)
-	{
-		outFile.put(i);
-	}
-	std::cout << std::endl;
-	std::cout << alphabet.size();
-
-	CAlphabet alphabetClass;
-	alphabetClass.ReadAlphabetFormFile("alphabet_eng.txt");
-	int code1 = alphabetClass.GetCodeForSymbol('!');
-	char c = alphabetClass.GetSymbolForCode(code1);
-	code1 = alphabetClass.GetCodeForSymbol('@');
-	c = alphabetClass.GetSymbolForCode(code1);
-	*/
-	
-	CAlphabet alphabet;
-	alphabet.ReadAlphabetFormFile("alphabet_eng.txt");
-	std::vector<char> ms = ReadMessageFromFile("file.txt");
-	for (auto i : ms)
-	{
-		std::cout.put(i);
-	}
-	std::cout << std::endl;
-	for (auto i : ms)
-	{
-		std::cout.put(i);
-	}
-	std::cout << std::endl;
-	CThread—ryptographer thread_Òryptographer(ms, alphabet);
-	thread_Òryptographer.EncipherCaesar(5);
-
-	for (auto i : thread_Òryptographer.GetMessage())
-	{
-		std::cout.put(i);
-	}
+	EncipherCaesar("alphabet_eng.txt", "Harry_Potter_1.txt", 5);
+	EncipherGamma("alphabet_eng.txt", "Harry_Potter_1.txt", "gamma");
 	std::cout << std::endl;
     return 0;
 }

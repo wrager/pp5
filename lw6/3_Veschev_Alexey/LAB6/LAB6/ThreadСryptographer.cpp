@@ -5,10 +5,8 @@
 
 CThread—ryptographer::CThread—ryptographer(std::vector<char>& message, CAlphabet alphabet)
 {
-	SYSTEM_INFO sysinfo;
-	GetSystemInfo(&sysinfo);
 	m_message = —Message(message, alphabet);
-	m_countThreads = sysinfo.dwNumberOfProcessors;
+	m_countThreads = std::thread::hardware_concurrency();
 
 }
 

@@ -98,16 +98,24 @@ namespace
 
 int main()
 {
-	int key;
-	std::string gamma;
+	int key = 0;
+	
+	std::cout << "Key for Gamma Encipher = ";
+	HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
+	DWORD mode = 0;
+	GetConsoleMode(hStdin, &mode);
+	SetConsoleMode(hStdin, mode & (~ENABLE_ECHO_INPUT));
+	std::string gamma = "";
+	getline(std::cin, gamma);
+	SetConsoleMode(hStdin, mode);
+	std::cout << std::endl;
 	std::cout << "Key for Caesar Encipher = ";
 	std::cin >> key;
 	std::cout << std::endl;
-	std::cout << "Key for Gamma Encipher = ";
-	std::cin >> gamma;
-	std::cout << std::endl;
-	EncipherCaesar("alphabet_eng.txt", "Harry_Potter_1.txt", key);
+	
 	EncipherGamma("alphabet_eng.txt", "Harry_Potter_1.txt", gamma);
+	EncipherCaesar("alphabet_eng.txt", "Harry_Potter_1.txt", key);
+
 	std::cout << std::endl;
     return 0;
 }

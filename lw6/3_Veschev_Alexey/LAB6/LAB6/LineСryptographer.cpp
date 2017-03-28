@@ -21,7 +21,10 @@ void CLine—ryptographer::EncipherCaesar(const int key)
 
 void CLine—ryptographer::EncipherGamma(const std::string & gamma)
 {
-	m_message.CondingForGamma(std::make_pair(0, m_message.GetSize()), gamma);
+	if (gamma != "")
+	{
+		m_message.CondingForGamma(std::make_pair(0, m_message.GetSize()), gamma);
+	}
 }
 
 std::vector<char> CLine—ryptographer::GetMessage() const

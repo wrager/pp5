@@ -58,14 +58,16 @@ void CThread—ryptographer::EncipherGamma(const std::string& gamma)
 {
 	std::vector<std::thread> hThreads;
 	hThreads.resize(m_countThreads);
-
-	for (size_t i = 0; i <= m_countThreads - 1; ++i)
+	if (gamma != "")
 	{
-		hThreads[i] = std::thread(MediatorGamma, this, i, gamma);
-	}
-	for (auto &it : hThreads)
-	{
-		it.join();
+		for (size_t i = 0; i <= m_countThreads - 1; ++i)
+		{
+			hThreads[i] = std::thread(MediatorGamma, this, i, gamma);
+		}
+		for (auto &it : hThreads)
+		{
+			it.join();
+		}
 	}
 }
 

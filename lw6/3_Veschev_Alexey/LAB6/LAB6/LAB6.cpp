@@ -69,7 +69,7 @@ namespace
 		end = clock();
 		elapsedSecsParallel = double(end - begin) / CLOCKS_PER_SEC;
 		std::cout << elapsedSecsParallel << " for thread" << std::endl;
-		
+		WriteMessageFromFile(thread_ñryptographer.GetCharMessage());
 	}
 
 	void EncipherGamma(const std::string & alphabetStr, const std::string & fileStr, const std::string & gamma)
@@ -94,14 +94,13 @@ namespace
 		end = clock();
 		elapsedSecsParallel = double(end - begin) / CLOCKS_PER_SEC;
 		std::cout << elapsedSecsParallel << " for thread" << std::endl;
-		WriteMessageFromFile(liner_ñryptographer.GetCharMessage());
 	}
 }
 
 int main()
 {
 	int key = 0;
-	
+	setlocale(LC_ALL, "Russian");
 	std::cout << "Key for Gamma Encipher = ";
 	HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
 	DWORD mode = 0;
@@ -115,8 +114,8 @@ int main()
 	std::cin >> key;
 	std::cout << std::endl;
 	
-	EncipherGamma("alphabet_eng.txt", "Harry_Potter_1.txt", gamma);
-	EncipherCaesar("alphabet_eng.txt", "Harry_Potter_1.txt", key);
+	EncipherGamma("alphabet_eng.txt", "file.txt", gamma);
+	EncipherCaesar("alphabet_eng.txt", "file.txt", key);
 	std::cout << std::endl;
     return 0;
 }

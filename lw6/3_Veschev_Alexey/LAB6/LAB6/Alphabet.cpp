@@ -11,7 +11,7 @@ void CAlphabet::ReadAlphabetFormFile(const std::string fileName)
 	m_alphabet.clear();
 	typedef std::istreambuf_iterator<char> buf_iter;
 	std::fstream file(fileName);
-	int count = 0;
+	int count = 1;
 	for (buf_iter i(file), e; i != e; ++i)
 	{
 		char c = *i;

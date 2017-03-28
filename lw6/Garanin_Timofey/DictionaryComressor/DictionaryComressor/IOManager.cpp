@@ -1,9 +1,24 @@
 #include "stdafx.h"
 #include "IOManager.h"
+#include <fstream>
+#include <iterator>
+#include <sstream>
+#include <algorithm>
+
+namespace
+{
+	std::string toString(std::pair<std::string, size_t> const &data)
+	{
+		std::ostringstream str;
+		str << data.first << ":" << data.second;
+		return str.str();
+	}
+}
 
 CIOManager::CIOManager(std::string const & inFile, std::string const & outFile)
 	: m_inputFileName(inFile)
 	, m_outputFileName(outFile)
+	, m_dictionaryFileName("dictionary.txt")
 	, m_innerCount(0)
 {
 	setlocale(LC_ALL, "Russian");
@@ -42,10 +57,12 @@ char* CIOManager::GetViewMappingFile()
 		if (m_remainderLength < allocationGranularity)
 		{
 			data = (char*)MapViewOfFile(m_mappingFileHandle, FILE_MAP_READ, 0, allocationGranularity * m_innerCount++, m_remainderLength);
+			m_viewLength = m_remainderLength;
 		}
 		else
 		{
 			data = (char*)MapViewOfFile(m_mappingFileHandle, FILE_MAP_READ, 0, allocationGranularity * m_innerCount++, allocationGranularity);
+			m_viewLength = allocationGranularity;
 		}
 		m_remainderLength -= allocationGranularity;
 		DWORD lastError = GetLastError();
@@ -68,7 +85,7 @@ char* CIOManager::GetViewMappingFile()
 
 size_t CIOManager::GetSizeView() const
 {
-	return m_fileLenght;
+	return m_viewLength;
 }
 
 void CIOManager::SetInputFileName(std::string const & name)
@@ -79,6 +96,18 @@ void CIOManager::SetInputFileName(std::string const & name)
 void CIOManager::SetOutputFileName(std::string const & name)
 {
 	m_outputFileName = name;
+}
+
+void CIOManager::OutputDictionary(std::shared_ptr<std::unordered_map<std::string, size_t>> dictionary)
+{
+	std::ofstream file(m_dictionaryFileName);
+	std::transform(dictionary->begin(), dictionary->end(), std::ostream_iterator<std::string>(file, ";"), toString);
+}
+
+void CIOManager::OutputProcessedText(std::shared_ptr<std::string> text)
+{
+	std::ofstream file(m_outputFileName);
+	file << text->data();
 }
 
 CIOManager::~CIOManager()

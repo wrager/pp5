@@ -22,13 +22,15 @@ int main(int argc, char *argv[])
 			compressor.SetTextFragment(dataPtr);
 			compressor.SetLengthFragment(manager.GetSizeView());
 			compressor.EditFragment();
+			
 		}
 		catch (std::runtime_error)
 		{
 			break;
 		}
 	}
-	
+	manager.OutputDictionary(compressor.GetAllDictionary());
+	manager.OutputProcessedText(compressor.GetAllProcessingText());
 
 	
 	

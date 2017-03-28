@@ -10,11 +10,12 @@ CCompressor::CCompressor()
 {
 	m_punctuation = { ',', '.', ';', ':', '?', '!', '-', '(', ')', '\'', '\"', ' ' };
 	m_specials = { '\n', '\t', '\r', '\f', '\b' };
+	m_dictionary = std::make_shared<std::unordered_map<std::string, size_t>>();
+	m_textFragmentAfterProcessing = std::make_shared<std::string>();
 }
 
 void CCompressor::SetTextFragment(char * text)
 {
-	DeleteOldFragment();
 	m_pTextFragment = text;
 }
 
@@ -26,6 +27,11 @@ void CCompressor::SetLengthFragment(size_t length)
 void CCompressor::EditFragment()
 {
 	std::string word;
+	if (!m_incompleteWord.empty())
+	{
+		word = m_incompleteWord;
+		m_incompleteWord.clear();
+	}
 	bool ifPastWasPunctMark = false;
 	for (size_t i = 0; i != m_length; ++i)
 	{
@@ -36,50 +42,57 @@ void CCompressor::EditFragment()
 		}
 		else
 		{
-			//TODO: при окончании проверки фрагмента если последнее слово не завершено то мы в следующий раз 
-			//не начинаем заного а продолжаем тоже самое слово
 			if (!ifPastWasPunctMark)
 			{
 				int number = 0;
 				std::transform(word.begin(), word.end(), word.begin(), ::tolower);
-				if (m_dictionary.count(word) > 0)
+				if (m_dictionary->count(word) > 0)
 				{
-					number = (int)m_dictionary.at(word);
+					number = (int)m_dictionary->at(word);
 				}
 				else
 				{
-					m_dictionary.insert(std::pair<std::string, size_t>(word, m_dictionary.size()));
-					number = (int)m_dictionary.size() - 1;
+					m_dictionary->insert(std::pair<std::string, size_t>(word, m_dictionary->size()));
+					number = (int)m_dictionary->size() - 1;
 				}
 
 				std::stringstream ss;
 				ss << number;
 				std::string cv(ss.str());
 
-				m_textFragmentAfterProcessing.insert(m_textFragmentAfterProcessing.end(), cv.begin(), cv.end());
+				m_textFragmentAfterProcessing->insert(m_textFragmentAfterProcessing->end(), cv.begin(), cv.end());
 				if (!IsSpecials(m_pTextFragment[i]))
 				{
-					m_textFragmentAfterProcessing.insert(m_textFragmentAfterProcessing.end(), m_pTextFragment[i]);
+					m_textFragmentAfterProcessing->insert(m_textFragmentAfterProcessing->end(), m_pTextFragment[i]);
 				}
 				ifPastWasPunctMark = true;
 				word.clear();
 			}
 			else if (!IsSpecials(m_pTextFragment[i]))
 			{
-				m_textFragmentAfterProcessing.push_back(m_pTextFragment[i]);
+				m_textFragmentAfterProcessing->push_back(m_pTextFragment[i]);
 			}
 		}
 		if (IsSpecials(m_pTextFragment[i]))
 		{
-			m_textFragmentAfterProcessing.push_back(m_pTextFragment[i]);
+			m_textFragmentAfterProcessing->push_back(m_pTextFragment[i]);
 			word.clear();
 		}
 	}
+	if (!word.empty())
+	{
+		m_incompleteWord = std::string(word);
+	}
 }
 
-CCompressor::~CCompressor()
+std::shared_ptr<std::unordered_map<std::string, size_t>> CCompressor::GetAllDictionary() const
 {
-	DeleteOldFragment();
+	return m_dictionary;
+}
+
+std::shared_ptr<std::string> CCompressor::GetAllProcessingText()
+{
+	return m_textFragmentAfterProcessing;
 }
 
 bool CCompressor::IsPunctuaion(char c)
@@ -100,9 +113,4 @@ bool CCompressor::IsSpecials(char c)
 		return false;
 	}
 	return true;
-}
-
-void CCompressor::DeleteOldFragment()
-{
-	delete m_pTextFragment;
 }

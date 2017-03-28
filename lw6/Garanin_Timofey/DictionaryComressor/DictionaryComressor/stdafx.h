@@ -12,7 +12,7 @@
 #include <iostream>
 #include <Windows.h>
 #include <string>
-
+#include "SingletonSystemInfo.h"
 
 
 

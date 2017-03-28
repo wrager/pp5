@@ -11,7 +11,7 @@
 
 
 
-std::vector<char> ÑMessage::GetMessage() const
+std::vector<char> ÑMessage::GetCharMessage() const
 {
 	return m_message;
 }

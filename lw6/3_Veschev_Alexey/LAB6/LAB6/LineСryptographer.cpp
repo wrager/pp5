@@ -27,7 +27,7 @@ void CLine—ryptographer::EncipherGamma(const std::string & gamma)
 	}
 }
 
-std::vector<char> CLine—ryptographer::GetMessage() const
+std::vector<char> CLine—ryptographer::GetCharMessage() const
 {
-	return  m_message.GetMessage();
+	return  m_message.GetCharMessage();
 }

@@ -9,7 +9,7 @@ public:
 
 	void EncipherCaesar(const int key);
 	void EncipherGamma(const std::string & gamma);
-	std::vector<char> GetMessage() const;
+	std::vector<char> GetCharMessage() const;
 private:
 	ÑMessage m_message;
 };

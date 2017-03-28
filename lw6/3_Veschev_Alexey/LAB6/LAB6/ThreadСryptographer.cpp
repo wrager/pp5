@@ -69,9 +69,9 @@ void CThread—ryptographer::EncipherGamma(const std::string& gamma)
 	}
 }
 
-std::vector<char> CThread—ryptographer::GetMessageW() const
+std::vector<char> CThread—ryptographer::GetCharMessage() const
 {
-	return  m_message.GetMessage();
+	return  m_message.GetCharMessage();
 }
 
 CThread—ryptographer::~CThread—ryptographer()

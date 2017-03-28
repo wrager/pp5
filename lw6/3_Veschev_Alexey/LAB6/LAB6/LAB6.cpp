@@ -3,7 +3,6 @@
 
 #include "stdafx.h"
 #include "Alphabet.h"
-#include "—Message.h"
 #include "Line—ryptographer.h"
 #include "Thread—ryptographer.h"
 #include <ctime>
@@ -99,8 +98,16 @@ namespace
 
 int main()
 {
-	EncipherCaesar("alphabet_eng.txt", "Harry_Potter_1.txt", 5);
-	EncipherGamma("alphabet_eng.txt", "Harry_Potter_1.txt", "gamma");
+	int key;
+	std::string gamma;
+	std::cout << "Key for Caesar Encipher = ";
+	std::cin >> key;
+	std::cout << std::endl;
+	std::cout << "Key for Gamma Encipher = ";
+	std::cin >> gamma;
+	std::cout << std::endl;
+	EncipherCaesar("alphabet_eng.txt", "Harry_Potter_1.txt", key);
+	EncipherGamma("alphabet_eng.txt", "Harry_Potter_1.txt", gamma);
 	std::cout << std::endl;
     return 0;
 }

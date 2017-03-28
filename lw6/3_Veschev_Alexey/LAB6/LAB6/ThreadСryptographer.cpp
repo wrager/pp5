@@ -14,15 +14,15 @@ CThread—ryptographer::CThread—ryptographer(std::vector<char>& message, CAlphabet
 
 void MediatorCaesar(CThread—ryptographer * cryptographer, size_t num, int key)
 {
-	cryptographer->FillMessage(num, key);
+	cryptographer->DivisionMessage(num, key);
 }
 
 void MediatorGamma(CThread—ryptographer * cryptographer, size_t num, const std::string & gamma)
 {
-	cryptographer->FillMessage(num, gamma);
+	cryptographer->DivisionMessage(num, gamma);
 }
 
-void CThread—ryptographer::FillMessage(size_t threadNumber, int key)
+void CThread—ryptographer::DivisionMessage(size_t threadNumber, int key)
 {
 	auto size = m_message.GetSize();
 	size_t minSize = size / m_countThreads * threadNumber;
@@ -31,7 +31,7 @@ void CThread—ryptographer::FillMessage(size_t threadNumber, int key)
 
 }
 
-void CThread—ryptographer::FillMessage(size_t threadNumber, const std::string& gamma)
+void CThread—ryptographer::DivisionMessage(size_t threadNumber, const std::string& gamma)
 {
 	auto size = m_message.GetSize();
 	size_t minSize = size / m_countThreads * threadNumber;

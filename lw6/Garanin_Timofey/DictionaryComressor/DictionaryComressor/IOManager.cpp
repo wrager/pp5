@@ -7,7 +7,12 @@ CIOManager::CIOManager(std::string const & inFile, std::string const & outFile)
 	, m_innerCount(0)
 {
 	setlocale(LC_ALL, "Russian");
+}
 
+CIOManager::CIOManager()
+	: m_innerCount(0)
+{
+	setlocale(LC_ALL, "Russian");
 }
 
 void CIOManager::SettingInputFile()
@@ -64,6 +69,16 @@ char* CIOManager::GetViewMappingFile()
 size_t CIOManager::GetSizeView() const
 {
 	return m_fileLenght;
+}
+
+void CIOManager::SetInputFileName(std::string const & name)
+{
+	m_inputFileName = name;
+}
+
+void CIOManager::SetOutputFileName(std::string const & name)
+{
+	m_outputFileName = name;
 }
 
 CIOManager::~CIOManager()

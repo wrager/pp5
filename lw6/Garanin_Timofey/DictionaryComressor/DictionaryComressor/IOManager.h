@@ -9,9 +9,12 @@ class CIOManager
 {
 public:
 	CIOManager(std::string const &inFile, std::string const &outFile);
+	CIOManager();
 	void SettingInputFile();
 	char* GetViewMappingFile();
 	size_t GetSizeView() const;
+	void SetInputFileName(std::string const &name);
+	void SetOutputFileName(std::string const &name);
 	~CIOManager();
 private:
 	void OpenFileForReading();

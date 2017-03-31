@@ -1,21 +1,24 @@
 #pragma once
-#include "MergeSorter.h"
+#include "SimpleMergeSorter.h"
 #include <thread>
 
-class CParallelMergeSorter: public CMergeSorter
+class CParallelMergeSorter: public CSimpleMergeSorter
 {
 public:
 	CParallelMergeSorter(const std::vector<int> & data);
 
-	void Sort(std::vector<int> & values) override;
+public:
+	void Sort() override;
+	virtual std::string ToString() override;
+
+private:
+	void MergeSort(int low, int high) override;
+	void Merge(int low, int middle, int high) override;
+
 
 private:
 	void ParallelMergeSort(int low, int high, int level);
 
-	void MergeSort(int low, int high) override;
-	void Merge(int low, int middle, int high) override;
-	
-	std::vector<int> helper;
-	int number;
+private:
 	size_t m_threadsCount;
 };

@@ -1,25 +1,28 @@
-#include "MergeSorter.h"
+#include "SimpleMergeSorter.h"
 
-CMergeSorter::CMergeSorter(const std::vector<int> & data)
-	:m_data(data)
+CSimpleMergeSorter::CSimpleMergeSorter(const std::vector<int> & data)
+	:CSorter(data)
 {
 
 }
 
-std::vector<int> CMergeSorter::GetData() const
+std::string CSimpleMergeSorter::ToString()
+{
+	return "Simple mergeSorter";
+}
+
+std::vector<int> CSimpleMergeSorter::GetData() const
 {
 	return m_data;
 }
 
-void CMergeSorter::Sort(std::vector<int> & values)
+void CSimpleMergeSorter::Sort()
 {
-	m_data = values;
-	number = values.size();
-	helper = std::vector<int>(number);
-	MergeSort(0, number - 1);
+	helper = std::vector<int>(m_data.size());
+	MergeSort(0, m_data.size() - 1);
 }
 
-void CMergeSorter::MergeSort(int low, int high)
+void CSimpleMergeSorter::MergeSort(int low, int high)
 {
 	if (low < high)
 	{
@@ -30,7 +33,7 @@ void CMergeSorter::MergeSort(int low, int high)
 	}
 }
 
-void CMergeSorter::Merge(int low, int middle, int high) 
+void CSimpleMergeSorter::Merge(int low, int middle, int high) 
 {
 	for (int i = low; i <= high; i++) 
 	{

@@ -1,4 +1,4 @@
-#include "MergeSorter.h"
+#include "SimpleMergeSorter.h"
 #include "ParallelMergeSorter.h"
 #include "ParallelShellSorter.h"
 #include <iostream>
@@ -6,33 +6,40 @@
 #include "DataReader.h"
 #include "DataWriter.h"
 #include "Utils.h"
+#include "Sorter.h"
+#include <memory>
+#include <string>
+#include <array>
+#include <algorithm>
 
+void DoWorkWithSorter(CSorter & sorter)
+{
+	std::cout << sorter.ToString() << " time:";
+	CUtils::CalculateFunctionTime([&]() {sorter.Sort(); });
+	std::cout << std::endl;
+}
 
 int main()
 {
-	//ReadingData
 	std::vector<int> data = DataReader::ReadFromFile();
 
-	//MergeSort
-	std::cout << "MergeSort:\nsimple time: ";
-	CMergeSorter simpleMergeSorter(data);
-	CUtils::CalculateFunctionTime([&]() {simpleMergeSorter.Sort(data); });
+	std::unique_ptr<CSorter> sorters[] =
+	{
+			std::make_unique<CSimpleMergeSorter>(data),
+			std::make_unique<CParallelMergeSorter>(data),
+			std::make_unique<CSimpleShellSorter>(data),
+			std::make_unique<CParallelShellSorter>(data)
+	};
 
-	std::cout << "threaded time:";
-	CParallelMergeSorter threadedMergeSorter(data);
-	CUtils::CalculateFunctionTime([&]() {threadedMergeSorter.Sort(data); });
+	std::cout << "Data loaded successfully, checking calculation time..." << std::endl;
 
-	//ShellSort
-	std::cout << "\nShellSort:\nsimple time: ";
-	CShellSorter shellSorter(data);
-	CUtils::CalculateFunctionTime([&]() {shellSorter.Sort(); });
+	for(size_t i = 0; i < 4; ++i)
+	{
+		DoWorkWithSorter(*(sorters[i].get()));
+	};
 
-	std::cout << "threaded time:";
-	CParallelShellSorter parallelShellSorter(data);
-	CUtils::CalculateFunctionTime([&]() {parallelShellSorter.Sort(); });
+	DataWriter::WriteToFile(sorters[0]->GetData());
 
-	//WritingResulToFile
-	DataWriter::WriteToFile(parallelShellSorter.GetData());
 
 	return 0;
 }

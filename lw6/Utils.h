@@ -6,5 +6,4 @@ class CUtils
 {
 public:
 	static void CalculateFunctionTime(std::function<void()> callback);
-
 };

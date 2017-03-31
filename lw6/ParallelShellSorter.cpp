@@ -2,9 +2,15 @@
 #include "stdafx.h"
 
 CParallelShellSorter::CParallelShellSorter(const std::vector<int> & data)
-	:CShellSorter(data)
+	:CSimpleShellSorter(data)
 {
 	m_threadsCount = std::thread::hardware_concurrency();
+}
+
+
+std::string CParallelShellSorter::ToString()
+{
+	return "Parallel shellSorter";
 }
 
 void CParallelShellSorter::ShellSort(int n)
@@ -33,12 +39,12 @@ void CParallelShellSorter::ParallelSort(int h, int n, int i, int nElements)
 {
 	for (int currentItemId = i; currentItemId < n && currentItemId - i < nElements; ++currentItemId)
 	{
-		int t = data[currentItemId];
+		int t = m_data[currentItemId];
 		int j;
-		for (j = currentItemId; j >= h && t < data[j - h]; j -= h)
+		for (j = currentItemId; j >= h && t < m_data[j - h]; j -= h)
 		{
-			data[j] = data[j - h];
+			m_data[j] = m_data[j - h];
 		}
-		data[j] = t;
+		m_data[j] = t;
 	}
 }

@@ -146,12 +146,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CUtils.cpp" />
-    <ClCompile Include="ShellSorter.cpp" />
+    <ClCompile Include="Sorter.cpp" />
+    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="SimpleShellSorter.cpp" />
     <ClCompile Include="DataReader.cpp" />
     <ClCompile Include="DataWriter.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MergeSorter.cpp" />
+    <ClCompile Include="SimpleMergeSorter.cpp" />
     <ClCompile Include="ParallelMergeSorter.cpp" />
     <ClCompile Include="ParallelShellSorter.cpp" />
   </ItemGroup>
@@ -160,8 +161,9 @@
     <ClInclude Include="ParallelMergeSorter.h" />
     <ClInclude Include="DataReader.h" />
     <ClInclude Include="DataWriter.h" />
-    <ClInclude Include="MergeSorter.h" />
-    <ClInclude Include="ShellSorter.h" />
+    <ClInclude Include="SimpleMergeSorter.h" />
+    <ClInclude Include="SimpleShellSorter.h" />
+    <ClInclude Include="Sorter.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>

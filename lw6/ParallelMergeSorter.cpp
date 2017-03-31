@@ -3,17 +3,20 @@
 #include <iostream>
 
 CParallelMergeSorter::CParallelMergeSorter(const std::vector<int> & data)
-	:CMergeSorter(data)
+	:CSimpleMergeSorter(data)
 {
 	m_threadsCount = std::thread::hardware_concurrency();
 }
 
-void CParallelMergeSorter::Sort(std::vector<int> & values)
+std::string CParallelMergeSorter::ToString()
 {
-	m_data = values;
-	number = values.size();
-	helper = std::vector<int>(number);
-	ParallelMergeSort(0, number - 1, 0);
+	return "Parallel mergeSorter";
+}
+
+void CParallelMergeSorter::Sort()
+{
+	helper = std::vector<int>(m_data.size());
+	ParallelMergeSort(0, m_data.size() - 1, 0);
 }
 
 void CParallelMergeSorter::ParallelMergeSort(int low, int high, int level)
@@ -21,7 +24,6 @@ void CParallelMergeSorter::ParallelMergeSort(int low, int high, int level)
 	++level;
 	if (low < high)
 	{
-
 		int minimalThreadCreatingLevel = (int)log2(m_threadsCount);
 		if (level <= minimalThreadCreatingLevel)
 		{

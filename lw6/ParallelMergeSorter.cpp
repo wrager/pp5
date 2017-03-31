@@ -16,10 +16,10 @@ std::string CParallelMergeSorter::ToString()
 void CParallelMergeSorter::Sort()
 {
 	helper = std::vector<int>(m_data.size());
-	ParallelMergeSort(0, m_data.size() - 1, 0);
+	ParallelSort(0, m_data.size() - 1, 0);
 }
 
-void CParallelMergeSorter::ParallelMergeSort(int low, int high, int level)
+void CParallelMergeSorter::ParallelSort(int low, int high, int level)
 {
 	++level;
 	if (low < high)
@@ -28,8 +28,8 @@ void CParallelMergeSorter::ParallelMergeSort(int low, int high, int level)
 		if (level <= minimalThreadCreatingLevel)
 		{
 			int middle = low + (high - low) / 2;
-			std::thread thLeft(&CParallelMergeSorter::ParallelMergeSort, this, low, middle, level);
-			std::thread thRight(&CParallelMergeSorter::ParallelMergeSort, this, middle + 1, high, level);
+			std::thread thLeft(&CParallelMergeSorter::ParallelSort, this, low, middle, level);
+			std::thread thRight(&CParallelMergeSorter::ParallelSort, this, middle + 1, high, level);
 			thLeft.join();
 			thRight.join();
 
@@ -39,48 +39,5 @@ void CParallelMergeSorter::ParallelMergeSort(int low, int high, int level)
 		{
 			MergeSort(low, high);
 		}
-	}
-}
-
-void CParallelMergeSorter::MergeSort(int low, int high)
-{
-	if (low < high) 
-	{
-		int middle = low + (high - low) / 2;
-		MergeSort(low, middle);
-		MergeSort(middle + 1, high);
-		Merge(low, middle, high);
-	}
-}
-
-void CParallelMergeSorter::Merge(int low, int middle, int high) 
-{
-	for (int i = low; i <= high; i++) 
-	{
-		helper[i] = m_data[i];
-	}
-
-	int i = low;
-	int j = middle + 1;
-	int k = low;
-	while (i <= middle && j <= high)
-	{
-		if (helper[i] <= helper[j]) 
-		{
-			m_data[k] = helper[i];
-			i++;
-		}
-		else 
-		{
-			m_data[k] = helper[j];
-			j++;
-		}
-		k++;
-	}
-	while (i <= middle) 
-	{
-		m_data[k] = helper[i];
-		k++;
-		i++;
 	}
 }

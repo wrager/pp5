@@ -9,7 +9,5 @@ public:
 
 public:
 	void Sort() override;
-	virtual std::string ToString() override;
-protected:
-	virtual void ShellSort(int n);
+	std::string ToString() override;
 };

@@ -12,12 +12,7 @@ public:
 	virtual std::string ToString() override;
 
 private:
-	void MergeSort(int low, int high) override;
-	void Merge(int low, int middle, int high) override;
-
-
-private:
-	void ParallelMergeSort(int low, int high, int level);
+	void ParallelSort(int low, int high, int level);
 
 private:
 	size_t m_threadsCount;

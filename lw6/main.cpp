@@ -40,6 +40,5 @@ int main()
 
 	DataWriter::WriteToFile(sorters[0]->GetData());
 
-
 	return 0;
 }

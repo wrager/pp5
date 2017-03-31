@@ -13,10 +13,10 @@ std::string CParallelShellSorter::ToString()
 	return "Parallel shellSorter";
 }
 
-void CParallelShellSorter::ShellSort(int n)
+void CParallelShellSorter::Sort()
 {
 	int h, i, j, t;
-
+	int n = m_data.size();
 	for (h = n; h /= 2;)
 	{
 		std::vector<std::thread> activeThreads;

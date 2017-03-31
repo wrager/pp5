@@ -11,10 +11,6 @@ std::string CSimpleMergeSorter::ToString()
 	return "Simple mergeSorter";
 }
 
-std::vector<int> CSimpleMergeSorter::GetData() const
-{
-	return m_data;
-}
 
 void CSimpleMergeSorter::Sort()
 {

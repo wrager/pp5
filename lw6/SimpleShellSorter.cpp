@@ -14,11 +14,8 @@ std::string CSimpleShellSorter::ToString()
 
 void CSimpleShellSorter::Sort()
 {
-	ShellSort(m_data.size());
-}
+	int n = m_data.size();
 
-void CSimpleShellSorter::ShellSort(int n)
-{
 	for (int h = n; h /= 2;)
 	{
 		int t;

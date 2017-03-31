@@ -5,11 +5,12 @@ class CParallelShellSorter : public CSimpleShellSorter
 {
 public:
 	CParallelShellSorter(const std::vector<int> & data);	
-	void ParallelSort(int h, int n, int i, int nElements);
-	virtual std::string ToString() override;
-public:
-	void ShellSort(int n) override;
 
-protected:
+public:
+	void Sort() override;
+	std::string ToString() override;
+
+private:
+	void ParallelSort(int h, int n, int i, int nElements);
 	size_t m_threadsCount;
 };

@@ -19,9 +19,25 @@ void DoWorkWithSorter(CSorter & sorter)
 	std::cout << std::endl;
 }
 
-int main()
+int main(int argc, char * argv[])
 {
-	std::vector<int> data = DataReader::ReadFromFile();
+	if (argc != 2)
+	{
+		std::cout << "Error: incorrect usage. Example: \"lab6.exe input.txt\"" << std::endl;	
+		return 1;
+	}
+	
+	std::vector<int> data;
+	try
+	{
+		data = DataReader::ReadFromFile(argv[1]);
+	}
+	catch (const std::ios_base::failure & ex)
+	{
+		std::cout << "Error: " << ex.what() << std::endl;
+		return 2;
+	}
+	 
 
 	std::unique_ptr<CSorter> sorters[] =
 	{

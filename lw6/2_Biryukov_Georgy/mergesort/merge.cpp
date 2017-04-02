@@ -48,8 +48,10 @@ void MergeSorting(std::vector<int>& vec, int l, int r)
 	Merge merge;
 	if (l < r) {
 		int m = (l + r) / 2;
-		MergeSorting(vec, l, m);
-		MergeSorting(vec, m + 1, r);
+		std::thread sort_thread1([&vec, l, m] { MergeSorting(vec, l, m);});
+		std::thread sort_thread2([&vec, m, r] { MergeSorting(vec, m + 1, r); });
+		sort_thread1.join();
+		sort_thread2.join();
 		merge.mergeProcess(vec, l, m, r);
 	}
 }

@@ -21,7 +21,7 @@ void WriteVec(std::vector<int> vec)
 
 std::vector<int> MakeNewVector(std::vector<int> vec1, std::vector<int> vec2)
 {
-	int size = vec1.size() + vec2.size();
+	size_t size = vec1.size() + vec2.size();
 	std::vector<int> vec3;
 	while (vec1.size() > 0 && vec2.size() > 0)
 	{
@@ -55,20 +55,12 @@ std::vector<int> MergeSort(std::vector<int> & vec)
 			vec2.resize(vec.size() - vec.size() / 2);
 			std::copy(vec.begin(), vec.begin() + vec.size() / 2, vec1.begin());
 			std::copy(vec.begin() + vec.size() / 2, vec.end(), vec2.begin());
-#pragma omp parallel num_threads(2)
-#pragma omp for
-			for (int i = 0; i < 2; i++)
+#pragma omp parallel sections
 			{
-				if (i == 0)
-				{
-					vec1 = MergeSort(vec1);
-
-				}
-				else
-				{
-					vec2 = MergeSort(vec2);
-
-				}
+#pragma omp section
+				vec1 = MergeSort(vec1);
+#pragma omp section
+				vec2 = MergeSort(vec2);
 			}
 		}
 		else
@@ -88,22 +80,30 @@ std::vector<int> MergeSort(std::vector<int> & vec)
 	return vec;
 }
 
-int main(int argc, char **argv)
+std::vector<int> CreateVector(size_t size)
 {
-	srand(time(0));
-	size_t size = 100000;
-	std::cout << "size of array = " << size << std::endl;
-	std::vector<int>vec(size);
+	std::vector<int> vec(size);
 	const int threads = 10;
 #pragma omp parallel num_threads(threads)
-#pragma omp for schedule(dynamic, size / threads)
-	for (int i = 0; i < size; i++)
 	{
-		vec[i] = rand() % 100;
+	#pragma omp for schedule(dynamic, size / threads)
+		for (int i = 0; i < size; i++)
+		{
+			vec[i] = rand() % 100;
+		}
 	}
-	std::vector<int> vec3;
+	return vec;
+}
 
-	vec3 = MergeSort(vec);
-	std::cout << "runtime = " << clock() / 1000.0 << std::endl;
+int main(int argc, char **argv)
+{
+	srand(unsigned int(time(0)));
+	size_t size = 1000000;
+	std::vector<int> vec = CreateVector(size);
+
+	vec = MergeSort(vec);	
+	double endSort = clock() / 1000.0;
+
+	std::cout << "runtime = " << endSort << std::endl;
 	return 0;
 }

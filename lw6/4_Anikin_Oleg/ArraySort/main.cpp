@@ -1,12 +1,11 @@
 #include "stdafx.h"
 #include "MergeSortCalculator.h"
+#include "CalculatorAgregator.h"
 
 int main()
 {
-    auto calculator = CMergeSortCalculator({ 2,1,3,4,5,6 });
-    calculator.Sort(true);
-    auto result = calculator.GetResult();
-
+    CMergeSortCalculator calc;
+    CCalculatorAggregator aggregator(calc, "fil.txt");
+    aggregator.Start();
     return 0;
 }
-

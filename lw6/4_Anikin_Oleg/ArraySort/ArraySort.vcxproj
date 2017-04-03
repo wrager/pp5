@@ -141,24 +141,14 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseSorter.h" />
-    <ClInclude Include="ISorter.h" />
-    <ClInclude Include="ISorterFactory.h" />
-    <ClInclude Include="LinearSorter.h" />
-    <ClInclude Include="ParallelSortel.h" />
-    <ClInclude Include="SorterFactory.h" />
-    <ClInclude Include="Sorts.h" />
-    <ClInclude Include="SortTypes.h" />
+    <ClInclude Include="MergeSortCalculator.h" />
+    <ClInclude Include="IMergeSortCalculator.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BaseSorter.cpp" />
-    <ClCompile Include="LinearSorter.cpp" />
+    <ClCompile Include="MergeSortCalculator.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ParallelSortel.cpp" />
-    <ClCompile Include="SorterFactory.cpp" />
-    <ClCompile Include="Sorts.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

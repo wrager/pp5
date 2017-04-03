@@ -1,10 +1,10 @@
 #pragma once
-#include "IMegreSortCalculator.h"
+#include "IMergeSortCalculator.h"
 
-class CMegreSortCalculator : public IMergeSortCalculator
+class CMergeSortCalculator : public IMergeSortCalculator
 {
 public:
-    CMegreSortCalculator(const std::vector<int>& vec);
+    CMergeSortCalculator(const std::vector<int>& vec);
 
     void Sort(bool isParallel) override;
     std::vector<int> GetResult() const override;

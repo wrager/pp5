@@ -13,14 +13,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Sorts">
-      <UniqueIdentifier>{61a20b2f-8ee6-46d7-ade0-5358a672d314}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sorter">
       <UniqueIdentifier>{4a66fbb3-0cd7-4c6a-b536-fd7057d2f887}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Factory">
-      <UniqueIdentifier>{ffd99790-8271-458a-9ed5-a2208e0ff122}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,29 +27,11 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sorts.h">
-      <Filter>Sorts</Filter>
-    </ClInclude>
-    <ClInclude Include="ISorter.h">
+    <ClInclude Include="IMergeSortCalculator.h">
       <Filter>Sorter</Filter>
     </ClInclude>
-    <ClInclude Include="BaseSorter.h">
+    <ClInclude Include="MergeSortCalculator.h">
       <Filter>Sorter</Filter>
-    </ClInclude>
-    <ClInclude Include="ParallelSortel.h">
-      <Filter>Sorter</Filter>
-    </ClInclude>
-    <ClInclude Include="LinearSorter.h">
-      <Filter>Sorter</Filter>
-    </ClInclude>
-    <ClInclude Include="SorterFactory.h">
-      <Filter>Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="SortTypes.h">
-      <Filter>Sorts</Filter>
-    </ClInclude>
-    <ClInclude Include="ISorterFactory.h">
-      <Filter>Factory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -65,20 +41,8 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sorts.cpp">
-      <Filter>Sorts</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseSorter.cpp">
+    <ClCompile Include="MergeSortCalculator.cpp">
       <Filter>Sorter</Filter>
-    </ClCompile>
-    <ClCompile Include="ParallelSortel.cpp">
-      <Filter>Sorter</Filter>
-    </ClCompile>
-    <ClCompile Include="LinearSorter.cpp">
-      <Filter>Sorter</Filter>
-    </ClCompile>
-    <ClCompile Include="SorterFactory.cpp">
-      <Filter>Factory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,29 +1,29 @@
 #include "stdafx.h"
-#include "MegreSortCalculator.h"
+#include "MergeSortCalculator.h"
 
-CMegreSortCalculator::CMegreSortCalculator(const std::vector<int>& vec)
+CMergeSortCalculator::CMergeSortCalculator(const std::vector<int>& vec)
     : m_array(vec)
     , m_isParallelEnabled(false)
 {
 }
 
-void CMegreSortCalculator::Sort(bool isParallel)
+void CMergeSortCalculator::Sort(bool isParallel)
 {
     m_isParallelEnabled = isParallel;
-    StartSort(0, m_array.size());
+    StartSort(0, m_array.size() - 1);
 }
 
-std::vector<int> CMegreSortCalculator::GetResult() const
+std::vector<int> CMergeSortCalculator::GetResult() const
 {
     return m_array;
 }
 
-void CMegreSortCalculator::Reset(const std::vector<int>& array)
+void CMergeSortCalculator::Reset(const std::vector<int>& array)
 {
     m_array = array;
 }
 
-void CMegreSortCalculator::StartSort(size_t left, size_t right)
+void CMergeSortCalculator::StartSort(size_t left, size_t right)
 {
     size_t length = right - left;
 
@@ -38,8 +38,8 @@ void CMegreSortCalculator::StartSort(size_t left, size_t right)
     {
         std::cout << "starting thread " << left << " " << right << std::endl;
         std::vector<std::thread> threads;
-        threads.emplace_back(&CMegreSortCalculator::StartSort, this, left, m);
-        threads.emplace_back(&CMegreSortCalculator::StartSort, this, m + 1, right);
+        threads.emplace_back(&CMergeSortCalculator::StartSort, this, left, m);
+        threads.emplace_back(&CMergeSortCalculator::StartSort, this, m + 1, right);
 
         std::for_each(threads.begin(), threads.end(), [](std::thread& thread) { thread.join(); thread.~thread(); });
     }
@@ -52,7 +52,7 @@ void CMegreSortCalculator::StartSort(size_t left, size_t right)
     Merge(left, m, right);
 }
 
-void CMegreSortCalculator::Merge(size_t low, size_t mid, size_t high)
+void CMergeSortCalculator::Merge(size_t low, size_t mid, size_t high)
 {
     size_t left = low;
     size_t right = mid + 1;

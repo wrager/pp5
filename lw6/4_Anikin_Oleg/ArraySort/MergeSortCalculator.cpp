@@ -2,25 +2,14 @@
 #include "MergeSortCalculator.h"
 
 CMergeSortCalculator::CMergeSortCalculator(const std::vector<int>& vec)
-    : m_array(vec)
-    , m_isParallelEnabled(false)
+    : CBaseSortCalculator(vec)
 {
 }
 
 void CMergeSortCalculator::Sort(bool isParallel)
 {
-    m_isParallelEnabled = isParallel;
+    CBaseSortCalculator::Sort(isParallel);
     StartSort(0, m_array.size() - 1);
-}
-
-std::vector<int> CMergeSortCalculator::GetResult() const
-{
-    return m_array;
-}
-
-void CMergeSortCalculator::Reset(const std::vector<int>& array)
-{
-    m_array = array;
 }
 
 void CMergeSortCalculator::StartSort(size_t left, size_t right)
@@ -77,9 +66,4 @@ void CMergeSortCalculator::Merge(size_t leftStart, size_t mid, size_t rightEnd)
     {
         m_array[leftStart + cur] = sorted[cur];
     }
-}
-
-void CMergeSortCalculator::WaitForMultiplyObjects(std::vector<std::thread>& threads)
-{
-    std::for_each(threads.begin(), threads.end(), [](std::thread& thread) { thread.join(); });
 }

@@ -1,10 +1,10 @@
 #pragma once
-#include "IMergeSortCalculator.h"
+#include "ISortCalculator.h"
 
 class CCalculatorAggregator
 {
 public:
-    CCalculatorAggregator(IMergeSortCalculator & calc, const std::string & filename);
+    CCalculatorAggregator(ISortCalculator & calc, const std::string & filename);
     void Start();
 
 private:
@@ -12,7 +12,7 @@ private:
     void ReadVectorFromFile(const std::string & fileName);
     void CoutArray(const std::string & message, const std::vector<int> & vec);
 
-    IMergeSortCalculator & m_calc;
+    ISortCalculator & m_calc;
     std::vector<int> m_fileVec;
 };
 

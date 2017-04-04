@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CalculatorAgregator.h"
 
-CCalculatorAggregator::CCalculatorAggregator(IMergeSortCalculator & calc, const std::string & filename)
+CCalculatorAggregator::CCalculatorAggregator(ISortCalculator & calc, const std::string & filename)
     : m_calc(calc)
 {
     ReadVectorFromFile(filename);

@@ -142,13 +142,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\..\Desktop\lw5\Bochkarev_Maxim\lw5\MonteCarloPiCalculator.h" />
-    <ClInclude Include="ParallelPiCalculator.h" />
+    <ClInclude Include="AbstractMonteCarloPiCalculator.h" />
+    <ClInclude Include="MonteCarloPiCalculator.h" />
+    <ClInclude Include="ParallelMonteCarloPiCalculator.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\..\Desktop\lw5\Bochkarev_Maxim\lw5\MonteCarloPiCalculator.cpp" />
-    <ClCompile Include="ParallelPiCalculator.cpp" />
+    <ClCompile Include="AbstractMonteCarloPiCalculator.cpp" />
+    <ClCompile Include="MonteCarloPiCalculator.cpp" />
+    <ClCompile Include="ParallelMonteCarloPiCalculator.cpp" />
     <ClCompile Include="pp6.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

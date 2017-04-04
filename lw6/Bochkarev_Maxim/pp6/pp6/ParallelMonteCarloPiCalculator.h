@@ -1,6 +1,7 @@
 ﻿#pragma once
+#include "AbstractMonteCarloPiCalculator.h"
 
-class ParallelPiCalculator
+class ParallelMonteCarloPiCalculator: AbstractMonteCarloPiCalculator
 {
 public:
 	static double GetPi(const int iterNum);

@@ -13,6 +13,7 @@ CMonteCarloPiCalculator::~CMonteCarloPiCalculator()
 
 double CMonteCarloPiCalculator::GetPi(double numIter)
 {
+	srand(time(NULL));
 	double result = 4.0 * double(CalculateHits(numIter)) / numIter;
 	return result;
 }

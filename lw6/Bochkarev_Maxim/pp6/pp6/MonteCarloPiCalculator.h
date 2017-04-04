@@ -1,8 +1,9 @@
 #pragma once
 #define RAND_MAX 0x7fff
 #include <stdlib.h>
+#include "AbstractMonteCarloPiCalculator.h"
 
-class CMonteCarloPiCalculator
+class CMonteCarloPiCalculator: AbstractMonteCarloPiCalculator
 {
 public:
 	CMonteCarloPiCalculator();

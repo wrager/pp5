@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <sstream>
 #include "MonteCarloPiCalculator.h"
-#include "ParallelPiCalculator.h"
+#include "ParallelMonteCarloPiCalculator.h"
 #include <chrono>
 
 using namespace std;
@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 
 	t1 = chrono::high_resolution_clock::now();
 	cout << "Programm started parallel Monte Carlo Pi Calculation with " << iterNum << " iterations.\n";
-	cout << ParallelPiCalculator::GetPi(iterNum) << endl;
+	cout << ParallelMonteCarloPiCalculator::GetPi(iterNum) << endl;
 	t2 = chrono::high_resolution_clock::now();
 	cout << "Process took: " << chrono::duration_cast< chrono::milliseconds>(t2 - t1).count() << " milliseconds\n";
 

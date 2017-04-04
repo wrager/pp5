@@ -1,11 +1,11 @@
 ﻿#include "stdafx.h"
-#include "ParallelPiCalculator.h"
+#include "ParallelMonteCarloPiCalculator.h"
 #include <thread>
 #include <vector>
 #include "MonteCarloPiCalculator.h"
 #include <mutex>
 
-double ParallelPiCalculator::GetPi(const int iterNum)
+double ParallelMonteCarloPiCalculator::GetPi(const int iterNum)
 {
 	const unsigned int procNum = std::thread::hardware_concurrency();
 	int iterationForProccess = ceil(iterNum / procNum);
@@ -14,17 +14,17 @@ double ParallelPiCalculator::GetPi(const int iterNum)
 
 	for (auto i = 0; i < procNum; ++i)
 	{
-		threads.push_back(std::thread(ParallelPiCalculator::PiCalculationCallback, std::ref(result), iterationForProccess));
+		threads.push_back(std::thread(ParallelMonteCarloPiCalculator::PiCalculationCallback, std::ref(result), iterationForProccess));
 	}
 	for (auto i = 0; i < threads.size(); i++)
 	{
 		threads.at(i).join();
 	}
 
-	return result / 4.0;
+	return result / procNum;
 }
 
-void ParallelPiCalculator::PiCalculationCallback(double & result, int iterNum)
+void ParallelMonteCarloPiCalculator::PiCalculationCallback(double & result, int iterNum)
 {
 	std::mutex mutex;
 	mutex.lock();

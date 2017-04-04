@@ -1,6 +1,4 @@
 #pragma once
-#include "stdafx.h"
-
 class Merge
 {
 public:
@@ -9,7 +7,7 @@ public:
 	void MergeSorting(std::vector<int> &vec, int l, int r);
 
 private:
-/*	std::vector<int> v;
-//	std::vector<int> vec;
-	std::vector<int> filledArray;*/
+	std::vector<int> v;
+	std::vector<int> vec;
+	std::vector<int> filledArray;
 };

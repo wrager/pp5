@@ -7,9 +7,17 @@ CBatcherSort::CBatcherSort(std::string inputFilename, std::string outputFilename
 {
 }
 
-void CBatcherSort::Execute()
+void CBatcherSort::Execute(SortType type)
 {
-	WriteResult(Sort(ReadStart()));
+	if (type == SortType::SIMPLE_MERGE)
+	{
+		WriteResult(SimpleMergeSort(ReadStart()));
+	}
+	else
+	{
+		BatcherSort(ReadStart());
+		WriteResult(m_startVec);
+	}
 }
 
 std::vector<int> CBatcherSort::MergeVectors(std::vector<int> vec1, std::vector<int> vec2)
@@ -43,15 +51,14 @@ std::vector<int> CBatcherSort::MergeVectors(std::vector<int> vec1, std::vector<i
 	return resultVec;
 }
 
-std::vector<std::vector<int>> CBatcherSort::ReadStart()
+std::vector<int> CBatcherSort::ReadStart()
 {
 	std::ifstream in(m_input);
-	std::vector<std::vector<int>> temp;
+	std::vector<int> temp;
 	int num;
 	while (in >> num)
 	{
-		temp.push_back(std::vector<int>());
-		temp.back().push_back(num);
+		temp.push_back(num);
 	}
 	in.close();
 	return temp;
@@ -67,23 +74,32 @@ void CBatcherSort::WriteResult(std::vector<int> result)
 	out.close();
 }
 
-std::vector<int> CBatcherSort::Sort(std::vector<std::vector<int>> & start)
+std::vector<int> CBatcherSort::SimpleMergeSort(std::vector<int> & source)
 {
-	while (start.size() > 1)
+	std::vector<std::vector<int>> splitedStart;
+
+	for (int i = 0; i < source.size(); i++)
+	{
+		splitedStart.push_back({ source[i] });
+	}
+
+	while (splitedStart.size() > 1)
 	{
 		std::vector<std::vector<int>> temp;
+
 #pragma omp parallel for
-		for (int i = 0; i < int(start.size()); i += 2)
+		for (int i = 0; i < splitedStart.size(); i += 2)
 		{
 			std::vector<std::vector<int>> result;
-			if (i + 1 >= start.size())
+			if (i + 1 >= splitedStart.size())
 			{
-				result.push_back(start[i]);
+				result.push_back(splitedStart[i]);
 			}
-			else if (i + 1 < start.size())
+			else if (i + 1 < splitedStart.size())
 			{
-				result.push_back(MergeVectors(start[i], start[i + 1]));
+				result.push_back(MergeVectors(splitedStart[i], splitedStart[i + 1]));
 			}
+
 #pragma omp critical
 			{
 				for (auto &it : result)
@@ -92,7 +108,51 @@ std::vector<int> CBatcherSort::Sort(std::vector<std::vector<int>> & start)
 				}
 			}
 		}
-		start = temp;
+		splitedStart = temp;
 	}
-	return start[0];
+	return splitedStart[0];
 }
+
+void CBatcherSort::BatcherSort(std::vector<int> & source)
+{
+	m_startVec = source;
+	OddEvenMergeSort(0, m_startVec.size());
+}
+
+void  CBatcherSort::OddEvenMergeSort(int pos, int count)
+{
+	if (count > 1)
+	{
+		int half = count / 2;
+#pragma omp parallel sections
+		{
+#pragma omp section
+			OddEvenMergeSort(pos, half);
+#pragma omp section
+			OddEvenMergeSort(pos + half, half);
+		}
+		OddEvenMerge(pos, count, 1);
+	}
+}
+
+void  CBatcherSort::OddEvenMerge(int pos, int count, int compareDistance)
+{
+	int counter = compareDistance * 2;
+	if (counter < count)
+	{
+		OddEvenMerge(pos, count, counter);
+		OddEvenMerge(pos + compareDistance, count, counter);
+		for (int i = pos + compareDistance; i + compareDistance<pos + count; i += counter)
+			Compare(i, i + compareDistance);
+	}
+	else
+		Compare(pos, pos + compareDistance);
+}
+
+void  CBatcherSort::Compare(int i, int j)
+{
+	if (m_startVec[i] > m_startVec[j]) {
+		std::swap(m_startVec[i], m_startVec[j]);
+	}
+}
+

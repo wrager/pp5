@@ -142,14 +142,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\..\..\..\..\..\..\Desktop\lw5\Bochkarev_Maxim\lw5\MonteCarloPiCalculator.h" />
+    <ClInclude Include="ParallelPiCalculator.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\..\Desktop\lw5\Bochkarev_Maxim\lw5\MonteCarloPiCalculator.cpp" />
+    <ClCompile Include="ParallelPiCalculator.cpp" />
     <ClCompile Include="pp6.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -82,30 +82,38 @@ std::vector<int> CBatcherSort::SimpleMergeSort(std::vector<int> & source)
 	{
 		splitedStart.push_back({ source[i] });
 	}
-
+	std::mutex mutex;
 	while (splitedStart.size() > 1)
 	{
 		std::vector<std::vector<int>> temp;
-
-#pragma omp parallel for
-		for (int i = 0; i < splitedStart.size(); i += 2)
+		for (int i = 0; i < splitedStart.size() - 1; i += 2)
 		{
-			std::vector<std::vector<int>> result;
-			if (i + 1 >= splitedStart.size())
-			{
-				result.push_back(splitedStart[i]);
-			}
-			else if (i + 1 < splitedStart.size())
-			{
-				result.push_back(MergeVectors(splitedStart[i], splitedStart[i + 1]));
-			}
+			m_simpleThreadPool.emplace_back(std::thread([&] {
+				int b = i;
+				std::vector<std::vector<int>> result;
+				if (b + 1 >= splitedStart.size())
+				{
+					result.push_back(splitedStart[b]);
+				}
+				else if (b + 1 < splitedStart.size())
+				{
+					result.push_back(MergeVectors(splitedStart[b], splitedStart[b + 1]));
+				}
 
-#pragma omp critical
-			{
+				mutex.lock();
 				for (auto &it : result)
 				{
 					temp.push_back(it);
 				}
+				mutex.unlock();
+				
+			}));
+		}
+		for (auto & val : m_simpleThreadPool)
+		{
+			if (val.joinable())
+			{
+				val.join();
 			}
 		}
 		splitedStart = temp;

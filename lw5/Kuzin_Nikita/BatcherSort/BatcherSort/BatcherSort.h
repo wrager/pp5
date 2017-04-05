@@ -1,4 +1,7 @@
 #pragma once
+#include <thread>
+#include <mutex>
+
 class CBatcherSort
 {
 public:
@@ -12,6 +15,8 @@ private:
 
 	std::vector<int> SimpleMergeSort(std::vector<int> & source);
 
+	void ProcessStep(std::mutex & mutex, std::vector<std::vector<int>> splitedStart, std::vector<std::vector<int>> & temp);
+
 	void BatcherSort(std::vector<int> & source);
 
 	void OddEvenMergeSort(int lo, int n);
@@ -20,10 +25,10 @@ private:
 
 	void Compare(int i, int j);
 
-	void Exchange(int i, int j);
-
 	std::vector<int> m_startVec;
 	std::string m_input;
 	std::string m_output;
+
+	std::vector<std::thread> m_simpleThreadPool;
 };
 

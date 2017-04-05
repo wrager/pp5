@@ -8,7 +8,6 @@ public:
 	CCustomThread(CApplication *app);
 	void Run();
 	bool IsFinished();
-	//~CCustomThread();
 	void Checked();
 	bool IsChecked();
 private:

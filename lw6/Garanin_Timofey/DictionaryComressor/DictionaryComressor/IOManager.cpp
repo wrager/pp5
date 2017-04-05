@@ -7,7 +7,7 @@
 
 namespace
 {
-	std::string toString(std::pair<std::string, size_t> const &data)
+	std::string toString(std::pair<std::string, std::string> const &data)
 	{
 		std::ostringstream str;
 		str << data.first << ":" << data.second;
@@ -30,6 +30,11 @@ CIOManager::CIOManager()
 	: m_innerCount(0)
 {
 	setlocale(LC_ALL, "Russian");
+}
+
+int CIOManager::GetOrder() const
+{
+	return m_innerCount;
 }
 
 void CIOManager::SettingInputFile()
@@ -100,10 +105,10 @@ void CIOManager::SetOutputFileName(std::string const & name)
 	m_outputFileName = name;
 }
 
-void CIOManager::OutputDictionary(std::shared_ptr<std::unordered_map<std::string, size_t>> dictionary)
+void CIOManager::OutputDictionary(std::shared_ptr<std::unordered_map<std::string, std::string>> dictionary)
 {
 	std::ofstream file(m_dictionaryFileName, std::ios::app);
-	std::transform(dictionary->begin(), dictionary->end(), std::ostream_iterator<std::string>(file, ";"), toString);
+	std::transform(dictionary->begin(), dictionary->end(), std::ostream_iterator<std::string>(file, "\n"), toString);
 }
 
 void CIOManager::OutputProcessedText(std::shared_ptr<std::string> text)

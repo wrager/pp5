@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Repository.h"
 #include "IOManager.h"
 #include "Compressor.h"
 #include "Application.h"
@@ -12,7 +13,9 @@ bool ThreadFunction(CApplication *app)
 
 CApplication::CApplication(CIOManager *manager)
 	: m_iomanager(manager)
+	, m_nextThreadOrderForWrite(0)
 {
+	m_myRepository = CMyRepository();
 }
 
 void CApplication::SetInputFileName(std::string const &name)
@@ -57,7 +60,10 @@ void CApplication::ProcessFile()
 
 		}
 		threads.clear();
+
 		std::cout << "File processed" << std::endl;
+		OutputResultsInFile();
+		std::cout << "Results output in files" << std::endl;
 		return;
 	}
 	catch (std::runtime_error const &ex)
@@ -67,32 +73,50 @@ void CApplication::ProcessFile()
 	}
 }
 
-void CApplication::OutputResultsInFiles(CCompressor &compressor)
+void CApplication::SaveNewInformation(CCompressor &compressor)
 {
-	m_iomanager->OutputDictionary(compressor.GetAllDictionary());
-	m_iomanager->OutputProcessedText(compressor.GetAllProcessingText());
+	m_myRepository.SetNewDictionaryFragment(compressor.GetAllDictionary());
+	m_myRepository.SetNewTextFragment(compressor.GetAllProcessingText());
+}
+
+void CApplication::OutputResultsInFile()
+{
+	m_iomanager->OutputDictionary(m_myRepository.GetDictionary());
+	m_iomanager->OutputProcessedText(m_myRepository.GetText());
 }
 
 bool CApplication::EditNextFragment()
 {
-	std::mutex mutex;
 	try
 	{
-		
-		mutex.lock();
+		m_mutex.lock();
+		CCompressor compressor(m_iomanager->GetOrder());
 		auto dataPtr = m_iomanager->GetViewMappingFile();
-		mutex.unlock();
-		CCompressor compressor;
+		m_mutex.unlock();
 		compressor.SetTextFragment(dataPtr);
 		compressor.SetLengthFragment(m_iomanager->GetSizeView());
-		
 		compressor.EditFragment();
-		this->OutputResultsInFiles(compressor);
+
+		while (true)
+		{
+			if (compressor.GetOrder() == m_nextThreadOrderForWrite)
+			{
+				m_mutex.lock();
+				SaveNewInformation(compressor);
+				m_mutex.unlock();
+				++m_nextThreadOrderForWrite;
+				break;
+			}
+			else
+			{
+				std::this_thread::sleep_for(std::chrono::seconds(2));
+			}
+		}
 		return true;
 	}
 	catch (std::runtime_error const &ex)
 	{
-		mutex.unlock();
+		m_mutex.unlock();
 		return false;
 	}
 }

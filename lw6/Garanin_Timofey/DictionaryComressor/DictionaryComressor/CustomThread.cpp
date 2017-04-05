@@ -2,6 +2,7 @@
 #include <thread>
 #include "IOManager.h"
 #include "Compressor.h"
+#include "Repository.h"
 #include "Application.h"
 #include "CustomThread.h"
 
@@ -20,11 +21,6 @@ CCustomThread::CCustomThread(CApplication *app)
 	, m_isFinished(false)
 	, m_isChecked(false)
 {}
-
-/*CCustomThread::~CCustomThread()
-{
-	m_app = nullptr;
-}*/
 
 void CCustomThread::Run()
 {

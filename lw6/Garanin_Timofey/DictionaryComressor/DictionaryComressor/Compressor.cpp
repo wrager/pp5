@@ -5,12 +5,15 @@
 #include <sstream>
 #include <stdlib.h>
 
+static const int RESERVED_NUMBER_WORDS = 5000;
 
-CCompressor::CCompressor()
+
+CCompressor::CCompressor(size_t order)
 {
+	m_order = order;
 	m_punctuation = { ',', '.', ';', ':', '?', '!', '-', '(', ')', '\'', '\"', ' ' };
 	m_specials = { '\n', '\t', '\r', '\f', '\b' };
-	m_dictionary = std::make_shared<std::unordered_map<std::string, size_t>>();
+	m_dictionary = std::make_shared<std::unordered_map<std::string, std::string>>();
 	m_textFragmentAfterProcessing = std::make_shared<std::string>();
 }
 
@@ -46,19 +49,22 @@ void CCompressor::EditFragment()
 			{
 				int number = 0;
 				std::transform(word.begin(), word.end(), word.begin(), ::tolower);
+				std::stringstream ss;
+				
+				std::string cv("");
 				if (m_dictionary->count(word) > 0)
 				{
-					number = (int)m_dictionary->at(word);
+					number = std::stoi(m_dictionary->at(word));
+					ss << number;
 				}
 				else
 				{
-					m_dictionary->insert(std::pair<std::string, size_t>(word, m_dictionary->size()));
-					number = (int)m_dictionary->size() - 1;
+					number = m_order * RESERVED_NUMBER_WORDS + m_dictionary->size();
+					ss << number;
+					m_dictionary->insert(std::pair<std::string, std::string>(word, std::string(ss.str())));
 				}
-
-				std::stringstream ss;
-				ss << number;
-				std::string cv(ss.str());
+				cv = std::string(ss.str());
+				
 
 				m_textFragmentAfterProcessing->insert(m_textFragmentAfterProcessing->end(), cv.begin(), cv.end());
 				if (!IsSpecials(m_pTextFragment[i]))
@@ -85,7 +91,12 @@ void CCompressor::EditFragment()
 	}
 }
 
-std::shared_ptr<std::unordered_map<std::string, size_t>> CCompressor::GetAllDictionary() const
+int CCompressor::GetOrder()
+{
+	return m_order;
+}
+
+std::shared_ptr<std::unordered_map<std::string, std::string>> CCompressor::GetAllDictionary() const
 {
 	return m_dictionary;
 }

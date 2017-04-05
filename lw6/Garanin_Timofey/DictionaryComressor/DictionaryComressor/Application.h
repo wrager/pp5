@@ -11,7 +11,11 @@ public:
 	bool EditNextFragment();
 	~CApplication();
 private:
-	void OutputResultsInFiles(CCompressor &compressor);
+	void SaveNewInformation(CCompressor &compressor);
+	void OutputResultsInFile();
 private:
+	CMyRepository m_myRepository;
 	CIOManager *m_iomanager = nullptr;
+	std::mutex m_mutex;
+	int m_nextThreadOrderForWrite;
 };

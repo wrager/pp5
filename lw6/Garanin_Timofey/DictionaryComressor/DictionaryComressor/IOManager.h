@@ -10,12 +10,13 @@ class CIOManager
 public:
 	CIOManager(std::string const &inFile, std::string const &outFile);
 	CIOManager();
+	int GetOrder() const;
 	void SettingInputFile();
 	char* GetViewMappingFile();
 	size_t GetSizeView() const;
 	void SetInputFileName(std::string const &name);
 	void SetOutputFileName(std::string const &name);
-	void OutputDictionary(std::shared_ptr<std::unordered_map<std::string, size_t>> dictionary);
+	void OutputDictionary(std::shared_ptr<std::unordered_map<std::string, std::string>> dictionary);
 	void OutputProcessedText(std::shared_ptr<std::string> text);
 	~CIOManager();
 	

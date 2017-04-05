@@ -22,7 +22,7 @@ public:
 private:
 	void OpenFileForReading();
 	void CreateMemoryMappingFile();
-
+	void ClearFile(std::string const &file);
 private:
 	std::string m_inputFileName;
 	std::string m_outputFileName;

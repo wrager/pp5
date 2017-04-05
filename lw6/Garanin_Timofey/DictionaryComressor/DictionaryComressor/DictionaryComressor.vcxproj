@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Compressor.h" />
+    <ClInclude Include="CustomThread.h" />
     <ClInclude Include="IOManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SingletonSystemInfo.h" />
@@ -155,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Compressor.cpp" />
+    <ClCompile Include="CustomThread.cpp" />
     <ClCompile Include="DictionaryComressor.cpp" />
     <ClCompile Include="IOManager.cpp" />
     <ClCompile Include="stdafx.cpp">

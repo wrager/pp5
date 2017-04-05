@@ -11,7 +11,6 @@ public:
 	void EditFragment();
 	std::shared_ptr<std::unordered_map<std::string, size_t>> GetAllDictionary() const;
 	std::shared_ptr<std::string> GetAllProcessingText();
-	~CCompressor() = default;
 private:
 	bool IsPunctuaion(char c);
 	bool IsSpecials(char c);

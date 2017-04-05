@@ -21,6 +21,8 @@ CIOManager::CIOManager(std::string const & inFile, std::string const & outFile)
 	, m_dictionaryFileName("dictionary.txt")
 	, m_innerCount(0)
 {
+	ClearFile(m_outputFileName);
+	ClearFile(m_dictionaryFileName);
 	setlocale(LC_ALL, "Russian");
 }
 
@@ -49,9 +51,9 @@ char* CIOManager::GetViewMappingFile()
 	{
 		if (m_remainderLength < 0)
 		{
-			std::cout << "File ended" << std::endl;
 			throw std::runtime_error("File ended");
 		}
+		DWORD lastError1 = GetLastError();
 		auto allocationGranularity = CSingletonSystemInfo::GetInstance()->GetAllocationGranularity();
 		char* data = nullptr;
 		if (m_remainderLength < allocationGranularity)
@@ -66,7 +68,7 @@ char* CIOManager::GetViewMappingFile()
 		}
 		m_remainderLength -= allocationGranularity;
 		DWORD lastError = GetLastError();
-		if (lastError != 0)
+		if (lastError != 0 && lastError1 != lastError)
 		{
 			std::cout << "Failed to come at view mapping file. Error: " << lastError << std::endl;
 			throw std::runtime_error("Failed to come at view mapping file");
@@ -100,13 +102,13 @@ void CIOManager::SetOutputFileName(std::string const & name)
 
 void CIOManager::OutputDictionary(std::shared_ptr<std::unordered_map<std::string, size_t>> dictionary)
 {
-	std::ofstream file(m_dictionaryFileName);
+	std::ofstream file(m_dictionaryFileName, std::ios::app);
 	std::transform(dictionary->begin(), dictionary->end(), std::ostream_iterator<std::string>(file, ";"), toString);
 }
 
 void CIOManager::OutputProcessedText(std::shared_ptr<std::string> text)
 {
-	std::ofstream file(m_outputFileName);
+	std::ofstream file(m_outputFileName, std::ios::app);
 	file << text->data();
 }
 
@@ -130,7 +132,6 @@ void CIOManager::OpenFileForReading()
 
 		if (m_fileHandle == INVALID_HANDLE_VALUE)
 		{
-			std::cout << "File Not Opened! " + GetLastError() + '\n';
 			throw std::runtime_error("File Not Opened! " + GetLastError());
 		}
 		else
@@ -171,4 +172,10 @@ void CIOManager::CreateMemoryMappingFile()
 	{
 		throw ex;
 	}
+}
+
+void CIOManager::ClearFile(std::string const & file)
+{
+	std::ofstream f(file);
+	f.clear();
 }

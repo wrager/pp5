@@ -43,41 +43,17 @@ void Merge::mergeProcess(std::vector<int>& vec, int l, int m, int r)
 	std::copy(temp.begin(), temp.end(), vec.begin() + l);
 }
 
-void MergeSorting(std::vector<int>& vec, int l, int r)
+void Merge::MergeSorting(std::vector<int>& vec, int l, int r)
 {
 	Merge merge;
 	if (l < r) {
 		int m = (l + r) / 2;
-		std::thread sort_thread1([&vec, l, m] { MergeSorting(vec, l, m);});
-		std::thread sort_thread2([&vec, m, r] { MergeSorting(vec, m + 1, r); });
+		std::thread sort_thread1([&vec, l, m] { merge.MergeSorting(vec, l, m);});
+		std::thread sort_thread2([&vec, m, r] { merge.MergeSorting(vec, m + 1, r); });
 		sort_thread1.join();
 		sort_thread2.join();
 		merge.mergeProcess(vec, l, m, r);
 	}
 }
 
-int main(int argc, char *argv[])
-{
-	Merge merge;
-
-	if (argc > 1)
-	{
-		std::vector<int> v = merge.FillArray(std::string(argv[1]));
-		clock_t time = clock();
-		MergeSorting(v, 0, (v.size() - 1));
-		time = clock();
-		std::cout << "Manipulation time " << ((float)time) / CLOCKS_PER_SEC << " sec" << std::endl;
-
-		for (const int &a : v) {
-			std::cout << a << " ";
-		}
-
-		std::cout << std::endl;
-	}
-	else
-	{
-		std::cout << "not enough arguments. Example: mergesort.exe FileName.txt" << std::endl;
-	}
-	return 0;
-}
 

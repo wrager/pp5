@@ -7,48 +7,10 @@ CBatcherSort::CBatcherSort(std::string inputFilename, std::string outputFilename
 {
 }
 
-void CBatcherSort::Execute(SortType type)
+void CBatcherSort::Execute()
 {
-	if (type == SortType::SIMPLE_MERGE)
-	{
-		WriteResult(SimpleMergeSort(ReadStart()));
-	}
-	else
-	{
-		BatcherSort(ReadStart());
-		WriteResult(m_startVec);
-	}
-}
-
-std::vector<int> CBatcherSort::MergeVectors(std::vector<int> vec1, std::vector<int> vec2)
-{
-	std::vector<int> resultVec;
-	std::reverse(vec1.begin(), vec1.end());
-	std::reverse(vec2.begin(), vec2.end());
-	while (!vec1.empty() && !vec2.empty())
-	{
-		if (vec1.back() > vec2.back())
-		{
-			resultVec.push_back(vec2.back());
-			vec2.pop_back();
-		}
-		else
-		{
-			resultVec.push_back(vec1.back());
-			vec1.pop_back();
-		}
-	}
-	while (!vec1.empty())
-	{
-		resultVec.push_back(vec1.back());
-		vec1.pop_back();
-	}
-	while (!vec2.empty())
-	{
-		resultVec.push_back(vec2.back());
-		vec2.pop_back();
-	}
-	return resultVec;
+	BatcherSort(ReadStart());
+	WriteResult(m_startVec);
 }
 
 std::vector<int> CBatcherSort::ReadStart()
@@ -74,57 +36,10 @@ void CBatcherSort::WriteResult(std::vector<int> result)
 	out.close();
 }
 
-std::vector<int> CBatcherSort::SimpleMergeSort(std::vector<int> & source)
-{
-	std::vector<std::vector<int>> splitedStart;
-
-	for (int i = 0; i < source.size(); i++)
-	{
-		splitedStart.push_back({ source[i] });
-	}
-	std::mutex mutex;
-	while (splitedStart.size() > 1)
-	{
-		std::vector<std::vector<int>> temp;
-		for (int i = 0; i < splitedStart.size() - 1; i += 2)
-		{
-			m_simpleThreadPool.emplace_back(std::thread([&] {
-				int b = i;
-				std::vector<std::vector<int>> result;
-				if (b + 1 >= splitedStart.size())
-				{
-					result.push_back(splitedStart[b]);
-				}
-				else if (b + 1 < splitedStart.size())
-				{
-					result.push_back(MergeVectors(splitedStart[b], splitedStart[b + 1]));
-				}
-
-				mutex.lock();
-				for (auto &it : result)
-				{
-					temp.push_back(it);
-				}
-				mutex.unlock();
-				
-			}));
-		}
-		for (auto & val : m_simpleThreadPool)
-		{
-			if (val.joinable())
-			{
-				val.join();
-			}
-		}
-		splitedStart = temp;
-	}
-	return splitedStart[0];
-}
-
 void CBatcherSort::BatcherSort(std::vector<int> & source)
 {
 	m_startVec = source;
-	OddEvenMergeSort(0, m_startVec.size());
+	OddEvenMergeSort(0, (int) m_startVec.size());
 }
 
 void  CBatcherSort::OddEvenMergeSort(int pos, int count)

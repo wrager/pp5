@@ -44,9 +44,9 @@ void CIOManager::SettingInputFile()
 		OpenFileForReading();
 		CreateMemoryMappingFile();
 	}
-	catch (std::runtime_error)
+	catch (std::runtime_error const &ex)
 	{
-		return;
+		throw ex;
 	}
 }
 

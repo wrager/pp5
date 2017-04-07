@@ -59,7 +59,7 @@ void CCompressor::EditFragment()
 				}
 				else
 				{
-					number = m_order * RESERVED_NUMBER_WORDS + m_dictionary->size();
+					number = static_cast<int>(m_order) * RESERVED_NUMBER_WORDS + static_cast<int>(m_dictionary->size());
 					ss << number;
 					m_dictionary->insert(std::pair<std::string, std::string>(word, std::string(ss.str())));
 				}
@@ -91,7 +91,7 @@ void CCompressor::EditFragment()
 	}
 }
 
-int CCompressor::GetOrder()
+size_t CCompressor::GetOrder()
 {
 	return m_order;
 }

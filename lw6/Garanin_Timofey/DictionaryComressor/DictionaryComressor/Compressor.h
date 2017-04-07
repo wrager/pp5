@@ -9,7 +9,7 @@ public:
 	void SetTextFragment(char * text);
 	void SetLengthFragment(size_t length);
 	void EditFragment();
-	int GetOrder();
+	size_t GetOrder();
 	std::shared_ptr<std::unordered_map<std::string, std::string>> GetAllDictionary() const;
 	std::shared_ptr<std::string> GetAllProcessingText();
 private:

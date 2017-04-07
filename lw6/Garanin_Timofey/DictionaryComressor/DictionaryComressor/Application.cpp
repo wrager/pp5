@@ -5,9 +5,12 @@
 #include "Application.h"
 #include "CustomThread.h"
 
-bool ThreadFunction(CApplication *app)
+namespace
 {
-	return app->EditNextFragment();
+	bool ThreadFunction(CApplication *app)
+	{
+		return app->EditNextFragment();
+	}
 }
 
 
@@ -42,7 +45,7 @@ void CApplication::ProcessFile()
 			threads.back()->Run();
 		}
 		while (ThreadFunction(this)) {}
-		int i = threads.size() - 1;
+		int i = static_cast<int>(threads.size()) - 1;
 		int numberThreadsFinishedWorking = 0;
 		while (numberThreadsFinishedWorking < threads.size())
 		{
@@ -54,8 +57,8 @@ void CApplication::ProcessFile()
 			--i;
 			if (i == -1)
 			{
-				i = threads.size() - 1;
-				std::this_thread::sleep_for(std::chrono::seconds(2));
+				i = static_cast<int>(threads.size()) - 1;
+				std::this_thread::sleep_for(std::chrono::milliseconds(500));
 			}
 
 		}
@@ -114,7 +117,7 @@ bool CApplication::EditNextFragment()
 		}
 		return true;
 	}
-	catch (std::runtime_error const &ex)
+	catch (std::runtime_error)
 	{
 		m_mutex.unlock();
 		return false;

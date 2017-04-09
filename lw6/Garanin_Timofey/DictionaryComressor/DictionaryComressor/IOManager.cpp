@@ -161,11 +161,13 @@ void CIOManager::CreateMemoryMappingFile()
 {
 	try
 	{
+		DWORDLONG availPhys = CSingletonSystemInfo::GetInstance()->GetUllAvailPhys();
+		DWORD size = DWORDLONG(m_remainderLength) < availPhys ? DWORD(m_remainderLength) : DWORD(availPhys);
 		m_mappingFileHandle = CreateFileMapping(m_fileHandle,
 			NULL,
 			PAGE_READWRITE,
 			0,
-			0,//DWORD(lpFreeBytesAvailable / 5),
+			size,
 			TEXT("MyFileMappingObject"));
 		if (m_mappingFileHandle == NULL)
 		{

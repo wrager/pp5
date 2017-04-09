@@ -9,6 +9,8 @@ public:
 	DWORD GetAllocationGranularity() const;
 	DWORD_PTR GetActiveProcessorMask() const;
 	DWORD GetNumberOfProcessors() const;
+	DWORDLONG GetUllAvailPhys() const;
+	void Output();
 private:
 	CSingletonSystemInfo();
 	CSingletonSystemInfo(const CSingletonSystemInfo&);
@@ -16,4 +18,5 @@ private:
 private:
 	static CSingletonSystemInfo * m_pInstance;
 	SYSTEM_INFO m_systemInfo;
+	MEMORYSTATUSEX m_statex;
 };

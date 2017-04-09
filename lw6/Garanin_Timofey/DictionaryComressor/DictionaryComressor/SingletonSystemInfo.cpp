@@ -6,6 +6,8 @@ CSingletonSystemInfo * CSingletonSystemInfo::m_pInstance = 0;
 CSingletonSystemInfo::CSingletonSystemInfo()
 {
 	GetSystemInfo((LPSYSTEM_INFO)&m_systemInfo);
+	m_statex.dwLength = sizeof(m_statex);
+	GlobalMemoryStatusEx(&m_statex);
 }
 
 CSingletonSystemInfo * CSingletonSystemInfo::GetInstance()
@@ -35,6 +37,17 @@ DWORD_PTR CSingletonSystemInfo::GetActiveProcessorMask() const
 DWORD CSingletonSystemInfo::GetNumberOfProcessors() const
 {
 	return m_systemInfo.dwNumberOfProcessors;
+}
+
+DWORDLONG CSingletonSystemInfo::GetUllAvailPhys() const
+{
+	return m_statex.ullAvailPhys;
+}
+
+void CSingletonSystemInfo::Output()
+{
+	std::cout << "m_statex.ullAvailPhys = " << m_statex.ullAvailPhys << std::endl;
+	std::cout << "m_statex.ullTotalPhys = " << m_statex.ullTotalPhys << std::endl;
 }
 
 

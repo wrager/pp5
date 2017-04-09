@@ -31,9 +31,6 @@ void CApplication::SetOutputFileName(std::string const &name)
 	m_iomanager->SetOutputFileName(name);
 }
 
-
-//TODO: переделать , сделать общий репозиторий
-//TODO: переделать на оперативную память
 void CApplication::ProcessFile()
 {
 	try

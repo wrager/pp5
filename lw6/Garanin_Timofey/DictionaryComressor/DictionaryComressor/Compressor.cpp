@@ -1,16 +1,16 @@
 #include "stdafx.h"
+#include "Repository.h"
 #include "Compressor.h"
 #include <cctype>
 #include <algorithm>
 #include <sstream>
 #include <stdlib.h>
 
-static const int RESERVED_NUMBER_WORDS = 5000;
-
-
-CCompressor::CCompressor(size_t order)
+CCompressor::CCompressor(size_t order, CMyRepository *repository, std::mutex *mutex)
 {
+	m_mutex = mutex;
 	m_order = order;
+	m_repository = repository;
 	m_punctuation = { ',', '.', ';', ':', '?', '!', '-', '(', ')', '\'', '\"', ' ' };
 	m_specials = { '\n', '\t', '\r', '\f', '\b' };
 	m_dictionary = std::make_shared<std::unordered_map<std::string, std::string>>();
@@ -50,22 +50,24 @@ void CCompressor::EditFragment()
 				int number = 0;
 				std::transform(word.begin(), word.end(), word.begin(), ::tolower);
 				std::stringstream ss;
-				
-				std::string cv("");
-				if (m_dictionary->count(word) > 0)
+
+				m_mutex->lock();
+				auto dict = m_repository->GetDictionary();
+				if (dict->count(word) > 0)
 				{
-					number = std::stoi(m_dictionary->at(word));
+					
+					number = std::stoi(dict->at(word));
 					ss << number;
 				}
 				else
 				{
-					number = static_cast<int>(m_order) * RESERVED_NUMBER_WORDS + static_cast<int>(m_dictionary->size());
+					number = static_cast<int>(dict->size());
 					ss << number;
-					m_dictionary->insert(std::pair<std::string, std::string>(word, std::string(ss.str())));
+					dict->insert(std::pair<std::string, std::string>(word, std::string(ss.str())));
 				}
-				cv = std::string(ss.str());
+				m_mutex->unlock();
 				
-
+				std::string cv = std::string(ss.str());
 				m_textFragmentAfterProcessing->insert(m_textFragmentAfterProcessing->end(), cv.begin(), cv.end());
 				if (!IsSpecials(m_pTextFragment[i]))
 				{

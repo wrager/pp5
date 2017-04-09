@@ -1,5 +1,7 @@
 #pragma once
 
+class CThreadWrapper;
+
 class CApplication
 {
 public:
@@ -10,6 +12,7 @@ public:
 	void ProcessFile();
 	bool EditNextFragment();
 	void OutputResultsInFile();
+	void ThreadFunction();
 	~CApplication();
 private:
 	void SaveNewInformation(CCompressor &compressor);
@@ -18,6 +21,7 @@ private:
 	CMyRepository m_myRepository;
 	CIOManager *m_iomanager = nullptr;
 	std::mutex m_mutex;
+	std::mutex m_mutexForCompressor;
 	int m_nextThreadOrderForWrite;
 	std::vector<CThreadWrapper*> m_threads;
 };

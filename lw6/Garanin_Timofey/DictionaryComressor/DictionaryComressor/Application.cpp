@@ -1,8 +1,18 @@
 #include "stdafx.h"
-#include "Repository.h"
 #include "IOManager.h"
+#include "Repository.h"
 #include "Compressor.h"
 #include "Application.h"
+#include "ThreadWrapper.h"
+
+
+namespace
+{
+	void ThreadFunction(CApplication *app)
+	{
+		app->EditNextFragment();
+	}
+}
 
 CApplication::CApplication(CIOManager *manager)
 	: m_iomanager(manager)
@@ -22,7 +32,6 @@ void CApplication::SetOutputFileName(std::string const &name)
 }
 
 
-//TODO: переделать логику с потоками
 //TODO: переделать , сделать общий репозиторий
 //TODO: переделать на оперативную память
 void CApplication::ProcessFile()
@@ -34,13 +43,11 @@ void CApplication::ProcessFile()
 		for (size_t i = 0; i != CSingletonSystemInfo::GetInstance()->GetNumberOfProcessors(); ++i)
 		{
 			m_threads.push_back(new CThreadWrapper(this));
-			m_threads.back()->Run();
 		}
+		Wait();
 		m_threads.clear();
 
 		std::cout << "File processed" << std::endl;
-		OutputResultsInFile();
-		std::cout << "Results output in files" << std::endl;
 		return;
 	}
 	catch (std::runtime_error const &ex)
@@ -52,7 +59,6 @@ void CApplication::ProcessFile()
 
 void CApplication::SaveNewInformation(CCompressor &compressor)
 {
-	m_myRepository.SetNewDictionaryFragment(compressor.GetAllDictionary());
 	m_myRepository.SetNewTextFragment(compressor.GetAllProcessingText());
 }
 
@@ -60,6 +66,11 @@ void CApplication::OutputResultsInFile()
 {
 	m_iomanager->OutputDictionary(m_myRepository.GetDictionary());
 	m_iomanager->OutputProcessedText(m_myRepository.GetText());
+}
+
+void CApplication::ThreadFunction()
+{
+	while (EditNextFragment()) {}
 }
 
 void CApplication::Wait() const
@@ -75,7 +86,7 @@ bool CApplication::EditNextFragment()
 	try
 	{
 		m_mutex.lock();
-		CCompressor compressor(m_iomanager->GetOrder());
+		CCompressor compressor(m_iomanager->GetOrder(), &m_myRepository, &m_mutexForCompressor);
 		auto dataPtr = m_iomanager->GetViewMappingFile();
 		m_mutex.unlock();
 		compressor.SetTextFragment(dataPtr);
@@ -94,7 +105,7 @@ bool CApplication::EditNextFragment()
 			}
 			else
 			{
-				std::this_thread::sleep_for(std::chrono::seconds(2));
+				std::this_thread::sleep_for(std::chrono::seconds(1));
 			}
 		}
 		return true;

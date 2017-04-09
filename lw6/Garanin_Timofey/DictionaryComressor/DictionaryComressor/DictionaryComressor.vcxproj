@@ -147,7 +147,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Compressor.h" />
-    <ClInclude Include="CustomThread.h" />
+    <ClInclude Include="ThreadWrapper.h" />
     <ClInclude Include="IOManager.h" />
     <ClInclude Include="Repository.h" />
     <ClInclude Include="stdafx.h" />
@@ -158,7 +158,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Compressor.cpp" />
     <ClCompile Include="Repository.cpp" />
-    <ClCompile Include="CustomThread.cpp" />
+    <ClCompile Include="ThreadWrapper.cpp" />
     <ClCompile Include="DictionaryComressor.cpp" />
     <ClCompile Include="IOManager.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -9,11 +9,7 @@ CMyRepository::CMyRepository()
 
 void CMyRepository::SetNewDictionaryFragment(std::shared_ptr<std::unordered_map<std::string, std::string>> dictionaryFragment)
 {
-	for (auto it = dictionaryFragment->begin(); it != dictionaryFragment->end(); ++it)
-	{
-		m_dictionary->insert(m_dictionary->end(), { it->first, it->second });
-	}
-	std::string bc;
+	m_dictionary = dictionaryFragment;
 }
 
 void CMyRepository::SetNewTextFragment(std::shared_ptr<std::string> text)

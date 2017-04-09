@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	}
 	CApplication app(new CIOManager(argv[1], argv[2]));
 	app.ProcessFile();
-
+	app.OutputResultsInFile();
     return EXIT_SUCCESS;
 }
 

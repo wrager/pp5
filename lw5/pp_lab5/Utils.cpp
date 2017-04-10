@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "Utils.h"
 
-std::vector<int> CUtils::ReadNumbersFromStrm(std::istream & strm)
+std::vector<int> CUtils::ReadNumbersFromStrm(std::istream & stream)
 {
-	if (!strm)
+	if (!stream)
 	{
 		throw std::invalid_argument("Error in CUtils::ReadNumbersFromStrm. Input stream is not valid.");
 	}
@@ -11,7 +11,7 @@ std::vector<int> CUtils::ReadNumbersFromStrm(std::istream & strm)
 	std::string buffer;
 	std::vector<int> outputVec;
 
-	while (strm >> buffer)
+	while (stream >> buffer)
 	{
 		outputVec.push_back(atoi(buffer.c_str()));
 	}
@@ -28,10 +28,10 @@ void CUtils::PrintNumbersArray(const std::vector<int>& vec)
 	std::cout << std::endl;
 }
 
-void CUtils::TryToOpenFileStream(std::ifstream &strm, const std::string & filePath)
+void CUtils::TryToOpenFileStream(std::ifstream &stream, const std::string & filePath)
 {
-	strm.open(filePath);
-	if (!strm)
+	stream.open(filePath);
+	if (!stream)
 	{
 		throw std::invalid_argument("Error in CUtils::TryToOpenFileStream. File path \"" + filePath + "\" is not correct.");
 	}

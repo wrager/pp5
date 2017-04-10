@@ -1,12 +1,12 @@
 #include "stdafx.h"
-#include "Repository.h"
+#include "RepositoryProcessedData.h"
 #include "Compressor.h"
 #include <cctype>
 #include <algorithm>
 #include <sstream>
 #include <stdlib.h>
 
-CCompressor::CCompressor(size_t order, CMyRepository *repository, std::mutex *mutex)
+CCompressor::CCompressor(size_t order, CRepositoryProcessedData *repository, std::mutex *mutex)
 {
 	m_mutex = mutex;
 	m_order = order;

@@ -1,9 +1,9 @@
 #pragma once
 
-class CMyRepository
+class CRepositoryProcessedData
 {
 public:
-	CMyRepository();
+	CRepositoryProcessedData();
 	void SetNewDictionaryFragment(std::shared_ptr<std::unordered_map<std::string, std::string>> dictionaryFragment);
 	void SetNewTextFragment(std::shared_ptr<std::string> text);
 	std::shared_ptr<std::unordered_map<std::string, std::string>> GetDictionary() const;

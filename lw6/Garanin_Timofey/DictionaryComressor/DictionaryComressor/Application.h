@@ -18,7 +18,7 @@ private:
 	void SaveNewInformation(CCompressor &compressor);
 	void Wait() const;
 private:
-	CMyRepository m_myRepository;
+	CRepositoryProcessedData m_myRepository;
 	CIOManager *m_iomanager = nullptr;
 	std::mutex m_mutex;
 	std::mutex m_mutexForCompressor;

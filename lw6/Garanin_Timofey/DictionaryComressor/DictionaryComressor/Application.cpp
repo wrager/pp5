@@ -1,24 +1,15 @@
 #include "stdafx.h"
 #include "IOManager.h"
-#include "Repository.h"
+#include "RepositoryProcessedData.h"
 #include "Compressor.h"
 #include "Application.h"
 #include "ThreadWrapper.h"
-
-
-namespace
-{
-	void ThreadFunction(CApplication *app)
-	{
-		app->EditNextFragment();
-	}
-}
 
 CApplication::CApplication(CIOManager *manager)
 	: m_iomanager(manager)
 	, m_nextThreadOrderForWrite(0)
 {
-	m_myRepository = CMyRepository();
+	m_myRepository = CRepositoryProcessedData();
 }
 
 void CApplication::SetInputFileName(std::string const &name)
@@ -35,15 +26,17 @@ void CApplication::ProcessFile()
 {
 	try
 	{
-		m_iomanager->SettingInputFile();
-
-		for (size_t i = 0; i != CSingletonSystemInfo::GetInstance()->GetNumberOfProcessors(); ++i)
+		while (!m_iomanager->IsFileCompletelyReadOut())
 		{
-			m_threads.push_back(new CThreadWrapper(this));
-		}
-		Wait();
-		m_threads.clear();
+			m_iomanager->SettingInputFile();
 
+			for (size_t i = 0; i != CSingletonSystemInfo::GetInstance()->GetNumberOfProcessors(); ++i)
+			{
+				m_threads.push_back(new CThreadWrapper(this));
+			}
+			Wait();
+			m_threads.clear();
+		}
 		std::cout << "File processed" << std::endl;
 		return;
 	}

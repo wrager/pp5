@@ -20,6 +20,8 @@ CIOManager::CIOManager(std::string const & inFile, std::string const & outFile)
 	, m_outputFileName(outFile)
 	, m_dictionaryFileName("dictionary.txt")
 	, m_innerCount(0)
+	, m_roundMemoryMappingFile(0)
+	, m_isFileCompletelyReadOut(false)
 {
 	ClearFile(m_outputFileName);
 	ClearFile(m_dictionaryFileName);
@@ -37,11 +39,19 @@ int CIOManager::GetOrder() const
 	return m_innerCount;
 }
 
+bool CIOManager::IsFileCompletelyReadOut() const
+{
+	return m_isFileCompletelyReadOut;
+}
+
 void CIOManager::SettingInputFile()
 {
 	try
 	{
-		OpenFileForReading();
+		if (!m_fileHandle)
+		{
+			OpenFileForReading();
+		}
 		CreateMemoryMappingFile();
 	}
 	catch (std::runtime_error const &ex)
@@ -54,24 +64,24 @@ char* CIOManager::GetViewMappingFile()
 {
 	try
 	{
-		if (m_remainderLength < 0)
+		if (m_remainderLengthOfReadFragment < 0)
 		{
 			throw std::runtime_error("File ended");
 		}
 		DWORD lastError1 = GetLastError();
 		auto allocationGranularity = CSingletonSystemInfo::GetInstance()->GetAllocationGranularity();
 		char* data = nullptr;
-		if (m_remainderLength < allocationGranularity)
+		if (m_remainderLengthOfReadFragment < allocationGranularity)
 		{
-			data = (char*)MapViewOfFile(m_mappingFileHandle, FILE_MAP_READ, 0, allocationGranularity * m_innerCount++, m_remainderLength);
-			m_viewLength = m_remainderLength;
+			data = (char*)MapViewOfFile(m_mappingFileHandle, FILE_MAP_READ, 0, allocationGranularity * m_innerCount++, m_remainderLengthOfReadFragment);
+			m_viewLength = m_remainderLengthOfReadFragment;
 		}
 		else
 		{
 			data = (char*)MapViewOfFile(m_mappingFileHandle, FILE_MAP_READ, 0, allocationGranularity * m_innerCount++, allocationGranularity);
 			m_viewLength = allocationGranularity;
 		}
-		m_remainderLength -= allocationGranularity;
+		m_remainderLengthOfReadFragment -= allocationGranularity;
 		DWORD lastError = GetLastError();
 		if (lastError != 0 && lastError1 != lastError)
 		{
@@ -140,16 +150,13 @@ void CIOManager::OpenFileForReading()
 			throw std::runtime_error("File Not Opened! " + GetLastError());
 		}
 		else
+		{
 			std::cout << "File Opened!\n";
+		}
 
 		DWORD dwSizeHigh = 0, dwSizeLow = 0;
 		dwSizeLow = GetFileSize(m_fileHandle, &dwSizeHigh);
-		m_fileLenght = (dwSizeHigh * (MAXDWORD + 1)) + dwSizeLow;
-		m_remainderLength = m_fileLenght;
-		if (m_fileLenght > CSingletonSystemInfo::GetInstance()->GetAllocationGranularity())
-		{
-			m_fileLenght = CSingletonSystemInfo::GetInstance()->GetAllocationGranularity();
-		}
+		m_remainderLengthOfFileNotRead = (dwSizeHigh * (MAXDWORD + 1)) + dwSizeLow;
 	}
 	catch (std::runtime_error const &ex)
 	{
@@ -161,12 +168,25 @@ void CIOManager::CreateMemoryMappingFile()
 {
 	try
 	{
+		m_remainderLengthOfReadFragment = m_remainderLengthOfFileNotRead;
 		DWORDLONG availPhys = CSingletonSystemInfo::GetInstance()->GetUllAvailPhys();
-		DWORD size = DWORDLONG(m_remainderLength) < availPhys ? DWORD(m_remainderLength) : DWORD(availPhys);
+		DWORDLONG twentyPercentOfAvailPhys = availPhys / 5;
+		DWORD size;
+		if (DWORDLONG(m_remainderLengthOfReadFragment) < twentyPercentOfAvailPhys)
+		{
+			size = DWORD(m_remainderLengthOfReadFragment);
+			m_remainderLengthOfFileNotRead = 0;
+			m_isFileCompletelyReadOut = true;
+		}
+		else
+		{
+			size = DWORD(twentyPercentOfAvailPhys);
+			m_remainderLengthOfFileNotRead -= twentyPercentOfAvailPhys;
+		}
 		m_mappingFileHandle = CreateFileMapping(m_fileHandle,
 			NULL,
 			PAGE_READWRITE,
-			0,
+			m_roundMemoryMappingFile * size,
 			size,
 			TEXT("MyFileMappingObject"));
 		if (m_mappingFileHandle == NULL)

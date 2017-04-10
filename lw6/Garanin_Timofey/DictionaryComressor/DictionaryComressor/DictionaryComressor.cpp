@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "IOManager.h"
-#include "Repository.h"
+#include "RepositoryProcessedData.h"
 #include "Compressor.h"
 #include "Application.h"
 

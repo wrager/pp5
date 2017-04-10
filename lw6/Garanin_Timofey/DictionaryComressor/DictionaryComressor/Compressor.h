@@ -1,11 +1,9 @@
 #pragma once
 
- 
-
 class CCompressor
 {
 public:
-	CCompressor(size_t order, CMyRepository *repository, std::mutex *mutex);
+	CCompressor(size_t order, CRepositoryProcessedData *repository, std::mutex *mutex);
 	void SetTextFragment(char * text);
 	void SetLengthFragment(size_t length);
 	void EditFragment();
@@ -19,7 +17,7 @@ private:
 	char * m_pTextFragment = nullptr;
 	size_t m_length;
 	size_t m_order;
-	CMyRepository *m_repository;
+	CRepositoryProcessedData *m_repository;
 	std::mutex *m_mutex;
 	std::shared_ptr<std::unordered_map<std::string, std::string>> m_dictionary = nullptr;
 	std::shared_ptr<std::string> m_textFragmentAfterProcessing = nullptr;

@@ -7,7 +7,8 @@ public:
     CMergeSortCalculator() = default;
     CMergeSortCalculator(const std::vector<int>& vec);
 
-    void Sort(bool isParallel) override;
+protected:
+    void SortBehavior() override;
 
 private:
     void StartSort(size_t left, size_t right);

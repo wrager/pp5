@@ -16,6 +16,7 @@ void CBaseSortCalculator::WaitForMultiplyObjects(std::vector<std::thread>& threa
 void CBaseSortCalculator::Sort(bool isParallel)
 {
     m_isParallelEnabled = isParallel;
+    SortBehavior();
 }
 
 std::vector<int> CBaseSortCalculator::GetResult() const

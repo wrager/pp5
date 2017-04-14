@@ -6,9 +6,8 @@ CMergeSortCalculator::CMergeSortCalculator(const std::vector<int>& vec)
 {
 }
 
-void CMergeSortCalculator::Sort(bool isParallel)
+void CMergeSortCalculator::SortBehavior()
 {
-    CBaseSortCalculator::Sort(isParallel);
     StartSort(0, m_array.size() - 1);
 }
 

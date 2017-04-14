@@ -6,10 +6,8 @@ CShellSortCalculator::CShellSortCalculator(const std::vector<int>& vec)
 {
 }
 
-void CShellSortCalculator::Sort(bool isParallel)
+void CShellSortCalculator::SortBehavior()
 {
-    CBaseSortCalculator::Sort(isParallel);
-
     auto iterationFunc = [this](size_t end) {
         for (size_t i = 0; i < end; i++)
         {
@@ -42,7 +40,7 @@ void CShellSortCalculator::ShellIteration(size_t current, size_t half)
     {
         while (start > current && m_array[start - half] > m_array[start])
         {
-            size_t temp = m_array[start];
+            int temp = m_array[start];
             m_array[start] = m_array[start - half];
             m_array[start - half] = temp;
             start -= half;

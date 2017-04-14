@@ -12,6 +12,8 @@ protected:
     CBaseSortCalculator() = default;
     CBaseSortCalculator(const std::vector<int>& vec);
 
+    virtual void SortBehavior() = 0;
+
     void WaitForMultiplyObjects(std::vector<std::thread>& threads);
 
     std::vector<int> m_array;

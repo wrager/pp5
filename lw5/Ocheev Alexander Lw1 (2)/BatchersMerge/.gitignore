@@ -1,0 +1,10 @@
+/*.opendb
+/*.db
+/BatchersMerge/Debug/BatchersMerge.tlog/*.lastbuildstate
+/BatchersMerge/Debug/BatchersMerge.tlog/*.tlog
+/BatchersMerge/Debug/*.idb
+/ipch/BATCHERSMERGE-1c65cd4d/*.ipch
+/BatchersMerge/Release/BatchersMerge.tlog/*.tlog
+/Release/*.iobj
+/BatchersMerge/Release/BatchersMerge.tlog/BatchersMerge.lastbuildstate
+/Release

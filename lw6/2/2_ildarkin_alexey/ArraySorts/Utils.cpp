@@ -26,4 +26,13 @@ void PrintVector(const std::vector<int>& vec)
 	std::cout << std::endl;
 }
 
+double NotifyExecutionTime(const std::function<void()> &fn)
+{
+	auto begin = clock();
+	fn();
+	auto end = clock();
+
+	return double(end - begin) / CLOCKS_PER_SEC;
+}
+
 }

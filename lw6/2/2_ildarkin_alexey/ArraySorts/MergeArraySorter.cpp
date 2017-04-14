@@ -21,17 +21,18 @@ void CMergeArraySorter::MergeSort(size_t left, size_t right)
 	if (left < right)
 	{
 		const auto middle = static_cast<size_t>((left + right) / 2);
-		if (!m_isParallelMode)
-		{
-			MergeSort(left, middle);
-			MergeSort(middle + 1, right);
-		}
-		else
+		const auto hardwareThreadsContextsValid = (right - left + 1 == m_result.size() / std::thread::hardware_concurrency());
+		if (m_isParallelMode && hardwareThreadsContextsValid)
 		{
 			CThreadPool threadPool;
 			threadPool.AddThread(std::thread(&CMergeArraySorter::MergeSort, this, left, middle));
 			threadPool.AddThread(std::thread(&CMergeArraySorter::MergeSort, this, middle + 1, right));
 			threadPool.WaitForMultiplyObjects();
+		}
+		else
+		{
+			MergeSort(left, middle);
+			MergeSort(middle + 1, right);
 		}
 		Merge(left, middle, right);
 	}

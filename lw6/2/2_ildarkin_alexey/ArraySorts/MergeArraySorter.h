@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseArraySorter.h"
 
-class CMergeArraySorter
+class CMergeArraySorter final
 	: public CBaseArraySorter
 {
 public:

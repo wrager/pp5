@@ -143,13 +143,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="BaseArraySorter.h" />
     <ClInclude Include="IArraySorter.h" />
     <ClInclude Include="IArraySorter_fwd.h" />
     <ClInclude Include="MergeArraySorter.h" />
+    <ClInclude Include="ShellArraySorter.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ThreadPool.h" />
@@ -159,6 +157,7 @@
     <ClCompile Include="BaseArraySorter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MergeArraySorter.cpp" />
+    <ClCompile Include="ShellArraySorter.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

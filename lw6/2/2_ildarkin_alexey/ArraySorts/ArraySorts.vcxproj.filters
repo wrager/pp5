@@ -15,6 +15,9 @@
     <ClCompile Include="MergeArraySorter.cpp">
       <Filter>Sorter</Filter>
     </ClCompile>
+    <ClCompile Include="ShellArraySorter.cpp">
+      <Filter>Sorter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -37,9 +40,9 @@
     <ClInclude Include="MergeArraySorter.h">
       <Filter>Sorter</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <ClInclude Include="ShellArraySorter.h">
+      <Filter>Sorter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sorter">

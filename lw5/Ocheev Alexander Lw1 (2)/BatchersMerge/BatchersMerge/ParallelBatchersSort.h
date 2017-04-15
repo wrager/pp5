@@ -36,24 +36,12 @@ protected:
         size_t m = r * 2;
         if (m < n)
         {
-#pragma omp parallel
+            OddEvenMerge(lo, n, m);      // even subsequence
+            OddEvenMerge(lo + r, n, m);    // odd subsequence
+
+            for (int i = lo + r; i < lo + n - r; i += m)
             {
-#pragma omp sections
-                {
-#pragma omp section
-                    {
-                        OddEvenMerge(lo, n, m);      // even subsequence
-                    }
-#pragma omp section
-                    {
-                        OddEvenMerge(lo + r, n, m);    // odd subsequence
-                    }
-                }
-#pragma omp for
-                for (int i = lo + r; i < lo + n - r; i += m)
-                {
-                    Compare(i, i + r);
-                }
+                Compare(i, i + r);
             }
         }
         else

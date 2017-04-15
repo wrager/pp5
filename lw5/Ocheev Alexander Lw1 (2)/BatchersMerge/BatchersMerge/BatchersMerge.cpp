@@ -2,69 +2,22 @@
 //
 
 #include "stdafx.h"
-#include "LinearBatchersSorter.h"
-#include "ParallelBatchersSort.h"
+#include "FileHandler.h"
 
 using namespace std;
 
-vector<int> GetVector(istream &stream);
-void PutVector(const vector<int> &vect, ostream &stream);
-void RunTests();
-
-template <class T>
-struct SortUtil
-{
-    clock_t time;
-    vector<T> result;
-
-    void Sort(AbstractBatchersSorter<T> &sorter, const vector<T> &source)
-    {
-        time = clock();
-        result = sorter.Sort(source);
-        time = clock() - time;
-    }
-};
-
 int main(int argc, char *argv[])
 {
+    if (argc != 2)
+    {
+        cout << "enter <input file>" << endl;
+        return 1;
+    }
+
     ifstream input(argv[1]);
-    auto source = GetVector(input);
-    SortUtil<int> util;
-
-    ofstream linearOut("linear.txt");
-    LinearBatchersSorter<int> linear;
-    util.Sort(linear, source);
-    PutVector(util.result, linearOut);
-    cout << "linear time: " << util.time << endl;
-
-    ofstream parallelOut("parallel.txt");
-    ParallelBatchersSorter<int> parallel;
-    util.Sort(parallel, source);
-    PutVector(util.result, parallelOut);
-    cout << "parallel time: " << util.time << endl;
+    FileHandler<int>::Sort(input);
 
     return 0;
-}
-
-
-vector<int> GetVector(istream &stream)
-{
-    vector<int> result;
-    int number;
-    while (stream >> number)
-    {
-        result.push_back(number);
-    }
-
-    return result;
-}
-
-void PutVector(const vector<int> &vect, ostream &stream)
-{
-    for (const auto &item : vect)
-    {
-        stream << item << " ";
-    }
 }
 
 template <class T>

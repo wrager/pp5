@@ -1,12 +1,10 @@
-// MergeSorting.cpp : Defines the entry point for the console application.
-//
-
 #include "stdafx.h"
 #include "merge.h"
+#include "array.h"
 
 using namespace std;
 
-std::vector<int> Merge::FillArray(std::string fileName)
+std::vector<int> ArrayManager::ReadFromFile(std::string fileName)
 {
 	std::vector <int> filledArray;
 	ifstream file(fileName);
@@ -20,13 +18,13 @@ std::vector<int> Merge::FillArray(std::string fileName)
 	return filledArray;
 }
 
-void Merge::mergeProcess(std::vector<int>& vec, int l, int m, int r)
+void Merge::MergeProcess(std::vector<int>& vec, int primary, int middle, int last)
 {
-	int i = l;
-	int j = m + 1;
+	int i = primary;
+	int j = middle + 1;
 	std::vector<int> temp;
 
-	while (i <= m && j <= r) {
+	while (i <= middle && j <= last) {
 		if (vec.at(i) <= vec.at(j)) {
 			temp.push_back(vec.at(i++));
 		}
@@ -34,26 +32,24 @@ void Merge::mergeProcess(std::vector<int>& vec, int l, int m, int r)
 			temp.push_back(vec.at(j++));
 		}
 	}
-	while (i <= m) {
+	while (i <= middle) {
 		temp.push_back(vec.at(i++));
 	}
-	while (j <= r) {
+	while (j <= last) {
 		temp.push_back(vec.at(j++));
 	}
-	std::copy(temp.begin(), temp.end(), vec.begin() + l);
+	std::copy(temp.begin(), temp.end(), vec.begin() + primary);
 }
 
-void Merge::MergeSorting(std::vector<int>& vec, int l, int r)
+void Merge::MergeSorting(std::vector<int>& vec, int primary, int last)
 {
 	Merge merge;
-	if (l < r) {
-		int m = (l + r) / 2;
-		std::thread sort_thread1([&vec, l, m] { merge.MergeSorting(vec, l, m);});
-		std::thread sort_thread2([&vec, m, r] { merge.MergeSorting(vec, m + 1, r); });
+	if (primary < last) {
+		int middle = (primary + last) / 2;
+		std::thread sort_thread1([&vec, primary, middle] { merge.MergeSorting(vec, primary, middle);});
 		sort_thread1.join();
+		std::thread sort_thread2([&vec, middle, last] { merge.MergeSorting(vec, middle + 1, last); });
 		sort_thread2.join();
-		merge.mergeProcess(vec, l, m, r);
+		merge.MergeProcess(vec, primary, middle, last);
 	}
 }
-
-

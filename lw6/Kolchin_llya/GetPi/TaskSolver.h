@@ -7,22 +7,38 @@
 #include <string>
 #include <iostream>
 
+#include <thread>
+#include <mutex>
+
 class CTaskSolver
 {
 public:
 	CTaskSolver();
 	~CTaskSolver();
+
+	struct ThreadResult
+	{
+		ThreadResult() = default;
+
+		double result;
+	};
 //////////////////////////////////////////////////////////////////////
 // Methods
 public:
-	double							GetPi(size_t amountIteration, size_t amountThreads);
+	static double GetPi(size_t amountIteration, size_t amountThreads);
 private:
+	static void ComputePi(
+		size_t threadId,
+		size_t amountIteration,
+		size_t amountThreads,
+		ThreadResult & result
+	);
 
-	std::string						GetMessageForThread(
-															size_t amountIteration
-															, double result
-															, int indexThread
-														);
+	static std::string GetMessageForThread(
+		size_t amountIteration
+		, double result
+		, size_t indexThread
+	);
 //////////////////////////////////////////////////////////////////////
 // Static Methods
 private:

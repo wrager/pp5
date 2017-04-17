@@ -11,23 +11,54 @@ CTaskSolver::~CTaskSolver()
 
 double CTaskSolver::GetPi(size_t amountIteration, size_t amountThreads)
 {
-	srand(UINT(time(NULL)));
+	std::vector<std::thread> m_threads;
+	std::vector<ThreadResult> m_threadResults;
 
 	double result = 0.0;
-	double resultTheThread = 0.0;
 
-	#pragma omp for ordered schedule(static)
-	for (int index = 0; index < amountThreads; ++index)
+	for (size_t index = 0; index < amountThreads; ++index)
 	{
-		resultTheThread = 4.0 * CalculateHits(amountIteration / amountThreads) / amountIteration;
+		m_threadResults.push_back(ThreadResult());
+		m_threads.push_back(
+			std::thread(
+				&ComputePi,
+				index,
+				amountIteration,
+				amountThreads,
+				std::ref(m_threadResults[index])
+			)
+		);
+	}
 
-		#pragma omp ordered
-		result += resultTheThread;
+	for (size_t index = 0; index < amountThreads; ++index)
+	{
+		m_threads[index].detach();
+	}
 
-		std::cout << GetMessageForThread(amountIteration / amountThreads, resultTheThread, index) << std::endl;
+	for (const auto & threadResult : m_threadResults)
+	{
+		result += threadResult.result;
 	}
 
 	return result;
+}
+
+void CTaskSolver::ComputePi(
+	size_t threadId,
+	size_t amountIteration,
+	size_t amountThreads,
+	ThreadResult & result
+)
+{
+	srand(UINT(time(NULL)) + threadId);
+
+	double resultTheThread = 0.0;
+
+	resultTheThread = 4.0 * CalculateHits(amountIteration / amountThreads) / amountIteration;
+
+	std::cout << GetMessageForThread(amountIteration / amountThreads, resultTheThread, threadId) << std::endl;
+
+	result.result = resultTheThread;
 }
 
 double CTaskSolver::RandomNumber()
@@ -54,7 +85,7 @@ size_t CTaskSolver::CalculateHits(size_t numIter)
 std::string CTaskSolver::GetMessageForThread(
 	size_t amountIteration
 	, double result
-	, int indexThread
+	, size_t indexThread
 )
 {
 	std::string message = "Id thread "

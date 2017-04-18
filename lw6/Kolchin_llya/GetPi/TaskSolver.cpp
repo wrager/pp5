@@ -11,43 +11,43 @@ CTaskSolver::~CTaskSolver()
 
 double CTaskSolver::GetPi(size_t amountIteration, size_t amountThreads)
 {
-	std::vector<std::thread> m_threads;
-	std::vector<ThreadResult> m_threadResults;
+	std::vector<std::future<ThreadResult>> m_threads;
 
 	double result = 0.0;
 
 	for (size_t index = 0; index < amountThreads; ++index)
 	{
-		m_threadResults.push_back(ThreadResult());
 		m_threads.push_back(
-			std::thread(
-				&ComputePi,
-				index,
-				amountIteration,
-				amountThreads,
-				std::ref(m_threadResults[index])
+			std::async(
+				std::launch::async,
+				[&]() 
+				{ return ComputePi(
+					index,
+					amountIteration,
+					amountThreads
+					); 
+				}
 			)
 		);
 	}
 
-	for (size_t index = 0; index < amountThreads; ++index)
+	for (const auto & thread : m_threads)
 	{
-		m_threads[index].detach();
+		thread.wait();
 	}
 
-	for (const auto & threadResult : m_threadResults)
+	for (auto & threadResult : m_threads)
 	{
-		result += threadResult.result;
+		result += threadResult.get().result;
 	}
 
 	return result;
 }
 
-void CTaskSolver::ComputePi(
+CTaskSolver::ThreadResult CTaskSolver::ComputePi(
 	size_t threadId,
 	size_t amountIteration,
-	size_t amountThreads,
-	ThreadResult & result
+	size_t amountThreads
 )
 {
 	srand(UINT(time(NULL)) + threadId);
@@ -58,7 +58,7 @@ void CTaskSolver::ComputePi(
 
 	std::cout << GetMessageForThread(amountIteration / amountThreads, resultTheThread, threadId) << std::endl;
 
-	result.result = resultTheThread;
+	return ThreadResult(resultTheThread);
 }
 
 double CTaskSolver::RandomNumber()

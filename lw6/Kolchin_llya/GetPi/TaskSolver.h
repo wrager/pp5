@@ -8,7 +8,7 @@
 #include <iostream>
 
 #include <thread>
-#include <mutex>
+#include <future>
 
 class CTaskSolver
 {
@@ -19,7 +19,10 @@ public:
 	struct ThreadResult
 	{
 		ThreadResult() = default;
-
+		ThreadResult(double result) 
+			: result(result)
+		{
+		};
 		double result;
 	};
 //////////////////////////////////////////////////////////////////////
@@ -27,11 +30,10 @@ public:
 public:
 	static double GetPi(size_t amountIteration, size_t amountThreads);
 private:
-	static void ComputePi(
+	static ThreadResult ComputePi(
 		size_t threadId,
 		size_t amountIteration,
-		size_t amountThreads,
-		ThreadResult & result
+		size_t amountThreads
 	);
 
 	static std::string GetMessageForThread(

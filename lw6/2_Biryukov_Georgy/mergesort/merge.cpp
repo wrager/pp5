@@ -1,22 +1,8 @@
 #include "stdafx.h"
+#include "arraymanager.cpp"
 #include "merge.h"
-#include "array.h"
 
 using namespace std;
-
-std::vector<int> ArrayManager::ReadFromFile(std::string fileName)
-{
-	std::vector <int> filledArray;
-	ifstream file(fileName);
-	int i;
-
-	while (!file.eof())
-	{
-		file >> i;
-		filledArray.push_back(i);
-	}
-	return filledArray;
-}
 
 void Merge::MergeProcess(std::vector<int>& vec, int primary, int middle, int last)
 {

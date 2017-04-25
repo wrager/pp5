@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "ThreadPool.h"
+#include "ThreadQueue.h"
 
 
 class CParallelSort
@@ -14,6 +14,6 @@ public:
 	void Sort(size_t countThread);
 private:
 	std::vector<double> m_array;
-	CThreadPool m_pool;
+	CThreadQueue m_threadQueue;
 };
 

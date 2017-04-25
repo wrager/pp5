@@ -39,12 +39,6 @@
     <ClInclude Include="ISorting.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="ctpl.h">
-      <Filter>threadpool</Filter>
-    </ClInclude>
-    <ClInclude Include="ctpl_stl.h">
-      <Filter>threadpool</Filter>
-    </ClInclude>
     <ClInclude Include="ThreadPool.h">
       <Filter>threadpool</Filter>
     </ClInclude>

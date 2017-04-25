@@ -10,6 +10,11 @@ CParallelSort::CParallelSort()
 }
 
 
+std::vector<double> CParallelSort::GetSortedArray() const
+{
+	return m_array;
+}
+
 void CParallelSort::SetArray(std::vector<double> const & arr)
 {
 	m_array = arr;
@@ -59,5 +64,7 @@ void CParallelSort::Sort(size_t countThread)
 		sorted.swap(temp);
 	}
 
+	
 	m_array = *sorted.begin();
+	CMergesort::Sort(m_array);
 }

@@ -20,6 +20,6 @@ private:
 	std::shared_ptr<std::ifstream> m_inputFile;
 	DoubleArray m_array;
 
-	CParallelSort m_mergesort;
+	CParallelSort m_sorted;
 };
 

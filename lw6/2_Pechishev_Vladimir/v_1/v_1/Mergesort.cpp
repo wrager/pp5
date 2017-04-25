@@ -35,7 +35,8 @@ void CMergesort::Sort(DoubleArray & arr)
 
 		numbers = temp;
 	}
-	arr = *numbers.begin();
+	auto temp = *numbers.begin();
+	arr.swap(temp);
 }
 
 

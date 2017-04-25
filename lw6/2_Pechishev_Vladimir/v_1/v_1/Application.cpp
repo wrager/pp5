@@ -20,9 +20,9 @@ CApplication::CApplication(std::string const & inputPath, std::string const & ou
 void CApplication::SortArray()
 {
 	m_array = { 10, 9, 8,7,6,5,4,3,2,1 };
-	m_mergesort.SetArray(m_array);
+	m_sorted.SetArray(m_array);
 	auto fourThread = 4;
-	double timeForParallelVersionAglorithm = GetCalculatedTime([&]() {m_mergesort.Sort(fourThread); });
+	double timeForParallelVersionAglorithm = GetCalculatedTime([&]() {m_sorted.Sort(fourThread); });
 	std::cout << "Time parallel algorithm with " << fourThread << " thread: " << timeForParallelVersionAglorithm << std::endl;
 
 	/*auto oneThread = 1;
@@ -32,12 +32,12 @@ void CApplication::SortArray()
 
 void CApplication::OutputResults() const
 {
-	/*auto sortedArray = m_mergesort.GetSortedArray();
+	auto sortedArray = m_sorted.GetSortedArray();
 	std::ofstream fOut(m_outputPath);
 	for (auto const & element : sortedArray)
 	{
 		fOut << element << " ";
-	}*/
+	}
 }
 
 void CApplication::ReadArrayFromFile()

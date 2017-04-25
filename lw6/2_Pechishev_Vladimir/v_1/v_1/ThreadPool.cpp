@@ -10,6 +10,9 @@ void CThreadPool::WaitForMultiplyObjects()
 {
 	for (auto & thread : m_threads)
 	{
-		thread.join();
+		if (thread.joinable())
+		{
+			thread.join();
+		}
 	}
 }

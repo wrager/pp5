@@ -147,8 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
-    <ClInclude Include="ctpl.h" />
-    <ClInclude Include="ctpl_stl.h" />
     <ClInclude Include="ISorting.h" />
     <ClInclude Include="Mergesort.h" />
     <ClInclude Include="Chronometer.h" />

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "TaskSolver.h"
 
 CTaskSolver::CTaskSolver()
@@ -12,36 +12,6 @@ CTaskSolver::~CTaskSolver()
 double CTaskSolver::GetPi(size_t amountIteration, size_t amountThreads)
 {
 	double result = 0.0;
-/*
-	std::vector<std::future<ThreadResult>> threads;
-
-	for (size_t index = 0; index < amountThreads; ++index)
-	{
-		threads.push_back(
-			std::async(
-				std::launch::async,
-				[&]() 
-				{ return ThreadResult(
-					ComputePi(
-						index,
-						amountIteration,
-						amountThreads
-						)
-					); 
-				}
-			)
-		);
-	}
-
-	for (const auto & thread : threads)
-	{
-		thread.wait();
-	}
-
-	for (auto & threadResult : threads)
-	{
-		result += threadResult.get().result;
-	}*/
 
 	std::vector<std::thread> threads;
 	std::vector<ThreadResult> threadResults(amountThreads);
@@ -52,10 +22,10 @@ double CTaskSolver::GetPi(size_t amountIteration, size_t amountThreads)
 			std::thread(
 				[&]()
 				{
-			 ComputePi(
+					ComputePi(
 						index,
+						amountIteration / amountThreads,
 						amountIteration,
-						amountThreads,
 						threadResults[index]
 					);
 				}
@@ -82,17 +52,21 @@ double CTaskSolver::GetPi(size_t amountIteration, size_t amountThreads)
 void CTaskSolver::ComputePi(
 	size_t threadId,
 	size_t amountIteration,
-	size_t amountThreads,
+	size_t amountPoints,
 	ThreadResult & result
 )
 {
-	srand(size_t(time(NULL)) + threadId);
+	srand(UINT(time(NULL) + threadId));
 
 	double resultTheThread = 0.0;
 
-	resultTheThread = 4.0 * CalculateHits(amountIteration / amountThreads) / amountIteration;
+	// Получается(для 4 потоков) 4-верть пи из-за того берём четверть точек
+	// и делим на кол-во итераций
 
-	std::cout << GetMessageForThread(amountIteration / amountThreads, resultTheThread, threadId) << std::endl;
+	// один поток береёт четверть точек и вычисляет коэфициент для четверти
+	resultTheThread = 4.0 * CalculateHits(amountIteration) / amountPoints;
+
+	std::cout << GetMessageForThread(amountIteration, resultTheThread, threadId) << std::endl;
 
 	result.result = resultTheThread;
 }

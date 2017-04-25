@@ -33,7 +33,7 @@ private:
 	static void ComputePi(
 		size_t threadId,
 		size_t amountIteration,
-		size_t amountThreads,
+		size_t amountPoints,
 		ThreadResult & result
 	);
 

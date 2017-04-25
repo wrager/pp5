@@ -24,3 +24,4 @@
 
 
 Туториал по OpenMP: https://software.intel.com/ru-ru/blogs/2011/11/21/openmp-c
+

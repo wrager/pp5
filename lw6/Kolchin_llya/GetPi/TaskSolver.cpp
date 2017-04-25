@@ -11,46 +11,82 @@ CTaskSolver::~CTaskSolver()
 
 double CTaskSolver::GetPi(size_t amountIteration, size_t amountThreads)
 {
-	std::vector<std::future<ThreadResult>> m_threads;
-
 	double result = 0.0;
+/*
+	std::vector<std::future<ThreadResult>> threads;
 
 	for (size_t index = 0; index < amountThreads; ++index)
 	{
-		m_threads.push_back(
+		threads.push_back(
 			std::async(
 				std::launch::async,
 				[&]() 
-				{ return ComputePi(
-					index,
-					amountIteration,
-					amountThreads
+				{ return ThreadResult(
+					ComputePi(
+						index,
+						amountIteration,
+						amountThreads
+						)
 					); 
 				}
 			)
 		);
 	}
 
-	for (const auto & thread : m_threads)
+	for (const auto & thread : threads)
 	{
 		thread.wait();
 	}
 
-	for (auto & threadResult : m_threads)
+	for (auto & threadResult : threads)
 	{
 		result += threadResult.get().result;
+	}*/
+
+	std::vector<std::thread> threads;
+	std::vector<ThreadResult> threadResults(amountThreads);
+
+	for (size_t index = 0; index < amountThreads; ++index)
+	{
+		threads.push_back(
+			std::thread(
+				[&]()
+				{
+			 ComputePi(
+						index,
+						amountIteration,
+						amountThreads,
+						threadResults[index]
+					);
+				}
+			)
+		);
+		
+	}
+	for (auto & thread : threads)
+	{
+		thread.join();
 	}
 
+	for (size_t index = 0; index < amountThreads; ++index)
+	{
+		if (!threads[index].joinable())
+		{
+			result += threadResults[index].result;
+		}
+	}
+		
 	return result;
 }
 
-CTaskSolver::ThreadResult CTaskSolver::ComputePi(
+void CTaskSolver::ComputePi(
 	size_t threadId,
 	size_t amountIteration,
-	size_t amountThreads
+	size_t amountThreads,
+	ThreadResult & result
 )
 {
-	srand(UINT(time(NULL)) + threadId);
+	srand(size_t(time(NULL)) + threadId);
 
 	double resultTheThread = 0.0;
 
@@ -58,7 +94,7 @@ CTaskSolver::ThreadResult CTaskSolver::ComputePi(
 
 	std::cout << GetMessageForThread(amountIteration / amountThreads, resultTheThread, threadId) << std::endl;
 
-	return ThreadResult(resultTheThread);
+	result.result = resultTheThread;
 }
 
 double CTaskSolver::RandomNumber()

@@ -30,10 +30,10 @@ int main(int argc, char *argv[])
 		size_t amountIteration = atoi(argv[1]);
 		size_t processsNumber = atoi(argv[2]);
 
-		CTaskSolver taskExecutor;
+		CTaskSolver taskSolver;
 
 		timer.start();
-		cout << taskExecutor.GetPi(amountIteration, processsNumber) << std::endl;
+		cout << taskSolver.GetPi(amountIteration, processsNumber) << std::endl;
 		timer.stop();
 
 		double time = timer.elapsed().wall * pow(10.f, -9.f);

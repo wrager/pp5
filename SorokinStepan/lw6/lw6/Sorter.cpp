@@ -23,10 +23,10 @@ void Sorter::SetArray(std::vector<int> const & array)
 void Sorter::StartSort()
 {
 	m_manager.Run();
+	std::mutex tempMutex;
 	while (m_elements.size() > 1)
 	{
 		std::vector<std::vector<int>>  tempVec;
-		std::mutex tempMutex;
 		size_t targetSize = size_t(ceil(double(m_elements.size()) / 2.0));
 		while (tempVec.size() < targetSize)
 		{
@@ -52,6 +52,11 @@ void Sorter::StartSort()
 		}
 		m_elements = tempVec;
 	}
+	while (!tempMutex.try_lock())
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	}
+	tempMutex.unlock();
 	m_manager.Stop();
 }
 
@@ -86,6 +91,6 @@ void Sorter::MergeVectors(std::vector<int> const& vec1, std::vector<int> const& 
 		v2.pop_back();
 	}
 	mutex->lock();
-	mainVec.push_back(resultVec);
+	mainVec.push_back(std::move(resultVec));
 	mutex->unlock();
 }

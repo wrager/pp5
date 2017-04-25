@@ -16,6 +16,11 @@ void CheckParametrs(int argc)
 	}
 }
 
+#define PRINT_EXCEPTION_MESSAGE_AND_EXIT(exception) \
+		std::cout << exception.what() << std::endl; \
+		system("pause"); \
+		return 1; \
+
 
 int main(int argc, char *argv[])
 {
@@ -28,12 +33,12 @@ int main(int argc, char *argv[])
 		boost::timer::cpu_timer timer;
 
 		size_t amountIteration = atoi(argv[1]);
-		size_t processsNumber = atoi(argv[2]);
+		size_t processesNumber = atoi(argv[2]);
 
 		CTaskSolver taskSolver;
 
 		timer.start();
-		cout << taskSolver.GetPi(amountIteration, processsNumber) << std::endl;
+		cout << taskSolver.GetPi(amountIteration, processesNumber) << std::endl;
 		timer.stop();
 
 		double time = timer.elapsed().wall * pow(10.f, -9.f);
@@ -41,9 +46,17 @@ int main(int argc, char *argv[])
 	
 		system("pause");
 	}
+	catch (const std::runtime_error & exception)
+	{
+		PRINT_EXCEPTION_MESSAGE_AND_EXIT(exception)
+	}
+	catch (const std::bad_alloc & exception)
+	{
+		PRINT_EXCEPTION_MESSAGE_AND_EXIT(exception)
+	}
 	catch (const std::exception & exception)
 	{
-		std::cout << exception.what() << std::endl;
+		std::cout << "The exception type not handled" << std::endl;
 		system("pause");
 		return 1;
 	}

@@ -11,8 +11,8 @@ public:
         vector = SortParts(vector);
     }
 
-private:
-    std::vector<T> SortParts(const std::vector<T> &source)
+protected:
+    virtual std::vector<T> SortParts(const std::vector<T> &source)
     {
         if (source.size() < 2)
         {
@@ -36,30 +36,9 @@ private:
 
     std::vector<T> Merge(const std::vector<T> &left, const std::vector<T> &right)
     {
-        std::vector<T> result;
+        std::vector<T> result(left.size() + right.size());
 
-        auto leftCursor = left.begin();
-        auto rightCursor = right.begin();
-
-        while (leftCursor != left.end() && rightCursor != right.end())
-        {
-            if (*leftCursor < *rightCursor)
-            {
-                result.push_back(*(leftCursor++));
-            }
-            else
-            {
-                result.push_back(*(rightCursor++));
-            }
-        }
-
-        std::for_each(leftCursor, left.end(), [&](const T &n) {
-            result.push_back(n);
-        });
-        std::for_each(rightCursor, right.end(), [&](const T &n) {
-            result.push_back(n);
-        });
-
+        std::merge(left.begin(), left.end(), right.begin(), right.end(), result.begin());
         return result;
     }
 };

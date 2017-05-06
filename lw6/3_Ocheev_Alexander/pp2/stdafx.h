@@ -15,3 +15,5 @@
 #include <cassert>
 #include <numeric>
 #include <memory>
+#include <thread>
+#include <string>

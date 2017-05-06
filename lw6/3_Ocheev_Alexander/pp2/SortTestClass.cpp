@@ -40,6 +40,6 @@ void SortTest()
 
     sortTestClass.TestSort(LinearShellSorter<int>());
     sortTestClass.TestSort(LinearMergeSorter<int>());
-    //sortTestClass.TestSort(ParallelShellSorter<int>());
-    //sortTestClass.TestSort(ParallelMergeSorter<int>());
+    sortTestClass.TestSort(ParallelShellSorter<int>());
+    sortTestClass.TestSort(ParallelMergeSorter<int>());
 }

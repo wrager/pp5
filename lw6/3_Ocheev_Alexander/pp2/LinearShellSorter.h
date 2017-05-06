@@ -12,13 +12,12 @@ public:
         {
             for (int start = 0; start < gap; start++)
             {
-                //TODO parallelize here
                 SortByIntervals(gap, start);
             }
         }
     }
 
-private:
+protected:
     void SortByIntervals(int gap, int start)
     {
         for (int i = start; i < vector.size(); i += gap)

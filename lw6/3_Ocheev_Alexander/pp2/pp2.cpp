@@ -12,16 +12,17 @@
 
 using namespace std;
 
-
 int main(int argc, char *argv[])
 {
     SortTest();
 
-    //string str = argv[0];
-    //str = argv[1];
-    //ifstream file(argv[1]);
-    //SortRunner<int>::Sort(file);
-
+    /*
+    string str = argv[0];
+    str = argv[1];
+    ifstream file(argv[1]);
+    SortRunner<int>::Sort(file);
+    */
+    
     return 0;
 }
 

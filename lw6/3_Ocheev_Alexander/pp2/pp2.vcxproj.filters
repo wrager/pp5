@@ -16,6 +16,9 @@
     <Filter Include="Header Files\Sorter">
       <UniqueIdentifier>{9728ab9d-7291-409f-8c45-e94b9c3047ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SortWriteBehavior">
+      <UniqueIdentifier>{668bdda4-bd77-49e1-85b1-faa301f9911b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -47,6 +50,21 @@
     </ClInclude>
     <ClInclude Include="ParallelShellSorter.h">
       <Filter>Header Files\Sorter</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearShellWriter.h">
+      <Filter>Header Files\SortWriteBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractSortWriter.h">
+      <Filter>Header Files\SortWriteBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="ParallelShellWriter.h">
+      <Filter>Header Files\SortWriteBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearMergeWriter.h">
+      <Filter>Header Files\SortWriteBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="ParallelMergeWriter.h">
+      <Filter>Header Files\SortWriteBehavior</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@ class LinearShellWriter : public AbstractSortWriter<T>
 public:
     void Write(const std::vector<T> &sourceVector) override
     {
-        auto sorter = LinearShellSorter<T>();
+        LinearShellSorter<T> sorter;
         sorter.SetVector(sourceVector);
 
         auto startTime = std::clock();

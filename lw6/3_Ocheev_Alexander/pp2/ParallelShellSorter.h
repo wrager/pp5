@@ -38,12 +38,9 @@ public:
                 }
             }
 
-            for (auto &th : threads)
+            for (int i = 0; i < threadCounter; i++)
             {
-                if (th.joinable())
-                {
-                    th.join();
-                }
+                threads[i].join();
             }
             threadCounter = 0;
         }

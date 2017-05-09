@@ -19,9 +19,9 @@ int Run(int argc, char *argv[]);
 
 int main(int argc, char *argv[])
 {
-    //SortTest();
+    SortTest();
 
-    return Run(argc, argv);
+    //return Run(argc, argv);
 }
 
 void RunSort(string inputFileName, SortType sortType)

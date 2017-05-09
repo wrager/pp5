@@ -8,7 +8,7 @@ class ParallelShellWriter : public AbstractSortWriter<T>
 public:
     void Write(const std::vector<T> &sourceVector) override
     {
-        auto sorter = ParallelShellSorter<T>();
+        ParallelShellSorter<T> sorter;
         sorter.SetVector(sourceVector);
 
         auto startTime = std::clock();

@@ -145,11 +145,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AbstractSortWriter.h" />
-    <ClInclude Include="LinearMergeWriter.h" />
-    <ClInclude Include="LinearShellWriter.h" />
-    <ClInclude Include="ParallelMergeWriter.h" />
-    <ClInclude Include="ParallelShellWriter.h" />
+    <ClInclude Include="AbstractMergeSorter.h" />
+    <ClInclude Include="AbstractShellSorter.h" />
     <ClInclude Include="SortRunner.h" />
     <ClInclude Include="LinearMergeSorter.h" />
     <ClInclude Include="AbstractSorter.h" />

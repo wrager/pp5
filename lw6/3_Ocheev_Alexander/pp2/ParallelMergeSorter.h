@@ -1,11 +1,9 @@
 #pragma once
-#include "LinearMergeSorter.h"
-#include <mutex>
-#include <algorithm>
+#include "AbstractMergeSorter.h"
 #include <numeric>
 
 template <class T>
-class ParallelMergeSorter : public LinearMergeSorter<T>
+class ParallelMergeSorter : public AbstractMergeSorter<T>
 {
 public:
     ParallelMergeSorter()
@@ -18,7 +16,7 @@ public:
         Parallelize();
     }
 
-protected:
+private:
     void Parallelize()
     {
         std::vector<std::vector<T>> parts(threadCount);
@@ -44,8 +42,6 @@ protected:
             return currentResult;
         });
     }
-
-private:
 
     int threadCount = 2;
 };

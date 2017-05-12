@@ -16,8 +16,11 @@
     <Filter Include="Header Files\Sorter">
       <UniqueIdentifier>{9728ab9d-7291-409f-8c45-e94b9c3047ab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\SortWriteBehavior">
-      <UniqueIdentifier>{668bdda4-bd77-49e1-85b1-faa301f9911b}</UniqueIdentifier>
+    <Filter Include="Header Files\Sorter\MergeSorter">
+      <UniqueIdentifier>{9d5b702e-6f5d-4cd0-a56d-8a5b68497e6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sorter\ShellSorter">
+      <UniqueIdentifier>{6f98c084-5008-4563-aedd-fd2f6ef59aae}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,32 +42,23 @@
     <ClInclude Include="AbstractSorter.h">
       <Filter>Header Files\Sorter</Filter>
     </ClInclude>
-    <ClInclude Include="LinearMergeSorter.h">
-      <Filter>Header Files\Sorter</Filter>
+    <ClInclude Include="AbstractMergeSorter.h">
+      <Filter>Header Files\Sorter\MergeSorter</Filter>
     </ClInclude>
-    <ClInclude Include="LinearShellSorter.h">
-      <Filter>Header Files\Sorter</Filter>
+    <ClInclude Include="LinearMergeSorter.h">
+      <Filter>Header Files\Sorter\MergeSorter</Filter>
     </ClInclude>
     <ClInclude Include="ParallelMergeSorter.h">
-      <Filter>Header Files\Sorter</Filter>
+      <Filter>Header Files\Sorter\MergeSorter</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractShellSorter.h">
+      <Filter>Header Files\Sorter\ShellSorter</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearShellSorter.h">
+      <Filter>Header Files\Sorter\ShellSorter</Filter>
     </ClInclude>
     <ClInclude Include="ParallelShellSorter.h">
-      <Filter>Header Files\Sorter</Filter>
-    </ClInclude>
-    <ClInclude Include="LinearShellWriter.h">
-      <Filter>Header Files\SortWriteBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="AbstractSortWriter.h">
-      <Filter>Header Files\SortWriteBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="ParallelShellWriter.h">
-      <Filter>Header Files\SortWriteBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="LinearMergeWriter.h">
-      <Filter>Header Files\SortWriteBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="ParallelMergeWriter.h">
-      <Filter>Header Files\SortWriteBehavior</Filter>
+      <Filter>Header Files\Sorter\ShellSorter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

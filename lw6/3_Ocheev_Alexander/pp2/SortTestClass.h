@@ -2,10 +2,10 @@
 #include "AbstractSorter.h"
 #include <vector>
 
-class SortTestClass
+class SorterClassesTest
 {
 public:
-    SortTestClass();
+    SorterClassesTest();
     void TestSort(AbstractSorter<int> &sorter);
 
 private:

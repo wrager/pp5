@@ -6,17 +6,26 @@ template <class T>
 class LinearShellWriter : public AbstractSortWriter<T>
 {
 public:
+    LinearShellWriter()
+    {
+        sorter = new LinearShellSorter<T>;
+    }
+
     void Write(const std::vector<T> &sourceVector) override
     {
-        LinearShellSorter<T> sorter;
-        sorter.SetVector(sourceVector);
+        sorter->SetVector(sourceVector);
 
         auto startTime = std::clock();
-        sorter.Sort();
+        sorter->Sort();
         auto time = std::clock() - startTime;
 
         std::cout << "Linear Shell Time: " << time << std::endl;
         std::ofstream output("linear_shell.txt");
-        PutVector(sorter.GetVector(), output);
+        PutVector(sorter->GetVector(), output);
+    }
+
+    ~LinearShellWriter()
+    {
+        delete sorter;
     }
 };

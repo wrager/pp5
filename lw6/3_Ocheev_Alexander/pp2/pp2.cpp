@@ -4,10 +4,10 @@
 #include "stdafx.h"
 #include "SortTestClass.h"
 #include "AbstractSortWriter.h"
-#include "LinearMergeWriter.h"
-#include "LinearShellWriter.h"
-#include "ParallelMergeWriter.h"
-#include "ParallelShellWriter.h"
+#include "LinearMergeSorter.h"
+#include "LinearShellSorter.h"
+#include "ParallelMergeSorter.h"
+#include "ParallelShellSorter.h"
 #include "SortRunner.h"
 
 using namespace std;
@@ -19,9 +19,9 @@ int Run(int argc, char *argv[]);
 
 int main(int argc, char *argv[])
 {
-    SortTest();
+    //SortTest();
 
-    //return Run(argc, argv);
+    return Run(argc, argv);
 }
 
 void RunSort(string inputFileName, SortType sortType)
@@ -29,24 +29,15 @@ void RunSort(string inputFileName, SortType sortType)
     ifstream file(inputFileName);
     SortRunner<int> runner(file);
 
-    unique_ptr<AbstractSortWriter<int>> sortWriterPtr;
     switch (sortType)
     {
         case SortType::Shell:
-            sortWriterPtr.reset(new LinearShellWriter<int>());
-            runner.SetWriter(sortWriterPtr.get());
-            runner.Run();
-            sortWriterPtr.reset(new ParallelShellWriter<int>());
-            runner.SetWriter(sortWriterPtr.get());
-            runner.Run();
+            runner.Run(LinearShellSorter<int>(), "Linear Shell time: ", "linear_shell.txt");
+            runner.Run(ParallelShellSorter<int>(), "Parallel Shell time: ", "parallel_shell.txt");
             break;
         case SortType::Merge:
-            sortWriterPtr.reset(new LinearMergerWriter<int>());
-            runner.SetWriter(sortWriterPtr.get());
-            runner.Run();
-            sortWriterPtr.reset(new ParallelMergeWriter<int>());
-            runner.SetWriter(sortWriterPtr.get());
-            runner.Run();
+            runner.Run(LinearMergeSorter<int>(), "Linear Merge time: ", "linear_merge.txt");
+            runner.Run(ParallelMergeSorter<int>(), "Parallel Merge time: ", "parallel_merge.txt");
             break;
     }
 

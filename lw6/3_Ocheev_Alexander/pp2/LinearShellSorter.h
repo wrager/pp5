@@ -1,11 +1,12 @@
 #pragma once
-#include "AbstractSorter.h"
-#include <algorithm>
+#include "AbstractShellSorter.h"
 
 template <class T>
-class LinearShellSorter : public AbstractSorter<T>
+class LinearShellSorter : public AbstractShellSorter<T>
 {
 public:
+    LinearShellSorter() = default;
+
     void Sort() override
     {
         for (int gap = vector.size() / 2; gap > 0; gap /= 2)
@@ -15,31 +16,5 @@ public:
                 SortByIntervals(gap, start);
             }
         }
-    }
-
-protected:
-    void SortByIntervals(int gap, int start)
-    {
-        for (int i = start; i < vector.size(); i += gap)
-        {
-            for (int j = start; j < i ; j += gap)
-            {
-                if (vector[i] < vector[j])
-                {
-                    CycleShift(i, j, gap);
-                    continue;
-                }
-            }
-        }
-    }
-
-    void CycleShift(int from, int to, int gap)
-    {
-        auto t = vector[from];
-        for (int i = from; i > to; i -= gap)
-        {
-            vector[i] = vector[i - gap];
-        }
-        vector[to] = t;
     }
 };

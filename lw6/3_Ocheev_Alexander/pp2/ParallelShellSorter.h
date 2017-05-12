@@ -1,9 +1,9 @@
 #pragma once
-#include "LinearShellSorter.h"
+#include "AbstractShellSorter.h"
 #include <thread>
 
 template <class T>
-class ParallelShellSorter : public LinearShellSorter<T>
+class ParallelShellSorter : public AbstractShellSorter<T>
 {
 public:
     ParallelShellSorter()

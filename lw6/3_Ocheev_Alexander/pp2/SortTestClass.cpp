@@ -9,7 +9,7 @@
 
 using namespace std;
 
-SortTestClass::SortTestClass()
+SorterClassesTest::SorterClassesTest()
 {
     _increaseVector = vector<int>(16);
     iota(_increaseVector.begin(), _increaseVector.end(), 0);
@@ -19,14 +19,14 @@ SortTestClass::SortTestClass()
     _expectedVector = _increaseVector;
 }
 
-void SortTestClass::TestSort(AbstractSorter<int>& sorter)
+void SorterClassesTest::TestSort(AbstractSorter<int>& sorter)
 {
     SortTestCase(_increaseVector, sorter);
     SortTestCase(_decreaseVector, sorter);
     SortTestCase(_randomOrderVector, sorter);
 }
 
-void SortTestClass::SortTestCase(const vector<int>& sourceVector, AbstractSorter<int>& sorter)
+void SorterClassesTest::SortTestCase(const vector<int>& sourceVector, AbstractSorter<int>& sorter)
 {
     sorter.SetVector(sourceVector);
     sorter.Sort();
@@ -36,7 +36,7 @@ void SortTestClass::SortTestCase(const vector<int>& sourceVector, AbstractSorter
 
 void SortTest()
 {
-    SortTestClass sortTestClass;
+    SorterClassesTest sortTestClass;
 
     sortTestClass.TestSort(LinearShellSorter<int>());
     sortTestClass.TestSort(LinearMergeSorter<int>());

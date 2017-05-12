@@ -1,6 +1,8 @@
 #pragma once
 #include <fstream>
-#include "AbstractSortWriter.h"
+#include "AbstractSorter.h"
+#include <string>
+#include <vector>
 
 template<class T>
 class SortRunner
@@ -15,19 +17,28 @@ public:
         }
     }
 
-    void Run()
+    void Run(AbstractSorter<T> &sorter, const std::string &info, const std::string &outFileName)
     {
-        sortWriter->Write(vector);
-    }
+        sorter.SetVector(vector);
 
-    void SetWriter(AbstractSortWriter<T> *writer)
-    {
-        sortWriter = writer;
+        auto startTime = std::clock();
+        sorter.Sort();
+        auto time = std::clock() - startTime;
+
+        std::cout << info << time << std::endl;
+        std::ofstream output(outFileName);
+        PutVector(sorter.GetVector(), output);
     }
 
 private:
 
-    std::vector<T> vector;
+    void PutVector(const std::vector<T> &vect, std::ostream &stream)
+    {
+        for (const auto &item : vect)
+        {
+            stream << item << " ";
+        }
+    }
 
-    AbstractSortWriter<T> *sortWriter;
+    std::vector<T> vector;
 };

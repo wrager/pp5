@@ -1,5 +1,5 @@
 #include "SortBatcher.h"
-
+#include <omp.h>
 
 
 CSortBatcher::CSortBatcher()
@@ -31,10 +31,26 @@ std::vector<unsigned> CSortBatcher::sortBatcher(const std::vector<unsigned>& num
 				nElems--;
 			}
 		}
-		std::vector<unsigned> sortedFirstArr = sortBatcher(firstArr);
-		std::vector<unsigned> sortedSecArr = sortBatcher(secondArr);
+		std::vector<unsigned> sortedFirstArr;
+		std::vector<unsigned> sortedSecArr;
+		 
+		///////////////////
+		//// Parallel
+		//#pragma omp parallel sections
+		//{
+		//	#pragma omp section
+		//	sortedFirstArr = sortBatcher(firstArr);
+		//	#pragma omp section
+		//	sortedSecArr = sortBatcher(secondArr);
+		//}
+		///////////////////
 
-	
+		/////////////////
+		// Sequence
+		sortedFirstArr = sortBatcher(firstArr);
+		sortedSecArr = sortBatcher(secondArr);
+		/////////////////
+
 		std::vector<unsigned> resultArr;
 		int firstIndex = 0;
 		int secIndex = 0;

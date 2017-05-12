@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include <vector>
 #include <fstream>
 #include <string>
@@ -40,10 +41,17 @@ int main(int argc, char * argv[])
 {
 	if (argc == 3)
 	{
+		std::chrono::time_point<std::chrono::system_clock> startTime, endTime;
+
+		startTime = std::chrono::system_clock::now();
+		
 		std::vector<unsigned> number = ReadFile(argv[1]);
 		CSortBatcher sortBatch;
 		std::vector<unsigned> res = sortBatch.sortBatcher(number);
-		WriteToFile(argv[2], res);
+		WriteToFile(argv[2], res);	 
+			
+		endTime = std::chrono::system_clock::now();
+		std::cout << "Time: " << std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count() << "ms" << std::endl;
 	}
 	return 0;
 }

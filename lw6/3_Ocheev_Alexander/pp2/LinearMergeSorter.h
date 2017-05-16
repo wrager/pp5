@@ -9,6 +9,6 @@ public:
 
     void Sort() override
     {
-        vector = SortParts(vector);
+        SortParts(vector);
     }
 };

@@ -1,6 +1,8 @@
 #pragma once
 #include "AbstractMergeSorter.h"
 #include <numeric>
+#include <algorithm>
+#include <thread>
 
 template <class T>
 class ParallelMergeSorter : public AbstractMergeSorter<T>
@@ -22,6 +24,8 @@ private:
         std::vector<std::vector<T>> parts(threadCount);
         int interval = vector.size() / threadCount;
 
+        std::vector<std::thread> threads(threadCount);
+
         for (int i = 0; i < parts.size(); i++)
         {
             int start = i * interval;
@@ -29,11 +33,12 @@ private:
 
             parts[i].resize(end - start);
             std::copy(vector.begin() + start, vector.begin() + end, parts[i].begin());
+            threads[i] = std::thread(&ParallelMergeSorter<T>::SortParts, this, std::ref(parts[i]));
         }
 
-        for (auto &part : parts)
+        for (auto &th : threads)
         {
-            part = SortParts(part);
+            th.join();
         }
 
         vector = std::accumulate(parts.begin(), parts.end(), std::vector<T>(), [&](std::vector<T> &first, std::vector<T> &second) {

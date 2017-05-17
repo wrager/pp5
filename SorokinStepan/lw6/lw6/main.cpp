@@ -22,6 +22,7 @@ int main(int argc, char * argv[])
 
 	AsyncManager manager;
 	Sorter sorter(manager);
+	sorter.SetThreadCount(4);
 
 	sorter.SetArray(numVec);
 	auto start = std::chrono::system_clock::now();

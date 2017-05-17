@@ -51,6 +51,16 @@ void AsyncManager::Stop()
 	}
 }
 
+void AsyncManager::SetThreadCount(int count)
+{
+	if (count <= 0)
+	{
+		m_maxThreadcount = 4;
+		return;
+	}
+	m_maxThreadcount = count;
+}
+
 void AsyncManager::AddCallbackToTask(TaskBody const & task)
 {
 	OnTaskAdd();

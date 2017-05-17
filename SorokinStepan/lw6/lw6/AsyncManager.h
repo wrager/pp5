@@ -17,6 +17,8 @@ public:
 	void Run();
 	void Stop();
 
+	void SetThreadCount(int count);
+
 private:
 	void AddCallbackToTask(TaskBody const& task);
 	void StartWork();

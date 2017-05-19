@@ -27,9 +27,9 @@ void CParallelShellSorter::Sort()
 		{
 			activeThreads.push_back(std::thread(&CParallelShellSorter::ParallelSort, this, h, n, i, numberOfElementsPerThread));	
 		}
-		for (size_t i = 0; i < activeThreads.size(); ++i)
+		for (auto & el : activeThreads)
 		{
-			activeThreads[i].join();
+			el.join();
 		}
 	}
 

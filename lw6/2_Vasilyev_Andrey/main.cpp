@@ -11,6 +11,8 @@
 #include <string>
 #include <array>
 #include <algorithm>
+#include "SorterFactory.h"
+#include <vector>
 
 void DoWorkWithSorter(CSorter & sorter)
 {
@@ -37,21 +39,17 @@ int main(int argc, char * argv[])
 		std::cout << "Error: " << ex.what() << std::endl;
 		return 2;
 	}
-	 
+	
+	std::vector<std::unique_ptr<CSorter>> sorters;
+	sorters.push_back(CSorterFactory::CreateSorter(CSorter::MERGE, false));
+	sorters.push_back(CSorterFactory::CreateSorter(CSorter::MERGE, true));
+	sorters.push_back(CSorterFactory::CreateSorter(CSorter::SHELL, false));
+	sorters.push_back(CSorterFactory::CreateSorter(CSorter::SHELL, true));
 
-	std::unique_ptr<CSorter> sorters[] =
+	for(auto & el : sorters)
 	{
-			std::make_unique<CSimpleMergeSorter>(data),
-			std::make_unique<CParallelMergeSorter>(data),
-			std::make_unique<CSimpleShellSorter>(data),
-			std::make_unique<CParallelShellSorter>(data)
-	};
-
-	std::cout << "Data loaded successfully, checking calculation time..." << std::endl;
-
-	for(size_t i = 0; i < 4; ++i)
-	{
-		DoWorkWithSorter(*(sorters[i].get()));
+		el->SetData(data);
+		DoWorkWithSorter(*el);
 	};
 
 	DataWriter::WriteToFile(sorters[0]->GetData());

@@ -4,6 +4,7 @@
 class CParallelShellSorter : public CSimpleShellSorter
 {
 public:
+	CParallelShellSorter() = default;
 	CParallelShellSorter(const std::vector<int> & data);	
 
 public:

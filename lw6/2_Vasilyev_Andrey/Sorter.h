@@ -5,7 +5,17 @@
 class CSorter
 {
 public:
+	enum Type
+	{
+		MERGE,
+		SHELL
+	};
+
+public:
+	CSorter() = default;
 	CSorter(const std::vector<int> & data);
+
+	void SetData(const std::vector<int> & data);
 	std::vector<int> GetData() const;
 
 public:

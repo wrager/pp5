@@ -5,6 +5,7 @@
 class CParallelMergeSorter: public CSimpleMergeSorter
 {
 public:
+	CParallelMergeSorter() = default;
 	CParallelMergeSorter(const std::vector<int> & data);
 
 public:

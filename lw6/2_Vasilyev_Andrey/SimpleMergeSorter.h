@@ -6,6 +6,7 @@
 class CSimpleMergeSorter: public CSorter
 {
 public:
+	CSimpleMergeSorter() = default;
 	CSimpleMergeSorter(const std::vector<int> & data);
 	virtual void Sort() override;
 	std::string ToString() override;

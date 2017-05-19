@@ -49,17 +49,25 @@ namespace DictionaryCompressor
             }
         }
 
-        void SetInputFileName(string name)
+        public void OutputProcessedText(string text)
+        {
+            using (StreamWriter sw = new StreamWriter(m_outputFileName, false, System.Text.Encoding.Default))
+            {
+                sw.WriteLine(text);
+            }
+        }
+
+        public void SetInputFileName(string name)
         {
 	        m_inputFileName = name;
         }
 
-        void SetOutputFileName(string name)
+        public void SetOutputFileName(string name)
         {
             m_outputFileName = name;
         }
 
-        uint GetSizeView()
+        public uint GetSizeView()
         {
 	        return m_viewLength;
         }

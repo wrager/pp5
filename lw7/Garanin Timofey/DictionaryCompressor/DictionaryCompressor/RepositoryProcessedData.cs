@@ -17,17 +17,17 @@ namespace DictionaryCompressor
             m_dictionary = dictionaryFragment;
         }
 
-        void SetNewTextFragment(string text)
+        public void SetNewTextFragment(string text)
         {
             m_text = m_text.Insert(m_text.Length - 1, text);
         }
 
-        Dictionary<string, string> GetDictionary()
+        public Dictionary<string, string> GetDictionary()
         {
 	        return m_dictionary;
         }
 
-        string GetText()
+        public string GetText()
         {
 	        return m_text;
         }

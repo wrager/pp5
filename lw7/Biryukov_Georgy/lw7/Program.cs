@@ -9,16 +9,25 @@ namespace lw7
     {
         static void Main(string[] args)
         {
+            string path = args[0];
+            int[] arrayForSingleThread = CArrayManager.fillArray(path);
+            int[] arrayForMultuThread = CArrayManager.fillArray(path);
+
             Stopwatch sWatch = new Stopwatch();
-            int[] kek = CArrayManager.fillArray("kek.txt");
+            Stopwatch sWatch2 = new Stopwatch();
 
             sWatch.Start();
-            CArrayManipulator.sortingProcess(kek);
+            CArrayManipulator.sortingProcess(arrayForSingleThread);
             sWatch.Stop();
+            sWatch2.Start();
+            CArrayManipulator.sortingProcessParallel(arrayForMultuThread);
+            sWatch2.Stop();
 
-            foreach (int k in kek)
-            Console.WriteLine(k);
-            Console.WriteLine(sWatch.ElapsedMilliseconds.ToString() + " ms");
+      /*      foreach (int k in arrayForSingleThread)
+                Console.WriteLine(k);*/
+
+            Console.WriteLine("One thread " + sWatch.ElapsedMilliseconds.ToString() + " ms");
+            Console.WriteLine("Multithread " + sWatch2.ElapsedMilliseconds.ToString() + " ms");                
         }
     }
 }

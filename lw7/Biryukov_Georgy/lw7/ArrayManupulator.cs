@@ -9,10 +9,29 @@ class CArrayManipulator
         int gap = array.Length / 2;
         while (gap > 0)
         {
+            insertionSorting(array, gap);
+            if (gap == 2)
+            {
+                gap = 1;
+            }
+            else
+            {
+                gap = (int)(gap / 2.2);
+            }
+        }
+        return array;
+    }
+
+    public static int[] sortingProcessParallel(int[] array)
+    {
+        int gap = array.Length / 2;
+        while (gap > 0)
+        {
             Thread thread = new Thread(delegate ()
             {
                 insertionSorting(array, gap);
             });
+
             thread.Start();
 
             if (gap == 2)
@@ -23,7 +42,6 @@ class CArrayManipulator
             {
                 gap = (int)(gap / 2.2);
             }
-            Thread.Sleep(0);
         }
         return array;
     }

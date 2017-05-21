@@ -15,7 +15,6 @@ class CArrayManager
         .Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries)
         .Select(n => int.Parse(n))
         .ToArray();
-
         return nums;
     }
 }

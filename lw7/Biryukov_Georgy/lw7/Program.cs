@@ -11,7 +11,7 @@ namespace lw7
         {
             string path = args[0];
             int[] arrayForSingleThread = CArrayManager.fillArray(path);
-            int[] arrayForMultuThread = CArrayManager.fillArray(path);
+            int[] arrayForMultiThread = CArrayManager.fillArray(path);
 
             Stopwatch sWatch = new Stopwatch();
             Stopwatch sWatch2 = new Stopwatch();
@@ -20,10 +20,10 @@ namespace lw7
             CArrayManipulator.sortingProcess(arrayForSingleThread);
             sWatch.Stop();
             sWatch2.Start();
-            CArrayManipulator.sortingProcessParallel(arrayForMultuThread);
+            CArrayManipulator.sortingProcessParallel(arrayForMultiThread);
             sWatch2.Stop();
 
-      /*      foreach (int k in arrayForSingleThread)
+      /*    foreach (int k in arrayForSingleThread)
                 Console.WriteLine(k);*/
 
             Console.WriteLine("One thread " + sWatch.ElapsedMilliseconds.ToString() + " ms");

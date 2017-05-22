@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace lw7
 {
@@ -11,7 +12,7 @@ namespace lw7
         {
             string path = args[0];
             int[] arrayForSingleThread = CArrayManager.fillArray(path);
-            int[] arrayForMultiThread = CArrayManager.fillArray(path);
+            int[] arrayForMultiThread = arrayForSingleThread;
 
             Stopwatch sWatch = new Stopwatch();
             Stopwatch sWatch2 = new Stopwatch();
@@ -23,9 +24,7 @@ namespace lw7
             CArrayManipulator.sortingProcessParallel(arrayForMultiThread);
             sWatch2.Stop();
 
-      /*    foreach (int k in arrayForSingleThread)
-                Console.WriteLine(k);*/
-
+            CArrayManager.output(arrayForMultiThread);
             Console.WriteLine("One thread " + sWatch.ElapsedMilliseconds.ToString() + " ms");
             Console.WriteLine("Multithread " + sWatch2.ElapsedMilliseconds.ToString() + " ms");                
         }

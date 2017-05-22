@@ -12,6 +12,11 @@ namespace DictionaryCompressor
         private Dictionary<string, string> m_dictionary;
         private string m_text;
 
+        public RepositoryProcessedData()
+        {
+            m_dictionary = new Dictionary<string, string>();
+        }
+
         public void SetNewDictionaryFragment(Dictionary<string, string> dictionaryFragment)
         {
             m_dictionary = dictionaryFragment;
@@ -19,7 +24,7 @@ namespace DictionaryCompressor
 
         public void SetNewTextFragment(string text)
         {
-            m_text = m_text.Insert(m_text.Length - 1, text);
+            m_text += text;
         }
 
         public Dictionary<string, string> GetDictionary()

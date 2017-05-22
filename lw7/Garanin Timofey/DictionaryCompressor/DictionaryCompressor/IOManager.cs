@@ -22,7 +22,7 @@ namespace DictionaryCompressor
         private long m_remainderLengthOfFileNotRead;
         private long m_remainderLengthOfReadFragment;
         
-        public IOManager(String inputFileName, String outputFileName)
+        public IOManager(string inputFileName, string outputFileName)
         {
             m_inputFileName = inputFileName;
             m_outputFileName = outputFileName;
@@ -38,7 +38,7 @@ namespace DictionaryCompressor
             return m_innerCount;
         }
 
-        void OutputDictionary(Dictionary<string, string> dictionary)
+        public void OutputDictionary(Dictionary<string, string> dictionary)
         {
             using (StreamWriter sw = new StreamWriter(m_dictionaryFileName, false, System.Text.Encoding.Default))
             {
@@ -103,6 +103,7 @@ namespace DictionaryCompressor
                 {
                     data = GetContent(allocationGranularity * m_innerCount++, m_remainderLengthOfReadFragment);
                     m_viewLength = (uint)m_remainderLengthOfReadFragment;
+                    m_isFileCompletelyReadOut = true;
                 }
                 else
                 {
@@ -110,6 +111,7 @@ namespace DictionaryCompressor
                     m_viewLength = (uint)allocationGranularity;
                 }
                 m_remainderLengthOfReadFragment -= allocationGranularity;
+                System.Console.WriteLine("Accessed");
                 return data;
             }
             catch(TaskCanceledException ex)
@@ -141,7 +143,7 @@ namespace DictionaryCompressor
                 {
                     size = m_remainderLengthOfReadFragment;
                     m_remainderLengthOfFileNotRead = 0;
-                    m_isFileCompletelyReadOut = true;
+                    
                 }
                 else
                 {

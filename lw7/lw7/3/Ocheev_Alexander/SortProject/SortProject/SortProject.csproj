@@ -49,6 +49,7 @@
     <Compile Include="Sorter\MergerSorter\AbstractMergeSorter.cs" />
     <Compile Include="Sorter\MergerSorter\LinearMergeSorter.cs" />
     <Compile Include="Sorter\ShellSorter\AbstractShellSorter.cs" />
+    <Compile Include="Sorter\ShellSorter\LinearShellSorter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

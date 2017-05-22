@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SortProject.Sorter.MergerSorter;
 using System.Collections.Generic;
+using SortProject.Sorter.ShellSorter;
 
 namespace SortProjectTest
 {

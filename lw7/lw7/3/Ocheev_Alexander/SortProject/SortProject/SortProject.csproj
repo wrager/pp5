@@ -46,6 +46,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sorter\AbstractSorter.cs" />
+    <Compile Include="FileHandler.cs" />
     <Compile Include="Sorter\MergerSorter\AbstractMergeSorter.cs" />
     <Compile Include="Sorter\MergerSorter\LinearMergeSorter.cs" />
     <Compile Include="Sorter\MergerSorter\ParallelMergeSorter.cs" />

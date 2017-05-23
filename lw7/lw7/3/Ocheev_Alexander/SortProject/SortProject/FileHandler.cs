@@ -13,7 +13,7 @@ namespace SortProject.Sorter
         {
             var numbers = File.ReadAllText( inputFile )
                 .Split( ' ' )
-                .Where( str => str != " " )
+                .Where( str => !string.IsNullOrWhiteSpace( str ) )
                 .Select( str => int.Parse( str ) );
 
             _list = numbers.ToList();
@@ -33,12 +33,15 @@ namespace SortProject.Sorter
         public void Run(string text, string outputFile)
         {
             Sorter.Lst = _list;
-            Sorter.Sort();
 
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            watch.Stop();
 
             Sorter.Sort();
+
+            watch.Stop();
+
+            _list = Sorter.Lst;
+            WriteOutput( outputFile );
 
             var elapsedMs = watch.ElapsedMilliseconds;
 

@@ -15,6 +15,7 @@ namespace SortProjectTest
         List<int> unordered = new List<int> { 12, 10, 11, 5, 6, 8, 7, 4, 9, 15, 0, 1, 14, 13, 2, 3 };
         LinearMergeSorter<int> linearMergeSorter = new LinearMergeSorter<int>();
         LinearShellSorter<int> linearShellSorter = new LinearShellSorter<int>();
+        ParallelMergeSorter<int> parallelMergeSorter = new ParallelMergeSorter<int>();
 
         [TestMethod]
         public void LinearMerge_OrederedList()
@@ -67,6 +68,33 @@ namespace SortProjectTest
             linearShellSorter.Lst = unordered;
             linearShellSorter.Sort();
             var result = linearShellSorter.Lst;
+            CollectionAssert.AreEqual( ordered, result );
+        }
+
+        [TestMethod]
+        public void ParallelMerge_OrederedList()
+        {
+            parallelMergeSorter.Lst = ordered;
+            parallelMergeSorter.Sort();
+            var result = parallelMergeSorter.Lst;
+            CollectionAssert.AreEqual( ordered, result );
+        }
+
+        [TestMethod]
+        public void ParallelMerge_OrderDescList()
+        {
+            parallelMergeSorter.Lst = orderDesc;
+            parallelMergeSorter.Sort();
+            var result = parallelMergeSorter.Lst;
+            CollectionAssert.AreEqual( ordered, result );
+        }
+
+        [TestMethod]
+        public void ParallelMerge_UnorderedDescList()
+        {
+            parallelMergeSorter.Lst = unordered;
+            parallelMergeSorter.Sort();
+            var result = parallelMergeSorter.Lst;
             CollectionAssert.AreEqual( ordered, result );
         }
     }

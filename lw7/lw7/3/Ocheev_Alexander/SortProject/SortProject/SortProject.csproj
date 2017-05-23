@@ -48,8 +48,10 @@
     <Compile Include="Sorter\AbstractSorter.cs" />
     <Compile Include="Sorter\MergerSorter\AbstractMergeSorter.cs" />
     <Compile Include="Sorter\MergerSorter\LinearMergeSorter.cs" />
+    <Compile Include="Sorter\MergerSorter\ParallelMergeSorter.cs" />
     <Compile Include="Sorter\ShellSorter\AbstractShellSorter.cs" />
     <Compile Include="Sorter\ShellSorter\LinearShellSorter.cs" />
+    <Compile Include="Sorter\ShellSorter\ParallelShellSorter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

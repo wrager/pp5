@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DictionaryCompressor
 {
@@ -55,40 +53,21 @@ namespace DictionaryCompressor
                 {
                     if (!ifPastWasPunctMark)
                     {
-                        //int number = 0;
-                        //std::transform(word.begin(), word.end(), word.begin(), ::tolower);
-                        //var word1 = word.ToLower();
-                        //std::stringstream ss;
-
                         m_mutex.WaitOne() ;
                         string value = "";
                         var dict = m_repositoryProcessedData.GetDictionary();
                         if (!dict.TryGetValue(word, out value))
                         {
-
-                            /*number = Convert.ToInt16(value);
-                            ss << number;*/
                             value = Convert.ToString(dict.Count);
                             dict.Add(word, value);
                         }
-                        /*else
-                        {
-                            number = static_cast<int>(dict->size());
-                            ss << number;
-                            dict->insert(std::pair < std::string, std::string > (word, std::string(ss.str())));
-                        }*/
                         m_mutex.ReleaseMutex();
-
-                        //std::string cv = std::string(ss.str());
                         m_textFragmentAfterProcessing = m_textFragmentAfterProcessing.Insert(m_textFragmentAfterProcessing.Length, value);
-				        //m_textFragmentAfterProcessing->insert(m_textFragmentAfterProcessing->end(), cv.begin(), cv.end());
 				        if (!IsSpecials(m_textFragment.ElementAt(i)))
 				        {
                             m_textFragmentAfterProcessing = m_textFragmentAfterProcessing.Insert(m_textFragmentAfterProcessing.Length, m_textFragment.ElementAt(i).ToString());
-					        //m_textFragmentAfterProcessing->insert(m_textFragmentAfterProcessing->end(), m_pTextFragment[i]);
 				        }
                         ifPastWasPunctMark = true;
-				        //word.clear();
                         word = word.Remove(0, word.Length);
                     }
 			        else if (!IsSpecials(m_textFragment.ElementAt(i)))
@@ -99,10 +78,8 @@ namespace DictionaryCompressor
 		        if (IsSpecials(m_textFragment.ElementAt(i)))
 		        {
                     m_textFragmentAfterProcessing = m_textFragmentAfterProcessing.Insert(m_textFragmentAfterProcessing.Length, m_textFragment.ElementAt(i).ToString());
-                    //word.clear();
-                    //StringBuilder strb = new StringBuilder(word);
-                    //word = strb.Clear().ToString();
-		        }
+                    word = word.Remove(0, word.Length);
+                }
 	        }
 	        if (!String.IsNullOrEmpty(word))
 	        {
@@ -137,7 +114,7 @@ namespace DictionaryCompressor
 
         private bool IsPunctuaion(char c)
         {
-            var index = m_punctuation.IndexOf(c);//std::find(m_punctuation.begin(), m_punctuation.end(), c);
+            var index = m_punctuation.IndexOf(c);
             if (index == -1)
             {
                 return false;
@@ -147,7 +124,7 @@ namespace DictionaryCompressor
 
         private bool IsSpecials(char c)
         {
-            var index = m_specials.IndexOf(c);//std::find(m_specials.begin(), m_specials.end(), c);
+            var index = m_specials.IndexOf(c);
             if (index == -1)
             {
                 return false;

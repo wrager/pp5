@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DictionaryCompressor
 {
@@ -38,9 +35,10 @@ namespace DictionaryCompressor
         {
             try
             {
-                m_iomanager.SettingInputFile();
+                
                 while (!m_iomanager.IsFileCompletelyReadOut())
                 {
+                    m_iomanager.SettingInputFile();
                     for (uint i = 0; i != Environment.ProcessorCount; ++i)
                     {
                         var thread = new Thread(ThreadFunction);

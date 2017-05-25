@@ -12,8 +12,8 @@ namespace LAB7
         static void Main(string[] args)
         {
             CWorker worker = new CWorker();
-            worker.EncipherCaesar("alphabet_eng.txt", "Harry_Potter_1_for_time.txt", 5);
-            worker.EncipherGamma("alphabet_eng.txt", "Harry_Potter_1_for_time.txt", "gamma");
+            worker.Encipher("alphabet_eng.txt", "Harry_Potter_1_for_time.txt", 5);
+            worker.Encipher("alphabet_eng.txt", "Harry_Potter_1_for_time.txt", "gamma");
         }
     }
 }

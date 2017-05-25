@@ -54,7 +54,7 @@ namespace LAB7
             }
         }
 
-        public void EncipherCaesar(string alphabetFile, string fileStr, int key)
+        public void Encipher(string alphabetFile, string fileStr, int key)
         {
             CAlphabet alphabet = new CAlphabet();
             alphabet.ReadFormFile(alphabetFile);
@@ -79,12 +79,9 @@ namespace LAB7
             Console.Write(elapsedTimeForLine.ToString());
             Console.WriteLine(" ms. for thread");
             WriteMessageToFile(messageForThread, "out_thread_Caesar.txt");
-
-
-
         }
 
-        public void EncipherGamma(string alphabetFile, string fileStr, string gamma)
+        public void Encipher(string alphabetFile, string fileStr, string gamma)
         {
             CAlphabet alphabet = new CAlphabet();
             alphabet.ReadFormFile(alphabetFile);

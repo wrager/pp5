@@ -26,26 +26,25 @@ namespace LAB7
             m_threads = new List<Thread>();
             for (int i = 0; i < m_countThreads - 1; i++)
             {
-                m_threads.Add(new Thread(delegate() { MediatorforCaesar(i, key); }));
+                m_threads.Add(new Thread(delegate() { Mediator(i, key); }));
                 m_threads.Last().Start();
             }
             m_threads.ForEach(thread => thread.Join());
         }
 
-    
-
+   
         public void EncipherGamma(string gamma)
         {
             m_threads = new List<Thread>();
             for (int i = 0; i < m_countThreads - 1; i++)
             {
-                m_threads.Add(new Thread(delegate () { MediatorforGamma(i, gamma); }));
+                m_threads.Add(new Thread(delegate () { Mediator(i, gamma); }));
                 m_threads.Last().Start();
             }
             m_threads.ForEach(thread => thread.Join());
         }
 
-        private void MediatorforCaesar(int threadNumber, int key)
+        private void Mediator(int threadNumber, int key)
         {
             int size = m_message.GetSize();
             int minSize = size / m_countThreads * threadNumber;
@@ -53,7 +52,7 @@ namespace LAB7
             m_message.CondingForCaesar(new Tuple<int, int>(minSize, maxSize), key);
         }
 
-        private void MediatorforGamma(int threadNumber, string gamma)
+        private void Mediator(int threadNumber, string gamma)
         {
             int size = m_message.GetSize();
             int minSize = size / m_countThreads * threadNumber;
@@ -63,7 +62,7 @@ namespace LAB7
 
         public List<char> GetMessage()
         {
-            throw new NotImplementedException();
+            return m_message.GetCharMessage();
         }
     }
 }

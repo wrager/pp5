@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="CAlphabet.cs" />
     <Compile Include="CMessage.cs" />
+    <Compile Include="CThreadCrypto.cs" />
     <Compile Include="CWorker.cs" />
     <Compile Include="ICryptographer.cs" />
     <Compile Include="CLineCrypto.cs" />

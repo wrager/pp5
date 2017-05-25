@@ -60,6 +60,7 @@ namespace LAB7
             alphabet.ReadFormFile(alphabetFile);
             List<char> messageForLine = ReadFormFile(fileStr);
             List<char> messageForThread = messageForLine;
+
             //Line
             CLineCrypto lineCrypto = new CLineCrypto(messageForLine, alphabet);
             Console.WriteLine("Start Encipher Caesar");
@@ -69,7 +70,46 @@ namespace LAB7
             Console.Write(elapsedTimeForLine.ToString());
             Console.WriteLine(" ms. for line");
             WriteMessageToFile(messageForLine, "out_line_Caesar.txt");
+
             //Thread
+            CThreadCrypto threadCrypto = new CThreadCrypto(messageForLine, alphabet);
+            timer = Stopwatch.StartNew();
+            threadCrypto.EncipherCaesar(key);
+            elapsedTimeForLine = timer.ElapsedMilliseconds;
+            Console.Write(elapsedTimeForLine.ToString());
+            Console.WriteLine(" ms. for thread");
+            WriteMessageToFile(messageForThread, "out_thread_Caesar.txt");
+
+
+
+        }
+
+        public void EncipherGamma(string alphabetFile, string fileStr, string gamma)
+        {
+            CAlphabet alphabet = new CAlphabet();
+            alphabet.ReadFormFile(alphabetFile);
+            List<char> messageForLine = ReadFormFile(fileStr);
+            List<char> messageForThread = messageForLine;
+
+            //Line
+            CLineCrypto lineCrypto = new CLineCrypto(messageForLine, alphabet);
+            Console.WriteLine("Start Encipher Gamma");
+            Stopwatch timer = Stopwatch.StartNew();
+            lineCrypto.EncipherGamma(gamma);
+            long elapsedTimeForLine = timer.ElapsedMilliseconds;
+            Console.Write(elapsedTimeForLine.ToString());
+            Console.WriteLine(" ms. for line");
+            WriteMessageToFile(messageForLine, "out_line_Gamma.txt");
+
+            //Thread
+            CThreadCrypto threadCrypto = new CThreadCrypto(messageForLine, alphabet);
+            timer = Stopwatch.StartNew();
+            threadCrypto.EncipherGamma(gamma);
+            elapsedTimeForLine = timer.ElapsedMilliseconds;
+            Console.Write(elapsedTimeForLine.ToString());
+            Console.WriteLine(" ms. for thread");
+            WriteMessageToFile(messageForThread, "out_thread_Gamma.txt");
+
         }
     }
 }

@@ -12,9 +12,8 @@ namespace LAB7
         static void Main(string[] args)
         {
             CWorker worker = new CWorker();
-            List<char> message = worker.ReadFormFile("message.txt");
             worker.EncipherCaesar("alphabet_eng.txt", "Harry_Potter_1_for_time.txt", 5);
-            //worker.EncipherCaesar("alphabet_eng.txt", "message.txt", 5);
+            worker.EncipherGamma("alphabet_eng.txt", "Harry_Potter_1_for_time.txt", "gamma");
         }
     }
 }

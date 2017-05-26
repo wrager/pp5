@@ -2,7 +2,6 @@
 #include <random>
 #include <iostream>
 #include <iomanip>
-#include <omp.h>
 #include <thread>
 #include <vector>
 #include <mutex>
@@ -31,7 +30,7 @@ float CalculatePi(size_t iterationsCount)
 	return float(4.f * (float(includedPoints) / float(iterationsCount)));
 }
 
-void PiCalculationCallback(double & result, int iterationsCount)
+void PiCalculation(double & result, int iterationsCount)
 {
 	mutex mutex;
 	mutex.lock();
@@ -44,15 +43,15 @@ void PiCalculationCallback(double & result, int iterationsCount)
 double CalculatePiParall(int iterationsCount)
 {	
 	const unsigned int processCount = thread::hardware_concurrency(); 
-	int iterationForProccess = ceil(iterationsCount / processCount);
+	int iterationForProccess = int(ceil(iterationsCount / processCount));
 	vector<thread> threads;
 	double result = 0;
 
-	for (auto i = 0; i < processCount; ++i)
+	for (unsigned i = 0; i < processCount; ++i)
 	{
-		threads.push_back(thread(PiCalculationCallback, ref(result), iterationForProccess));
+		threads.push_back(thread(PiCalculation, ref(result), iterationForProccess));
 	}
-	for (auto i = 0; i < threads.size(); ++i)
+	for (unsigned i = 0; i < threads.size(); ++i)
 	{
 		threads[i].join();
 	}

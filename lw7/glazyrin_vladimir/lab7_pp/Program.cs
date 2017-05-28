@@ -7,15 +7,20 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace lab7_pp_gamma
+namespace lab7_pp
 {
     class Program
     {
         static string[] m_text;
-        static List<string> new_text;
         static string alphabet;
-        static Encoding cyrillic = Encoding.UTF8;
 
+        public static string Alphabet
+        {
+            get
+            {
+                return alphabet;
+            }
+        }
 
         static SecureString GetPassword()
         {
@@ -45,26 +50,6 @@ namespace lab7_pp_gamma
             return pwd;
         }
 
-        static List<string> GammaTextCoding(int start, int finish)
-        {
-            int countAlphabet = 0;
-            for (int i = start; i < finish; i++)
-            {
-                char[] line = new_text[i].ToCharArray();
-                for (int j = start; j < line.Length; j++)
-                {
-                    int ascii_code = Convert.ToInt32(line[j]);
-                    ascii_code += Convert.ToInt32(alphabet[countAlphabet]);
-                    ascii_code = ascii_code % 127;
-                    countAlphabet = countAlphabet < alphabet.Length - 1 ? countAlphabet + 1 : 0;
-                    line[j] = Convert.ToChar(ascii_code);
-                }
-                new_text.RemoveAt(i);
-                new_text.Insert(i, new string(line));
-            }
-            return new_text;
-        }
-
         static string LoadAlphabet()
         {
             Console.WriteLine("enter alphabet : ");
@@ -74,45 +59,40 @@ namespace lab7_pp_gamma
             return numStr;
         }
 
-        public string ReplaceCharInString(string source, int index, char newSymb)
-        {
-            char[] chars = source.ToCharArray();
-            chars[index] = newSymb;
-            return new string(chars);
-        }
-
-        public static void Fill(List<string> list)
-        {
-            for (var i = 0; i < list.Capacity; i++)
-            {
-                list.Add("");
-            }
-        } 
-
         static void Main(string[] args)
         {
             alphabet = LoadAlphabet();
 
-            m_text = System.IO.File.ReadAllLines("input.txt");
+            m_text = System.IO.File.ReadAllLines(args[0]);
 
-            new_text = new List<string>(m_text.Length);
-            System.Diagnostics.Stopwatch startTime = new System.Diagnostics.Stopwatch();
-            startTime.Start();
+            CGammaCoding code = new CGammaCoding();
+            code.SetStringArray(m_text);
             
-            for (int i = 0; i < m_text.Length; i++)
-            {
-                new_text.Add(m_text[i]);
-            }
+            System.Diagnostics.Stopwatch startTime1 = new System.Diagnostics.Stopwatch();
+            startTime1.Start();
+            code.CallConsistentMethod();
+            startTime1.Stop();
+            Console.WriteLine("consistent method take " + (startTime1.ElapsedMilliseconds / 1000.0).ToString());
+            code.WriteInFile("consistent.txt");
 
-            GammaTextCoding(0, m_text.Length);
+            code.SetStringArray(m_text);
+            int countOfThreads = Convert.ToInt32(args[1]);
+            System.Diagnostics.Stopwatch startTime2 = new System.Diagnostics.Stopwatch();
+            startTime2.Start();
+            code.CallParallMethod(countOfThreads);
+            startTime2.Stop();
+            Console.WriteLine("parall method take " + (startTime2.ElapsedMilliseconds / 1000.0).ToString());
+            code.WriteInFile("parall.txt");
 
-            startTime.Stop();
 
-            Console.WriteLine("consistent method take " + (startTime.ElapsedMilliseconds / 1000.0).ToString());
-           
-            System.IO.File.WriteAllLines("output.txt", new_text);
 
-            Console.Read();
         }
     }
+    public class Params
+    {
+        public int start;
+        public int finish;
+    }
+
 }
+

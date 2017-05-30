@@ -21,21 +21,18 @@ namespace app
 
         public void SortArray()
         {
-            List<int> newList = new List<int>(m_array);
+            List<int> newList = GetCopyArray(m_array);
+            List<int> newList2 = GetCopyArray(m_array);
             double timeForParallelVersionAglorithm = Chronometer.GetCalculatedTime(() => {
                m_sorted.Sort(newList, true);
             });
+           
+            double timeForSingleVersionAglorithm = Chronometer.GetCalculatedTime(() => {
+                m_sorted.Sort(newList2, false);
+            });
 
             Console.WriteLine("Time parallel algorithm: " + timeForParallelVersionAglorithm + "ms");
-            OutputArray(m_sorted.GetSortedArray());
-        }
-
-        private void OutputArray(List<int> array)
-        {
-            for (int i = 0; i < array.Count; i++)
-            {
-                Console.Write(array[i] + " ");
-            }
+            Console.WriteLine("Time single algorithm: " + timeForSingleVersionAglorithm + "ms");
         }
 
         public static List<int> ReadFileToVec(string filename)
@@ -47,6 +44,16 @@ namespace app
                 .ToList();
 
             return numbers;
+        }
+
+        List<int> GetCopyArray(List<int> array)
+        {
+            List<int> newList = new List<int>();
+            for (int i = 0; i < array.Count; i++)
+            {
+                newList.Add(array[i]);
+            }
+            return newList;
         }
     }
 }

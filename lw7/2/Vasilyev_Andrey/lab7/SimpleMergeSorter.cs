@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,36 +6,27 @@ using System.Threading.Tasks;
 
 namespace lab7
 {
-    public class CSimpleMergeSorter : CSorter
+    public class SimpleMergeSorter: Sorter
     {
-        protected ArrayList helper;
+        protected List<int> helper;
 
-        public CSimpleMergeSorter(ArrayList data) : base(data)
+        public SimpleMergeSorter(List<int> data)
+            : base(data)
         {
-            helper = new ArrayList();
-            for (int i = 0; i < data.Count; ++i)
-            {
-                helper.Add(0);
-            }
+            helper = new List<int>(new int[Data.Count + 1]);
         }
 
         public override void Sort()
         {
-            helper = new ArrayList(m_data.Count);
-            for (int i = 0; i < m_data.Count; ++i)
-            {
-                helper.Add(0);
-            }
-            
-            MergeSort(0, m_data.Count - 1);
+            MergeSort(0, Data.Count - 1);
         }
 
         public override string ToString()
         {
-            return "SimpleMergeSorter";
+            return "Simple mergeSorter";
         }
 
-        public void MergeSort(int low, int high)
+        protected void MergeSort(int low, int high)
         {
             if (low < high)
             {
@@ -47,15 +37,11 @@ namespace lab7
             }
         }
 
-        public void Merge(int low, int middle, int high)
+        protected void Merge(int low, int middle, int high)
         {
-            for (int ii = low; ii <= high; ++ii)
+            for (int m = low; m <= high; m++)
             {
-                if(ii==m_data.Count)
-                {
-                    break;
-                }
-                helper[ii] = m_data[ii];
+                helper[m] = Data[m];
             }
 
             int i = low;
@@ -64,14 +50,14 @@ namespace lab7
 
             while (i <= middle && j <= high)
             {
-                if ((int)helper[i] <= (int)helper[j])
+                if (helper[i] <= helper[j])
                 {
-                    m_data[k] = helper[i];
+                    Data[k] = helper[i];
                     i++;
                 }
                 else
                 {
-                    m_data[k] = helper[j];
+                    Data[k] = helper[j];
                     j++;
                 }
                 k++;
@@ -79,7 +65,7 @@ namespace lab7
 
             while (i <= middle)
             {
-                m_data[k] = helper[i];
+                Data[k] = helper[i];
                 k++;
                 i++;
             }

@@ -10,7 +10,7 @@ namespace lab7
     public class DataWriter
     {
 
-        public static void WriteToFile(ArrayList data, string outputFileName = "output.txt")
+        public static void WriteToFile(List<int> data, string outputFileName = "output.txt")
         {
             // Write the string to a file.
             System.IO.StreamWriter file = new System.IO.StreamWriter(outputFileName);

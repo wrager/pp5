@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace lab7
 {
-    public abstract class CSorter
+    public abstract class Sorter
     {
         public enum Type
         {
@@ -15,25 +14,14 @@ namespace lab7
             SHELL
         };
 
-        protected ArrayList m_data;
+        public List<int> Data { get; set; }
 
-        public ArrayList Data
+        public Sorter(List<int> data)
         {
-            get
-            {
-                return m_data ?? new ArrayList();
-            }
-            set
-            {
-                m_data = value;
-            }
-        }
-
-        public CSorter(ArrayList data)
-        {
-            m_data = data;
+            Data = data;
         }
 
         public abstract void Sort();
+        public abstract override string ToString();
     }
 }

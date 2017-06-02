@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,11 +12,12 @@ namespace lab7
         static void Main(string[] args)
         {
             List<int> data = DataReader.ReadFromFile();
+            ArrayList d = new ArrayList(data);
 
-            //CSimpleMergeSorter simpleMerge = new CSimpleMergeSorter(data);
-            //simpleMerge.Sort();
-            CParallelShellSorter sorter = new CParallelShellSorter(data);
+            CSorter sorter = new CParallelMergeSorter(d);
             sorter.Sort();
+            //CParallelShellSorter sorter = new CParallelShellSorter(data);
+            //sorter.Sort();
             
             DataWriter.WriteToFile(sorter.Data);
         }

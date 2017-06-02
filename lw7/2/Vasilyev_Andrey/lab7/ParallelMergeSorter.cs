@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -12,14 +13,14 @@ namespace lab7
     {
         private double m_threadsCount;
 
-        public CParallelMergeSorter(List<int> data) : base(data)
+        public CParallelMergeSorter(ArrayList data) : base(data)
         {
             m_threadsCount = Environment.ProcessorCount;
         }
 
         public override void Sort()
         {
-            helper = new List<int>(m_data.Count);
+            helper = new ArrayList(m_data.Count);
             ParallelSort(0, m_data.Count - 1, 0);
         }
 

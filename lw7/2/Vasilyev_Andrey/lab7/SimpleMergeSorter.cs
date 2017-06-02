@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +9,20 @@ namespace lab7
 {
     public class CSimpleMergeSorter : CSorter
     {
-        protected List<int> helper;
+        protected ArrayList helper;
 
-        public CSimpleMergeSorter(List<int> data) : base(data)
+        public CSimpleMergeSorter(ArrayList data) : base(data)
         {
-
+            helper = new ArrayList();
+            for (int i = 0; i < data.Count; ++i)
+            {
+                helper.Add(0);
+            }
         }
 
         public override void Sort()
         {
-            helper = new List<int>(m_data.Count);
+            helper = new ArrayList(m_data.Count);
             for (int i = 0; i < m_data.Count; ++i)
             {
                 helper.Add(0);
@@ -44,8 +49,12 @@ namespace lab7
 
         public void Merge(int low, int middle, int high)
         {
-            for (int ii = low; ii <= high; ii++)
+            for (int ii = low; ii <= high; ++ii)
             {
+                if(ii==m_data.Count)
+                {
+                    break;
+                }
                 helper[ii] = m_data[ii];
             }
 
@@ -55,7 +64,7 @@ namespace lab7
 
             while (i <= middle && j <= high)
             {
-                if (helper[i] <= helper[j])
+                if ((int)helper[i] <= (int)helper[j])
                 {
                     m_data[k] = helper[i];
                     i++;

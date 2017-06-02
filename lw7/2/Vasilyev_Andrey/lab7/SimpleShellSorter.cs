@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace lab7
 {
     public class CSimpleShellSorter : CSorter
     {
-        public CSimpleShellSorter(List<int> data) : base(data)
+        public CSimpleShellSorter(ArrayList data) : base(data)
         {
         }
 
@@ -21,9 +22,9 @@ namespace lab7
                 int t;
                 for (int i = h; i < n; i++)
                 {
-                    t = m_data[i];
+                    t = (int)m_data[i];
                     int j;
-                    for (j = i; j >= h && t < m_data[j - h]; j -= h)
+                    for (j = i; j >= h && t < (int)m_data[j - h]; j -= h)
                     {
                         m_data[j] = m_data[j - h];
                     }

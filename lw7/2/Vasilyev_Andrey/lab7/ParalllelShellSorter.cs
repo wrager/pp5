@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace lab7
     {
         private int m_threadsCount;
 
-        public CParallelShellSorter(List<int> data) : base(data)
+        public CParallelShellSorter(ArrayList data) : base(data)
         {
             m_threadsCount = Environment.ProcessorCount;
         }
@@ -23,7 +24,7 @@ namespace lab7
             for (int h = n; h > 0; h /= 2)
             {
                 List<Thread> activeThreads = new List<Thread>();
-                int t;
+                
                 int numberOfElementsPerThread = (int)Math.Floor(((float)(n - h)) / m_threadsCount);
 
                 for (int i = h; i < n; i += numberOfElementsPerThread)
@@ -43,9 +44,9 @@ namespace lab7
         {
             for (int currentItemId = i; currentItemId < n && currentItemId - i < nElements; ++currentItemId)
             {
-                int t = m_data[currentItemId];
+                int t = (int)m_data[currentItemId];
                 int j;
-                for (j = currentItemId; j >= h && t < m_data[j - h]; j -= h)
+                for (j = currentItemId; j >= h && t < (int)m_data[j - h]; j -= h)
                 {
                     m_data[j] = m_data[j - h];
                 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,13 +15,13 @@ namespace lab7
             SHELL
         };
 
-        protected List<int> m_data;
+        protected ArrayList m_data;
 
-        public List<int> Data
+        public ArrayList Data
         {
             get
             {
-                return m_data ?? new List<int>();
+                return m_data ?? new ArrayList();
             }
             set
             {
@@ -28,7 +29,7 @@ namespace lab7
             }
         }
 
-        public CSorter(List<int> data)
+        public CSorter(ArrayList data)
         {
             m_data = data;
         }

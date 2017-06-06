@@ -8,4 +8,4 @@ public:
 
 int RandInt(int max);
 float CalculatePiSequential(size_t iterationsCount);
-//TODO Parallel
+float CalculatePiParall(size_t iterationsCount);

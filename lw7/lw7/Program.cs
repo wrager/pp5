@@ -24,25 +24,18 @@ namespace lw7
         {
             try
             {
-                //setlocale(LC_ALL, "RUS");
-
                 CheckParametrs(args.Length);
-
-                //boost::timer::cpu_timer timer;
 
                 ulong amountIteration = Convert.ToUInt64(args[0]);
                 ulong processesNumber = Convert.ToUInt64(args[1]);
 
-                //timer.start();
-                Console.WriteLine("{0}", CTaskSolver.GetPi(amountIteration, processesNumber));
+                CTaskSolver solver = new CTaskSolver();
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+                Console.WriteLine("{0}", solver.GetPi(amountIteration, processesNumber));
+                watch.Stop();
 
-                //timer.stop();
-
-                //double time = timer.elapsed().wall * pow(10.f, -9.f);
-                //Console.WriteLine("time = {0}", time);
-
+                Console.WriteLine("time = {0}", Convert.ToDouble(watch.ElapsedMilliseconds) / 1000);
                 Console.ReadKey();
-                //system("pause");
             }
             catch (Exception except)
             {

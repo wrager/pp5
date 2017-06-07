@@ -8,6 +8,7 @@ namespace lw7
     {
         private ulong m_numberProcess;
         private ulong m_amountIterations;
+        private Random rand = new Random();
 
         class ThreadResult
         {
@@ -23,48 +24,62 @@ namespace lw7
             public double result;
         };
 
-        static public double GetPi(ulong amountIteration, ulong amountThreads)
+        public double GetPi(ulong amountIteration, ulong amountThreads)
         {
             double result = 0.0;
 
-            List<Thread> threads = new List<Thread>();
-            List<ThreadResult> threadResults = new List<ThreadResult>();
-
-            for (ulong index = 0; index < amountThreads; ++index)
+            if (amountThreads != 0)
             {
-                threadResults.Add(new ThreadResult());
-                int intIndex = Convert.ToInt32(index);
+                List<Thread> threads = new List<Thread>();
+                List<ThreadResult> threadResults = new List<ThreadResult>();
 
-                Thread thread = new Thread(
-                    () =>
-                    {
-                        ComputePi(
-                            index,
-                            amountIteration / amountThreads,
-                            amountIteration,
-                            threadResults[intIndex]
-                        );
-                    }
-                );
-                thread.Start();
-                thread.Join();
-                threads.Add(thread);
-            };
-
-          
-
-            for (int index = 0; index < Convert.ToInt32(amountThreads); ++index)
-            {
-                if (!threads[index].IsAlive)// was joinable
+                for (ulong index = 0; index < amountThreads; ++index)
                 {
-                    result += threadResults[index].result;
+                    threadResults.Add(new ThreadResult());
+                    int intIndex = Convert.ToInt32(index);
+
+                    Thread thread = new Thread(
+                        () =>
+                        {
+                            ComputePi(
+                                index,
+                                amountIteration / amountThreads,
+                                amountIteration,
+                                threadResults[intIndex]
+                            );
+                        }
+                    );
+                    thread.Start();
+                    thread.Join();
+                    threads.Add(thread);
+                };
+
+
+
+                for (int index = 0; index < Convert.ToInt32(amountThreads); ++index)
+                {
+                    if (!threads[index].IsAlive)// was joinable
+                    {
+                        result += threadResults[index].result;
+                    }
                 }
+            }
+            else
+            {
+                ThreadResult threadResult = new ThreadResult();
+                ComputePi(
+                    Convert.ToUInt64(0),
+                    amountIteration,
+                    amountIteration,
+                    threadResult
+                );
+                result = threadResult.result;
             }
 
             return result;
         }
 
-        static private void ComputePi(
+        private void ComputePi(
             ulong threadId,
             ulong amountIteration,
             ulong amountPoints,
@@ -86,9 +101,8 @@ namespace lw7
             result.result = resultTheThread;
         }
 
-        static private double RandomNumber()
+        private double RandomNumber()
         {
-            Random rand = new Random();
             return rand.NextDouble();
         }
 
@@ -97,7 +111,7 @@ namespace lw7
             return (x * x + y * y) <= 1;
         }
 
-        static private ulong CalculateHits(ulong numIter)
+        private ulong CalculateHits(ulong numIter)
         {
             ulong numHits = 0;
             for (ulong index = 0; index < numIter; ++index)

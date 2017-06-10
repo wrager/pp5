@@ -37,7 +37,7 @@ void WriteToFile(const std::string & nameFile, const std::vector<unsigned> & num
 	inpFile << " }";
 }
 
-void ParallelTimeMeasurement(const std::string & inFile, const std::string & outFile)
+void Measurement(const std::string & inFile, const std::string & outFile, bool parallel)
 {
 	std::chrono::time_point<std::chrono::system_clock> startTime, endTime;
 
@@ -45,30 +45,24 @@ void ParallelTimeMeasurement(const std::string & inFile, const std::string & out
 
 	std::vector<unsigned> number = ReadFile(inFile);
 	CMergeSort mergeSort;
-	std::vector<unsigned> res = mergeSort.MergeSortParallel(number);
-	std::string outFileName = "Par_";
+	std::vector<unsigned> res; mergeSort.MergeSortParallel(number);
+	std::string outFileName;
+	if (parallel)
+	{
+		res = mergeSort.MergeSortParallel(number);
+		outFileName = "Parallel";
+	}
+	else
+	{
+		res = mergeSort.MergeSortSequence(number);
+		outFileName = "Sequence";
+	}
 	WriteToFile(outFileName + outFile.c_str(), res);
 
 	endTime = std::chrono::system_clock::now();
-	std::cout << "Parallel time measurement: " << std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count() << "ms" << std::endl;
+	std::cout << outFileName << " : " << std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count() << "ms" << std::endl;
 }
 
-void SequenceTimeMeasurement(const std::string & inFile, const std::string & outFile)
-{
-	std::chrono::time_point<std::chrono::system_clock> startTime, endTime;
-
-	startTime = std::chrono::system_clock::now();
-
-	std::vector<unsigned> number = ReadFile(inFile);
-	CMergeSort mergeSort;
-	std::vector<unsigned> res = mergeSort.MergeSortSequence(number);
-
-	std::string outFileName = "Seq_";
-	WriteToFile(outFileName + outFile.c_str(), res);
-
-	endTime = std::chrono::system_clock::now();
-	std::cout << "Sequence time measurement: " << std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count() << "ms" << std::endl;
-}
 
 int main(int argc, char * argv[])
 {
@@ -77,8 +71,8 @@ int main(int argc, char * argv[])
 		std::string inFile = argv[1];
 		std::string outFile = argv[2];
 
-		ParallelTimeMeasurement(inFile, outFile);
-		SequenceTimeMeasurement(inFile, outFile);
+		Measurement(inFile, outFile, true);
+		Measurement(inFile, outFile, false);
 	}
 	return 0;
 }

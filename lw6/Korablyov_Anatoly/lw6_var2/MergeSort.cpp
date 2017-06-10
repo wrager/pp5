@@ -14,6 +14,23 @@ void StartCalcRank(CMergeSort * mat, std::vector<unsigned> & num)
 	mat->StartMergeSort(num);
 }
 
+void ReplaceArrToTwoArr(const std::vector<unsigned> & nums, std::vector<unsigned> & firstArr, std::vector<unsigned> & secondArr)
+{
+	int nElems = nums.size() / 2;
+	for (auto it : nums)
+	{
+		if (nElems < 1)
+		{
+			secondArr.push_back(it);
+		}
+		else
+		{
+			firstArr.push_back(it);
+			nElems--;
+		}
+	}
+}
+
 std::vector<unsigned> CMergeSort::MergeTwoArray(const std::vector<unsigned> & firstArr, const std::vector<unsigned> & secondArr)
 {
 	std::vector<unsigned> resultArr;
@@ -58,19 +75,7 @@ void CMergeSort::StartMergeSort(std::vector<unsigned>& num)
 	{
 		std::vector<unsigned> firstArr;
 		std::vector<unsigned> secondArr;
-		int nElems = num.size() / 2;
-		for (auto it : num)
-		{
-			if (nElems < 1)
-			{
-				secondArr.push_back(it);
-			}
-			else
-			{
-				firstArr.push_back(it);
-				nElems--;
-			}
-		}
+		ReplaceArrToTwoArr(num, firstArr, secondArr);
 
 		StartMergeSort(firstArr);
 		StartMergeSort(secondArr);
@@ -91,19 +96,7 @@ std::vector<unsigned> CMergeSort::MergeSortParallel(const std::vector<unsigned>&
 	{
 		std::vector<unsigned> firstArr;
 		std::vector<unsigned> secondArr;
-		int nElems = num.size() / 2;
-		for (auto it : num)
-		{
-			if (nElems < 1)
-			{
-				secondArr.push_back(it);
-			}
-			else
-			{
-				firstArr.push_back(it);
-				nElems--;
-			}
-		}
+		ReplaceArrToTwoArr(num, firstArr, secondArr);
 
 		std::thread firstThread(StartCalcRank, this, firstArr);
 		std::thread secThread(StartCalcRank, this, secondArr);
@@ -126,19 +119,7 @@ std::vector<unsigned> CMergeSort::MergeSortSequence(const std::vector<unsigned>&
 	{
 		std::vector<unsigned> firstArr;
 		std::vector<unsigned> secondArr;
-		int nElems = num.size() / 2;
-		for (auto it : num)
-		{
-			if (nElems < 1)
-			{
-				secondArr.push_back(it);
-			}
-			else
-			{
-				firstArr.push_back(it);
-				nElems--;
-			}
-		}
+		ReplaceArrToTwoArr(num, firstArr, secondArr);
 
 		StartMergeSort(firstArr);
 		StartMergeSort(secondArr);

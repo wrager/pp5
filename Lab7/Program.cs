@@ -6,16 +6,24 @@ using System.Threading.Tasks;
 
 class Program
 {
-    static double PiSequintal(double iterationsCount)
+    static bool CreateNumbersAndCheckPoint(double x, double y)
     {
         Random rand = new Random();
+        x = rand.NextDouble() * 2 - 1;
+        y = rand.NextDouble() * 2 - 1;
+        return (x * x + y * y <= 1);
+    }
+
+    static double PiSequintal(double iterationsCount)
+    {
+        
         int includedPoints = 0;
         for (int i = 0; i < iterationsCount; i++)
         {
-            double x = rand.NextDouble() * 2 - 1;
-            double y = rand.NextDouble() * 2 - 1;
-
-            if (x * x + y * y <= 1)
+            double x = 0;
+            double y = 0;
+            
+            if(CreateNumbersAndCheckPoint(x, y))
             {
                 includedPoints++;
             }
@@ -29,7 +37,7 @@ class Program
         int processCount = Environment.ProcessorCount;
         int iterationForThread = (int)Math.Ceiling(iterationsCount / processCount);
         int includedPoints = 0;
-        
+
         ParallelOptions options = new ParallelOptions();
         options.MaxDegreeOfParallelism = processCount;
         Parallel.For(0, processCount, options, i =>
@@ -38,10 +46,10 @@ class Program
             int threadIncludedPoints = 0;
             for (int j = 0; j < iterationForThread; j++)
             {
-                double x = rand.NextDouble() * 2 - 1;
-                double y = rand.NextDouble() * 2 - 1;
-
-                if (x * x + y * y <= 1)
+                double x = 0;
+                double y = 0;
+                
+                if (CreateNumbersAndCheckPoint(x, y))
                 {
                     threadIncludedPoints++;
                 }
@@ -66,13 +74,13 @@ class Program
         Console.WriteLine("Parallel method");
         Stopwatch stopWatch = new Stopwatch();
         stopWatch.Start();
-        Console.WriteLine("Result: {0:##.00000}", PiParal(iterationsCount));
+        Console.WriteLine("Result: {0:##.00}", PiParal(iterationsCount));
         stopWatch.Stop();
         Console.WriteLine("Time: {0} \n", stopWatch.Elapsed);
 
         Console.WriteLine("Sequential method");
         stopWatch.Start();
-        Console.WriteLine("Result: {0:##.00000}", PiSequintal(iterationsCount));
+        Console.WriteLine("Result: {0:##.00}", PiSequintal(iterationsCount));
         stopWatch.Stop();
         Console.WriteLine("Time: {0} \n", stopWatch.Elapsed);
     }

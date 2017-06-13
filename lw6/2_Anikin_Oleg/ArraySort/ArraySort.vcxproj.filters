@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Calculator">
+      <UniqueIdentifier>{4a66fbb3-0cd7-4c6a-b536-fd7057d2f887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Agregator">
+      <UniqueIdentifier>{3dc220a2-a26e-4b82-9ff4-03e4a452eb44}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MergeSortCalculator.h">
+      <Filter>Calculator</Filter>
+    </ClInclude>
+    <ClInclude Include="CalculatorAgregator.h">
+      <Filter>Agregator</Filter>
+    </ClInclude>
+    <ClInclude Include="ShellSortCalculator.h">
+      <Filter>Calculator</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="ISortCalculator.h">
+      <Filter>Calculator</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseSortCalculator.h">
+      <Filter>Calculator</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MergeSortCalculator.cpp">
+      <Filter>Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="CalculatorAgregator.cpp">
+      <Filter>Agregator</Filter>
+    </ClCompile>
+    <ClCompile Include="ShellSortCalculator.cpp">
+      <Filter>Calculator</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="BaseSortCalculator.cpp">
+      <Filter>Calculator</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

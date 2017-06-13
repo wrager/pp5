@@ -20,14 +20,12 @@ CApplication::CApplication(std::string const & inputPath, std::string const & ou
 void CApplication::SortArray()
 {
 	m_sorted.SetArray(m_array);
-	auto fourThread = 4;
-	double timeForParallelVersionAglorithm = GetCalculatedTime([&]() {m_sorted.Sort(fourThread); });
-	std::cout << "Time parallel algorithm with " << fourThread << " thread: " << timeForParallelVersionAglorithm << std::endl;
+	double timeForParallelVersionAglorithm = GetCalculatedTime([&]() {m_sorted.Sort(true); });
+	std::cout << "Time parallel algorithm: " << timeForParallelVersionAglorithm << std::endl;
 
-	auto oneThread = 1;
 	m_sorted.SetArray(m_array);
-	double timeForSimpleVersionAglorithm = GetCalculatedTime([&]() {m_sorted.Sort(oneThread); });
-	std::cout << "Time simple algorithm with " << oneThread << " thread: " << timeForSimpleVersionAglorithm << std::endl;
+	double timeForSimpleVersionAglorithm = GetCalculatedTime([&]() {m_sorted.Sort(false); });
+	std::cout << "Time simple algorithm: " << timeForSimpleVersionAglorithm << std::endl;
 }
 
 void CApplication::OutputResults() const

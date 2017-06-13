@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="threadpool">
-      <UniqueIdentifier>{0e5717c0-f42d-4b5e-842e-6ef2f04302e0}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -33,24 +30,18 @@
     <ClInclude Include="Chronometer.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Mergesort.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="ISorting.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="ThreadPool.h">
-      <Filter>threadpool</Filter>
+    <ClInclude Include="ThreadQueue.h">
+      <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="ParallelSort.h">
+    <ClInclude Include="MergeSort.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Mergesort.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="Application.cpp">
@@ -59,10 +50,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="ThreadPool.cpp">
-      <Filter>threadpool</Filter>
+    <ClCompile Include="ThreadQueue.cpp">
+      <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="ParallelSort.cpp">
+    <ClCompile Include="MergeSort.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>

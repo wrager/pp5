@@ -1,72 +1,85 @@
 #include "stdafx.h"
-#include "Mergesort.h"
+#include "MergeSort.h"
+#include <thread>
 
 
-void CMergesort::Sort(DoubleArray & arr)
+CMergeSort::CMergeSort()
+	: m_array(std::vector<double>())
 {
-	if (arr.size() == 0)
-	{
-		return;
-	}
-	std::vector<DoubleArray> numbers;
-	for (unsigned i = 0; i < arr.size(); ++i)
-	{
-		numbers.push_back({ arr[i] });
-	}
-
-	while (numbers.size() > 1)
-	{
-		std::vector<DoubleArray> temp;
-		DoubleArray result;
-		for (unsigned index = 0; index < numbers.size(); index += 2)
-		{
-			if (index == (numbers.size() - 1))
-			{
-				temp.push_back(numbers[index]);
-				break;
-			}
-			auto leftPart = numbers[index];
-			auto rightPart = numbers[index + 1];
-
-			auto result = MergeSort(leftPart, rightPart);
-
-			temp.push_back(result);
-		}
-
-		numbers = temp;
-	}
-	auto temp = *numbers.begin();
-	arr.swap(temp);
 }
 
 
-DoubleArray CMergesort::MergeSort(DoubleArray const & leftPart, DoubleArray const & rightPart)
+std::vector<double> CMergeSort::GetSortedArray() const
 {
-	auto leftIterator = leftPart.begin();
-	auto rightIterator = rightPart.begin();
-	DoubleArray mergedParts;
-	while (leftIterator != leftPart.end() || rightIterator != rightPart.end())
+	return m_array;
+}
+
+void CMergeSort::SetArray(std::vector<double> const & arr)
+{
+	m_array = arr;
+}
+
+void CMergeSort::Sort(bool isParallelMode)
+{
+	m_isParallelMode = isParallelMode;
+	MergeSort(0, m_array.size() - 1);
+}
+
+void CMergeSort::MergeSort(size_t left, size_t right)
+{
+	if (left < right)
 	{
-		if (rightIterator == rightPart.end())
+		const auto middle = static_cast<size_t>((left + right) / 2);
+		const auto hardwareThreadsContextsValid = (right - left + 1 == m_array.size() / std::thread::hardware_concurrency());
+		if (m_isParallelMode && hardwareThreadsContextsValid)
 		{
-			mergedParts.push_back(*leftIterator);
-			++leftIterator;
-		}
-		else if (leftIterator == leftPart.end())
-		{
-			mergedParts.push_back(*rightIterator);
-			++rightIterator;
-		}
-		else if (*leftIterator < *rightIterator)
-		{
-			mergedParts.push_back(*leftIterator);
-			++leftIterator;
+			CThreadQueue threadQueue;
+			threadQueue.AddThread(std::thread(&CMergeSort::MergeSort, this, left, middle));
+			threadQueue.AddThread(std::thread(&CMergeSort::MergeSort, this, middle + 1, right));
+			threadQueue.WaitForMultiplyObjects();
 		}
 		else
 		{
-			mergedParts.push_back(*rightIterator);
-			++rightIterator;
+			MergeSort(left, middle);
+			MergeSort(middle + 1, right);
+		}
+		Merge(left, middle, right);
+	}
+}
+
+
+void CMergeSort::Merge(size_t left, size_t middle, size_t right)
+{
+	size_t start = middle + 1;
+	size_t current = 0;
+	size_t end = left;
+	std::vector<double> sortedResult(right - left + 1);
+
+	while (end <= middle && start <= right)
+	{
+		if (m_array[end] <= m_array[start])
+		{
+			sortedResult[current++] = m_array[end++];
+		}
+		else
+		{
+			sortedResult[current++] = m_array[start++];
 		}
 	}
-	return mergedParts;
+	while (end <= middle || start <= end)
+	{
+		if (start <= end)
+		{
+			sortedResult[current++] = m_array[start++];
+		}
+		else if (end <= middle)
+		{
+			sortedResult[current++] = m_array[end++];
+		}
+	}
+	while (--current < sortedResult.size())
+	{
+		m_array[current + left] = sortedResult[current];
+	}
 }
+

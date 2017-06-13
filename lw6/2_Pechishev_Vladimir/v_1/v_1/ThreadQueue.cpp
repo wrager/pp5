@@ -1,12 +1,12 @@
 #include "stdafx.h"
-#include "ThreadPool.h"
+#include "ThreadQueue.h"
 
-void CThreadPool::AddThread(std::thread && thread)
+void CThreadQueue::AddThread(std::thread && thread)
 {
 	m_threads.push_back(std::move(thread));
 }
 
-void CThreadPool::WaitForMultiplyObjects()
+void CThreadQueue::WaitForMultiplyObjects()
 {
 	for (auto & thread : m_threads)
 	{

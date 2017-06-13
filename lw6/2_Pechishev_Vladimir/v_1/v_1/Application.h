@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include "ParallelSort.h"
+#include "MergeSort.h"
 
 
 class CApplication
@@ -20,6 +20,6 @@ private:
 	std::shared_ptr<std::ifstream> m_inputFile;
 	DoubleArray m_array;
 
-	CParallelSort m_sorted;
+	CMergeSort m_sorted;
 };
 

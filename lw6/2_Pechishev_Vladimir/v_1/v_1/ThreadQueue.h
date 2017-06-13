@@ -2,10 +2,10 @@
 #include <vector>
 #include <thread>
 
-class CThreadPool
+class CThreadQueue
 {
 public:
-	CThreadPool() = default;
+	CThreadQueue() = default;
 	void AddThread(std::thread &&thread);
 	void WaitForMultiplyObjects();
 

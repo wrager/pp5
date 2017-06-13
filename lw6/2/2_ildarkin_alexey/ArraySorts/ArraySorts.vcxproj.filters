@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="BaseArraySorter.cpp">
+      <Filter>Sorter</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool.cpp">
+      <Filter>ThreadPool</Filter>
+    </ClCompile>
+    <ClCompile Include="MergeArraySorter.cpp">
+      <Filter>Sorter</Filter>
+    </ClCompile>
+    <ClCompile Include="ShellArraySorter.cpp">
+      <Filter>Sorter</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="BaseArraySorter.h">
+      <Filter>Sorter</Filter>
+    </ClInclude>
+    <ClInclude Include="IArraySorter.h">
+      <Filter>Sorter</Filter>
+    </ClInclude>
+    <ClInclude Include="IArraySorter_fwd.h">
+      <Filter>Sorter</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>ThreadPool</Filter>
+    </ClInclude>
+    <ClInclude Include="MergeArraySorter.h">
+      <Filter>Sorter</Filter>
+    </ClInclude>
+    <ClInclude Include="ShellArraySorter.h">
+      <Filter>Sorter</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Sorter">
+      <UniqueIdentifier>{4de1ee5e-6f89-465e-88fd-534c7b617786}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{5a5c4b28-285e-429a-8987-824196604c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThreadPool">
+      <UniqueIdentifier>{1d9c4234-711a-4441-bc19-88df06173f9f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

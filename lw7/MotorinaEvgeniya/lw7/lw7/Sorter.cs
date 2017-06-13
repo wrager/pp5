@@ -34,10 +34,6 @@ namespace lw7
                     Sort(begin, half);
                     Sort(half + 1, end);
                     int[] buf = new int[m_array.Count()];
-                    if(buf.Count() == 0)
-                    {
-                        Console.Write("ddddddddddddddddd");
-                    }
                     int xl = begin;
                     int xr = half + 1;
                     int cur = 0;

@@ -9,13 +9,18 @@ namespace lw7
     class Sorter
     {
         public List<int> m_array = new List<int>();
-        public List<Task> m_tasks = new List<Task>();
+
+        public void MergeSort(List<int> array)
+        {
+            m_array = array;
+            Sort(0, m_array.Count() - 1);
+            array = m_array;
+        }
 
         public void SortWithThreads(List<int> array, int threadCount)
         {
             m_array = array;
             StartThreads(threadCount);
-            WaitThread();
             Sort(0, m_array.Count() - 1);
             array = m_array;
 
@@ -72,6 +77,7 @@ namespace lw7
 
     void StartThreads(int count)
         {
+            ThreadPool threadPool = new ThreadPool();
             int size = m_array.Count();
             int block = (int)Math.Floor((double)size / count);
             int currentPos = 0;
@@ -79,18 +85,11 @@ namespace lw7
             {
                 int end = Math.Min(size - 1, currentPos + block);
                 int begin = currentPos;
-                m_tasks.Add(Task.Factory.StartNew(() => Sort(begin, end)));
+                threadPool.AddThread(Task.Factory.StartNew(() => Sort(begin, end)));
                 currentPos += block + 1;
 
             }
-        }
-
-    void WaitThread()
-        {
-          foreach(Task t in m_tasks)
-            {
-                t.Wait();
-            }
+            threadPool.WaitThread();
         }
     }
 }

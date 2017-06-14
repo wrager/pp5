@@ -1,11 +1,10 @@
 #include "stdafx.h"
+#include "ThreadPool.h"
 #include "ShellSorter.h"
-
 
 CShellSorter::CShellSorter()
 {
 }
-
 
 CShellSorter::~CShellSorter()
 {
@@ -18,15 +17,19 @@ void CShellSorter::ShellSort(std::vector<int> & array)
 	{
 		Sort(i);
 	}
+	array = m_array;
 }
 
 void CShellSorter::ShellSortWithThreads(std::vector<int> & array)
 {
 	m_array = array;
+	ThreadPool threadPool;
 	for (size_t i = m_array.size() / 2; i > 0; i /= 2)
 	{
-		//TODO: threads for Sort(i);
+		threadPool.AddThread(std::thread(boost::bind(&CShellSorter::Sort, this, i)));
 	}
+	threadPool.WaitThread();
+	array = m_array;
 }
 
 void CShellSorter::Sort(size_t increment)

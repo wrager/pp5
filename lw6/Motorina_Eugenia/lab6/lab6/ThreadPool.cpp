@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include <thread>
 #include "ThreadPool.h"
 
 

@@ -12,5 +12,7 @@
 #include <vector>
 #include <iostream>
 
+#include <thread>
+#include <boost\bind.hpp>
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы

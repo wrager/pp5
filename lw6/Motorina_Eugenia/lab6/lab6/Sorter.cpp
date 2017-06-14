@@ -1,7 +1,7 @@
 #include "stdafx.h"
+#include "ThreadPool.h"
 #include "Sorter.h"
 #include <math.h>
-#include <boost\bind.hpp>
 
 CSorter::CSorter()
 {
@@ -11,7 +11,6 @@ CSorter::CSorter()
 CSorter::~CSorter()
 {
 }
-
 
 void CSorter::Sort(size_t begin, size_t end)
 {
@@ -60,6 +59,7 @@ void CSorter::Sort(size_t begin, size_t end)
 
 void CSorter::StartThreads(size_t count)
 {
+	ThreadPool threadPool;
 	auto size = m_array.size();
 	auto block = size_t(std::ceil(double(size) / count));
 	size_t currentPos = 0;
@@ -67,37 +67,26 @@ void CSorter::StartThreads(size_t count)
 	{
 		if (currentPos + block >= size)
 		{
-			m_threads.push_back(std::thread(boost::bind(&CSorter::Sort, this, currentPos, size - 1)));
+			threadPool.AddThread(std::thread(boost::bind(&CSorter::Sort, this, currentPos, size - 1)));
 			break;
 		}
-		m_threads.push_back(std::thread(boost::bind(&CSorter::Sort, this, currentPos, currentPos + block)));
+		threadPool.AddThread(std::thread(boost::bind(&CSorter::Sort, this, currentPos, currentPos + block)));
 		currentPos += block + 1;
 	}
+	threadPool.WaitThread();
 }
 
-void CSorter::WaitThread()
-{
-	for (auto &thread : m_threads)
-	{
-		if (thread.joinable())
-		{
-			thread.join();
-		}
-	}
-}
-
-void CSorter::MergeSort(std::vector<int> & array, size_t begin, size_t end)
+void CSorter::MergeSort(std::vector<int> & array)
 {
 	m_array = array;
-	Sort(begin, end);
+	Sort(0, m_array.size() - 1);
 	array = m_array;
 }
 
-void CSorter::SortWithThreads(std::vector<int>& array, size_t threadCount)
+void CSorter::MergeSortWithThreads(std::vector<int>& array, size_t threadCount)
 {
 	m_array = array;
 	StartThreads(threadCount);
-	WaitThread();
 	Sort(0, m_array.size() - 1);
 	array = m_array;
 }

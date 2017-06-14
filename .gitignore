@@ -1,0 +1,50 @@
+*.ipch
+/lw6/3_Ocheev_Alexander/pp2.VC.db
+/lw6/3_Ocheev_Alexander/pp2.VC.VC.opendb
+/lw6/3_Ocheev_Alexander/pp2/Debug/pp2.obj.enc
+/lw6/3_Ocheev_Alexander/pp2/Debug/pp2.tlog/CL.command.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/Debug/pp2.tlog/CL.read.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/Debug/pp2.tlog/CL.write.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/Debug/pp2.tlog/link.command.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/Debug/pp2.tlog/link.read.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/Debug/pp2.tlog/link.write.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/Debug/pp2.tlog/pp2.lastbuildstate
+/lw6/3_Ocheev_Alexander/pp2/Debug/vc140.idb
+/lw6/3_Ocheev_Alexander/pp2/FileHandler.h
+/lw6/3_Ocheev_Alexander/Release/input.txt
+/lw6/3_Ocheev_Alexander/Release/linear_shell.txt
+/lw6/3_Ocheev_Alexander/Release/parallel_shell.txt
+/lw6/3_Ocheev_Alexander/Release/pp2.iobj
+/lw6/3_Ocheev_Alexander/Release/pp2.ipdb
+/lw6/3_Ocheev_Alexander/pp2/Release/pp2.tlog/CL.command.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/Release/pp2.tlog/CL.read.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/Release/pp2.tlog/CL.write.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/Release/pp2.tlog/link.command.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/Release/pp2.tlog/link.read.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/Release/pp2.tlog/link.write.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/Release/pp2.tlog/pp2.lastbuildstate
+/lw6/3_Ocheev_Alexander/x64/Release/input.txt
+/lw6/3_Ocheev_Alexander/x64/Release/linear_shell.txt
+/lw6/3_Ocheev_Alexander/x64/Release/parallel_shell.txt
+/lw6/3_Ocheev_Alexander/x64/Release/pp2.iobj
+/lw6/3_Ocheev_Alexander/x64/Release/pp2.ipdb
+/lw6/3_Ocheev_Alexander/x64/Release/rowgen.py
+/lw6/3_Ocheev_Alexander/pp2/x64/Release/pp2.tlog/CL.command.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/x64/Release/pp2.tlog/CL.read.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/x64/Release/pp2.tlog/CL.write.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/x64/Release/pp2.tlog/link.command.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/x64/Release/pp2.tlog/link.read.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/x64/Release/pp2.tlog/link.write.1.tlog
+/lw6/3_Ocheev_Alexander/pp2/x64/Release/pp2.tlog/pp2.lastbuildstate
+/lw6/3_Ocheev_Alexander/pp2/x64/Debug/pp2.tlog/*.tlog
+/lw6/3_Ocheev_Alexander/pp2/x64/Debug/pp2.tlog/*.lastbuildstate
+/lw6/3_Ocheev_Alexander/pp2/x64/Debug/*.idb
+/lw6/3_Ocheev_Alexander/pp2/*.txt
+/lw6/3_Ocheev_Alexander/x64/Release/*.txt
+/lw5/Ocheev Alexander Lw1 (2)/BatchersMerge/BatchersMerge/x64/Release/BatchersMerge.tlog/*.lastbuildstate
+/lw5/Ocheev Alexander Lw1 (2)/BatchersMerge/BatchersMerge/x64/Release/BatchersMerge.tlog/*.tlog
+/lw5/Ocheev Alexander Lw1 (2)/BatchersMerge/*.db
+/lw5/Ocheev Alexander Lw1 (2)/BatchersMerge/x64/Release/*.iobj
+/lw5/Ocheev Alexander Lw1 (2)/BatchersMerge/x64/Release/*.ipdb
+/lw5/Ocheev Alexander Lw1 (2)/BatchersMerge/x64/Release/*.txt
+/lw5/Ocheev Alexander Lw1 (2)/BatchersMerge/x64/Release

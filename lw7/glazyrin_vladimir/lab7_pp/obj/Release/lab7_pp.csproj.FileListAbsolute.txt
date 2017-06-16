@@ -1,0 +1,12 @@
+C:\Users\Володя\Desktop\lab7_pp\lab7_pp\bin\Release\lab7_pp.exe.config
+C:\Users\Володя\Desktop\lab7_pp\lab7_pp\bin\Release\lab7_pp.exe
+C:\Users\Володя\Desktop\lab7_pp\lab7_pp\bin\Release\lab7_pp.pdb
+C:\Users\Володя\Desktop\lab7_pp\lab7_pp\obj\Release\lab7_pp.exe
+C:\Users\Володя\Desktop\lab7_pp\lab7_pp\obj\Release\lab7_pp.pdb
+C:\Users\Володя\Desktop\lab7_pp\lab7_pp\obj\Release\lab7_pp.csprojResolveAssemblyReference.cache
+C:\Users\Vovchik\Desktop\lab7_pp\lab7_pp\bin\Release\lab7_pp.exe.config
+C:\Users\Vovchik\Desktop\lab7_pp\lab7_pp\obj\Release\lab7_pp.exe
+C:\Users\Vovchik\Desktop\lab7_pp\lab7_pp\obj\Release\lab7_pp.pdb
+C:\Users\Vovchik\Desktop\lab7_pp\lab7_pp\bin\Release\lab7_pp.exe
+C:\Users\Vovchik\Desktop\lab7_pp\lab7_pp\bin\Release\lab7_pp.pdb
+C:\Users\Vovchik\Desktop\lab7_pp\lab7_pp\obj\Release\lab7_pp.csprojResolveAssemblyReference.cache

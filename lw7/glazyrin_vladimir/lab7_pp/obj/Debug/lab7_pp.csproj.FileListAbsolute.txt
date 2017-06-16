@@ -1,0 +1,11 @@
+C:\Users\Vovchik\Desktop\pp\lab5\pp-1\glazyrin_vladimir\lab7_pp\lab7_pp\bin\Debug\lab7_pp.exe.config
+C:\Users\Vovchik\Desktop\pp\lab5\pp-1\glazyrin_vladimir\lab7_pp\lab7_pp\bin\Debug\lab7_pp.exe
+C:\Users\Vovchik\Desktop\pp\lab5\pp-1\glazyrin_vladimir\lab7_pp\lab7_pp\bin\Debug\lab7_pp.pdb
+C:\Users\Vovchik\Desktop\pp\lab5\pp-1\glazyrin_vladimir\lab7_pp\lab7_pp\obj\Debug\lab7_pp.exe
+C:\Users\Vovchik\Desktop\pp\lab5\pp-1\glazyrin_vladimir\lab7_pp\lab7_pp\obj\Debug\lab7_pp.pdb
+C:\Users\Володя\Desktop\lab7_pp\lab7_pp\bin\Debug\lab7_pp.exe.config
+C:\Users\Володя\Desktop\lab7_pp\lab7_pp\obj\Debug\lab7_pp.exe
+C:\Users\Володя\Desktop\lab7_pp\lab7_pp\obj\Debug\lab7_pp.pdb
+C:\Users\Володя\Desktop\lab7_pp\lab7_pp\bin\Debug\lab7_pp.exe
+C:\Users\Володя\Desktop\lab7_pp\lab7_pp\bin\Debug\lab7_pp.pdb
+C:\Users\Володя\Desktop\lab7_pp\lab7_pp\obj\Debug\lab7_pp.csprojResolveAssemblyReference.cache
